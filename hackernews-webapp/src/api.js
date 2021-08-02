@@ -1,9 +1,9 @@
 const baseUrl = 'https://hacker-news.firebaseio.com/v0/';
 const topStoriesUrl = baseUrl + 'topstories.json';
-const storyUrl = baseUrl + 'item/';
+const storyBaseUrl = baseUrl + 'item/';
 
 const getTopStoryIds = async () => {
-  const topStoryIdsData = await fetch(topStoriesUrl)
+  return await fetch(topStoriesUrl)
     .then((response) => {
       if (!response.ok) {
         throw Error(`Could not fetch data from "${topStoriesUrl}"`);
@@ -13,13 +13,11 @@ const getTopStoryIds = async () => {
     .catch((error) => {
       console.error(error);
     });
-
-    return topStoryIdsData;
-  }
+}
 
 const getStory = async (storyId) => {
-  const storyIdUrl = storyUrl + storyId + '.json';
-  const storyData = await fetch(storyIdUrl)
+  const storyIdUrl = storyBaseUrl + storyId + '.json';
+  return await fetch(storyIdUrl)
     .then((response) => {
       if (!response.ok) {
         throw Error(`Could not fetch data from "${storyIdUrl}"`);
@@ -29,8 +27,6 @@ const getStory = async (storyId) => {
     .catch((error) => {
       console.error(error);
     });
-
-  return storyData;
 }
 
 export { getTopStoryIds, getStory };

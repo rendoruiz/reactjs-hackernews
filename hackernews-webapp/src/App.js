@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Home from './Home';
+import StoryCatalog from './containers/StoryCatalog';
+import StoryDetail from './containers/StoryDetail';
 
 function App() {
   return (
@@ -8,10 +9,13 @@ function App() {
         <div className="content">
           <Switch>
             <Route exact path="/">
-              <Home />
+              <StoryCatalog />
+            </Route>
+            <Route path="/s/:id">
+              <StoryDetail />
             </Route>
             <Route path="*">
-              <Home />
+              <StoryCatalog />
             </Route>
           </Switch>
         </div>
