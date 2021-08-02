@@ -23,8 +23,15 @@ code {
 :root {
   --border-radius: 4px;
   --color-accent: rgb(218, 141, 0);
+  --background-rgb: 255, 255, 255;
+  --color-background: rgba(var(--background-rgb), 1);
+  --color-title: rgb(34, 34, 34);
+  --color-subtitle1: rgb(135, 138, 140);
+  --color-action: rgb(135, 138, 140);
+  --color-action-hover: rgba(26, 26, 27, 0.1);
 }
 
+/* override anchor style */
 a,
 a:visited {
   text-decoration: none;
@@ -35,18 +42,22 @@ a.link-btn:active {
   text-decoration: underline;
 }
 
+
+/* button */
 .btn,
 .btn:visited {
   padding: 5px 7px;
   border-radius: var(--border-radius);
 }
 .btn:hover {
-  background: rgba(26, 26, 27, 0.1);
+  background: var(--color-action-hover);
 }
 .btn:active {
 
 }
 
+
+/* components > StoryGroup.js */
 .story-group {
   margin: 0 20px;
   max-width: 1200px;
@@ -54,7 +65,6 @@ a.link-btn:active {
   align-items: center;
   row-gap: 10px;
 }
-
 .story-item {
   border-radius: var(--border-radius);
   display: grid;
@@ -67,10 +77,10 @@ section.story-score {
   border-radius: var(--border-radius) 0 0 var(--border-radius);
   display: grid;
   padding: 10px;
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(var(--background-rgb), 0.7);
 }
 section.story-score span {
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   text-align: center;
   font-weight: bold;
 }
@@ -78,27 +88,44 @@ section.story-score span {
 section.story-content {
   border-radius: 0 var(--border-radius) var(--border-radius) 0;
   padding: 10px 10px 4px 8px;
-  background: white;
+  background: var(--color-background);
 }
 section.story-content header {
   display: flex;
   justify-content: space-between;
-  color: rgb(135, 138, 140);
-  font-size: 0.65rem;
+  color: var(--color-subtitle1);
+  font-size: 0.75rem;
 }
 section.story-content .story-title {
-  font-size: 1.0rem;
-  color: rgb(34, 34, 34);
+  font-size: 1.2rem;
+  color: var(--color-title);
 }
 section.story-content .story-url {
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   color: var(--color-accent);
 }
 section.story-content footer {
   margin-top: 30px;
   display: flex;
   column-gap: 4px;
-  font-size: 0.65rem;
-  color: rgb(135, 138, 140);
+  font-size: 0.75rem;
+  color: var(--color-action);
+  font-weight: bold;
+}
+
+
+
+/* containers > UserDetail.js */
+.user-detail {
+  background: var(--color-background);
+}
+
+.user-content {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 15px;
+  row-gap: 5px;
+}
+.user-content > :nth-child(odd) {
   font-weight: bold;
 }

@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import StoryCatalog from './containers/StoryCatalog';
 import StoryDetail from './containers/StoryDetail';
+import UserDetail from './containers/UserDetail';
 
 function App() {
   return (
@@ -13,6 +14,9 @@ function App() {
             </Route>
             <Route path="/s/:id">
               <StoryDetail />
+            </Route>
+            <Route path="/u/:id">
+              <UserDetail />
             </Route>
             <Route path="*">
               <StoryCatalog />

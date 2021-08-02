@@ -29,7 +29,7 @@ const StoryItem = ({ storyId, storyNumber }) => {
                   to={"/u/" + story.by} 
                   className="link-btn"
                 >
-                  { 'u/' + story.by }
+                  { "u/" + story.by }
                 </Link>
               </span>
               <span>
@@ -46,7 +46,7 @@ const StoryItem = ({ storyId, storyNumber }) => {
             <a href={story.url} target="_blank" rel="noreferrer">link</a>
           </header>
           <main>
-            <h3 className="story-title">{ story.title }</h3>
+            <h3 className="story-title"><Link to={"/s/" + story.id}>{ story.title }</Link></h3>
             <a className="story-url link-btn" href={story.url} target="_blank" rel="noreferrer">{ story.url }</a>
           </main>
           <footer>
@@ -54,7 +54,7 @@ const StoryItem = ({ storyId, storyNumber }) => {
               className="btn"
               to={'/s/' + story.id}
             >
-              Comments
+              {`${story.descendants} Comments`}
             </Link>
             <span className="btn">Share</span>
             <span className="btn">Save</span>
