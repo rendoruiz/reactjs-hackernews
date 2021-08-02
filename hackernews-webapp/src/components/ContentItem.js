@@ -1,29 +1,36 @@
 import { useEffect, useState } from "react";
 import { getStoryData } from '../api';
+import CommentTemplate from "./CommentTemplate";
 import StoryTemplate from "./StoryTemplate";
 
-const ContentItem = ({ storyId }) => {
+const ContentItem = ({ itemId }) => {
   const [item, setItem] = useState({});
   const [isStory, setIsStory] = useState(false);
   const [isComment, setIsComment] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    getStoryData(storyId).then(data => {
-      if (!data.deleted) {
-        if (data.type === 'story') {
-          setItem(data);
-          setIsStory(true);
-        } else if (data.type === 'comment') {
-          setIsComment(true);
+    setTimeout(() => {
+      getStoryData(itemId).then(data => {
+        if (!data.deleted) {
+          if (data.type === 'story') {
+            setItem(data);
+            setIsStory(true);
+          } else if (data.type === 'comment') {
+            setItem(data)
+            setIsComment(true);
+          }
         }
-      }
-    });
-  }, [storyId])
+        setIsLoading(false);
+      });
+    }, 1000);
+  }, [itemId])
 
   return (
     <div>
-      {item && isStory && <StoryTemplate story={item} />}
-      {item.id && isComment && <span>le comment</span> }
+      { isLoading && <span>Loading Item...</span> }
+      { !isLoading && item && isStory && <StoryTemplate story={item} />}
+      { !isLoading && item && isComment && <CommentTemplate comment={item} /> }
     </div>
   );
 }

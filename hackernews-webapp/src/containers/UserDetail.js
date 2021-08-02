@@ -10,30 +10,23 @@ import ContentGroup from "../components/ContentGroup";
 const UserDetail = () => {
   const { id: userId } = useParams();
   const [user, setUser] = useState({});
-  const [ContentItemCount, setContentItemCount] = useState(20);
-  const [storyIdList, setStoryIdList] = useState([]);
+  const [contentItemCount, setContentItemCount] = useState(10);
+  const [itemIdList, setItemIdList] = useState([]);
 
   useEffect(() => {
     document.title = `${userId} - User Details`;
     getUserData(userId).then((data) => {
       setUser(data);
-      setStoryIdList(data.submitted);
+      setItemIdList(data.submitted);
     });
-  }, [userId, ContentItemCount])
-
-  const handleMoreStories = () => {
-    if (ContentItemCount < 500) {
-      setContentItemCount(ContentItemCount + 20);
-    }
-  }
+  }, [userId, contentItemCount]);
 
   return ( 
     <div className="page user-detail">
       <aside className="stories">
         {/* <span>{ JSON.stringify(user.submitted) }</span> */}
         {/* if userstories */}
-        {storyIdList && <ContentGroup storyIdList={storyIdList} />}
-        {storyIdList && <button onClick={handleMoreStories}>More Stories</button>}
+        { itemIdList && <ContentGroup customItemIdList={itemIdList} itemCount={contentItemCount} setItemCount={setContentItemCount} /> }
       </aside>
       <section className="sidebar">
         { user && (

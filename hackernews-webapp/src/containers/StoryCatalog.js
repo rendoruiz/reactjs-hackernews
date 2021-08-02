@@ -1,32 +1,30 @@
 import { useState, useEffect } from "react";
 import ContentGroup from "../components/ContentGroup";
-import { getTopStoryIds } from './../api';
 
 const StoryCatalog = () => {
-  const [ContentItemCount, setContentItemCount] = useState(20);
-  const [storyIdList, setStoryIdList] = useState([]);
-  const [orderType, setOrderType] = useState('top');
+  const [contentItemCount, setContentItemCount] = useState(20);
+  const [itemOrder, setItemOrder] = useState('top');
 
   useEffect(() => {
-    getTopStoryIds().then(data => {
-      setStoryIdList(data.slice(0, ContentItemCount))
-      console.log(data)
-    });
     document.title = "Catalog";
-  }, [ContentItemCount])
+  }, [])
 
-  const handleMoreStories = () => {
-    if (ContentItemCount < 500) {
-      setContentItemCount(ContentItemCount + 20);
-    }
+  const handleOrderTypeClick = ({ e, order }) => {
+    e.preventDefault();
+    setItemOrder(order);
+    console.log(this.type);
   }
 
   return ( 
     <div className="page catalog">
       <section className="stories">
-        <h1>Home</h1>
-        {storyIdList && <ContentGroup storyIdList={storyIdList} title="Top Story" />}
-        {storyIdList && <button onClick={handleMoreStories}>More Stories</button>}
+        <div className="stories-actions">
+          <button className="btn" onClick={(e) => handleOrderTypeClick({e, order: 'top'})}>Top</button>
+          <button className="btn" onClick={(e) => handleOrderTypeClick({e, order: 'best'})}>Best</button>
+          <button className="btn" onClick={(e) => handleOrderTypeClick({e, order: 'new'})}>New</button>
+        </div>
+        
+        <ContentGroup orderBy={itemOrder} itemCount={contentItemCount} setItemCount={setContentItemCount} contentType="story" />
       </section>
       <aside className="sidebar">
 

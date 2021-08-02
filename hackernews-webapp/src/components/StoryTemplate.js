@@ -42,7 +42,7 @@ const StoryTemplate = ({ story }) => {
             </span>
           </div>
           <a href={story.url} target="_blank" rel="noreferrer" className="btn story-url-btn">
-            <FontAwesomeIcon className="glyph" icon={faExternalLinkAlt} />
+            <FontAwesomeIcon className="glyph" icon={faExternalLinkAlt} visibility={!story.url ? 'hidden' : 'visible'} />
           </a>
         </header>
         <main>

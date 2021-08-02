@@ -96,7 +96,7 @@ a.link-btn:active {
 
 
 /* components > ContentGroup.js */
-.story-group {
+.content-group {
   display: grid;
   align-items: center;
   row-gap: 10px;
