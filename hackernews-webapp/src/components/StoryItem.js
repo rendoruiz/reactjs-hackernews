@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { Link } from 'react-router-dom';
+import moment from 'moment';
 import { getStory } from './../api';
 
 const StoryItem = ({ storyId, storyNumber }) => {
@@ -19,21 +21,45 @@ const StoryItem = ({ storyId, storyNumber }) => {
           <span>{ story.score }</span>
         </section>
         <section className="story-content">
-
           <header>
-            <span>[ID: { story.id }] Posted by { story.by } { story.time }</span>
-            <a href="">link</a>
+            <div>
+              <span>
+                Posted by&nbsp; 
+                <Link 
+                  to={"/u/" + story.by} 
+                  className="link-btn"
+                >
+                  { 'u/' + story.by }
+                </Link>
+              </span>
+              <span>
+                &nbsp;
+                <Link 
+                  to={"/s/" + story.id}
+                  className="link-btn"
+                  title={moment.unix(story.time).format('LLLL')}
+                >
+                  { moment.unix(story.time).fromNow() }
+                </Link>
+              </span>
+            </div>
+            <a href={story.url} target="_blank" rel="noreferrer">link</a>
           </header>
           <main>
-            <h3 class="story-title">{ story.title }</h3>
-            <a class="story-url">{ story.url }</a>
+            <h3 className="story-title">{ story.title }</h3>
+            <a className="story-url link-btn" href={story.url} target="_blank" rel="noreferrer">{ story.url }</a>
           </main>
           <footer>
-            <a href="">Comments</a>
-            <a href="">Share</a>
-            <a href="">Save</a>
-            <a href="">Hide</a>
-            <a href="">Report</a>
+            <Link 
+              className="btn"
+              to={'/s/' + story.id}
+            >
+              Comments
+            </Link>
+            <span className="btn">Share</span>
+            <span className="btn">Save</span>
+            <span className="btn">Hide</span>
+            <span className="btn">Report</span>
           </footer>
         </section>
       </div>
