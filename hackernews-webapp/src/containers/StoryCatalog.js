@@ -21,10 +21,15 @@ const StoryCatalog = () => {
   }
 
   return ( 
-    <div className="catalog">
-      <h1>Home</h1>
-      {storyIdList && <StoryGroup storyIdList={storyIdList} title="Top Story" />}
-      {storyIdList && <button onClick={handleMoreStories}>More Stories</button>}
+    <div className="page catalog">
+      <section className="stories">
+        <h1>Home</h1>
+        {storyIdList && <StoryGroup storyIdList={storyIdList} title="Top Story" />}
+        {storyIdList && <button onClick={handleMoreStories}>More Stories</button>}
+      </section>
+      <aside className="sidebar">
+
+      </aside>
     </div>
   );
 }

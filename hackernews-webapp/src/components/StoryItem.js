@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExternalLinkAlt, faShare } from '@fortawesome/free-solid-svg-icons';
+import { faBookmark, faCommentAlt, faEyeSlash, faFlag } from '@fortawesome/free-regular-svg-icons';
 import moment from 'moment';
 import { getStory } from './../api';
 
-const StoryItem = ({ storyId, storyNumber }) => {
+const StoryItem = ({ storyId }) => {
   const [story, setStory] = useState({});
+  const history = useHistory();
 
   useEffect(() => {
     getStory(storyId).then(data => {
@@ -14,9 +18,15 @@ const StoryItem = ({ storyId, storyNumber }) => {
     });
   }, [storyId])
 
+  const handleClick = (e, storyId) => {
+    if (!e.target.className.includes('btn')) {
+      history.push('/s/' + storyId);
+    }
+  }
+
   return ( 
     story && (
-      <div className="story-item">
+      <div className="story-item" onClick={(e) => handleClick(e, story.id)}>
         <section className="story-score">
           <span>{ story.score }</span>
         </section>
@@ -43,7 +53,9 @@ const StoryItem = ({ storyId, storyNumber }) => {
                 </Link>
               </span>
             </div>
-            <a href={story.url} target="_blank" rel="noreferrer">link</a>
+            <a href={story.url} target="_blank" rel="noreferrer" className="btn story-url-btn">
+              <FontAwesomeIcon className="glyph" icon={faExternalLinkAlt} />
+            </a>
           </header>
           <main>
             <h3 className="story-title"><Link to={"/s/" + story.id}>{ story.title }</Link></h3>
@@ -54,12 +66,13 @@ const StoryItem = ({ storyId, storyNumber }) => {
               className="btn"
               to={'/s/' + story.id}
             >
+              <FontAwesomeIcon className="glyph" icon={faCommentAlt} />
               {`${story.descendants} Comments`}
             </Link>
-            <span className="btn">Share</span>
-            <span className="btn">Save</span>
-            <span className="btn">Hide</span>
-            <span className="btn">Report</span>
+            <span className="btn"><FontAwesomeIcon className="glyph" icon={faShare} /> Share</span>
+            <span className="btn"><FontAwesomeIcon className="glyph" icon={faBookmark} /> Save</span>
+            <span className="btn"><FontAwesomeIcon className="glyph" icon={faEyeSlash} /> Hide</span>
+            <span className="btn"><FontAwesomeIcon className="glyph" icon={faFlag} /> Report</span>
           </footer>
         </section>
       </div>
