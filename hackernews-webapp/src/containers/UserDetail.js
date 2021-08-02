@@ -5,23 +5,35 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBirthdayCake } from '@fortawesome/free-solid-svg-icons';
 import { faStar } from '@fortawesome/free-regular-svg-icons';
 import { getUserData } from '../api';
+import ContentGroup from "../components/ContentGroup";
 
 const UserDetail = () => {
   const { id: userId } = useParams();
   const [user, setUser] = useState({});
+  const [ContentItemCount, setContentItemCount] = useState(20);
+  const [storyIdList, setStoryIdList] = useState([]);
 
   useEffect(() => {
     document.title = `${userId} - User Details`;
     getUserData(userId).then((data) => {
       setUser(data);
+      setStoryIdList(data.submitted);
     });
-  }, [userId])
+  }, [userId, ContentItemCount])
+
+  const handleMoreStories = () => {
+    if (ContentItemCount < 500) {
+      setContentItemCount(ContentItemCount + 20);
+    }
+  }
 
   return ( 
     <div className="page user-detail">
       <aside className="stories">
-        <span>{ JSON.stringify(user.submitted) }</span>
+        {/* <span>{ JSON.stringify(user.submitted) }</span> */}
         {/* if userstories */}
+        {storyIdList && <ContentGroup storyIdList={storyIdList} />}
+        {storyIdList && <button onClick={handleMoreStories}>More Stories</button>}
       </aside>
       <section className="sidebar">
         { user && (

@@ -1,22 +1,23 @@
 import { useState, useEffect } from "react";
-import StoryGroup from "../components/StoryGroup";
+import ContentGroup from "../components/ContentGroup";
 import { getTopStoryIds } from './../api';
 
 const StoryCatalog = () => {
-  const [storyItemCount, setStoryItemCount] = useState(20);
+  const [ContentItemCount, setContentItemCount] = useState(20);
   const [storyIdList, setStoryIdList] = useState([]);
+  const [orderType, setOrderType] = useState('top');
 
   useEffect(() => {
     getTopStoryIds().then(data => {
-      setStoryIdList(data.slice(0, storyItemCount))
+      setStoryIdList(data.slice(0, ContentItemCount))
       console.log(data)
     });
     document.title = "Catalog";
-  }, [storyItemCount])
+  }, [ContentItemCount])
 
   const handleMoreStories = () => {
-    if (storyItemCount < 500) {
-      setStoryItemCount(storyItemCount + 20);
+    if (ContentItemCount < 500) {
+      setContentItemCount(ContentItemCount + 20);
     }
   }
 
@@ -24,7 +25,7 @@ const StoryCatalog = () => {
     <div className="page catalog">
       <section className="stories">
         <h1>Home</h1>
-        {storyIdList && <StoryGroup storyIdList={storyIdList} title="Top Story" />}
+        {storyIdList && <ContentGroup storyIdList={storyIdList} title="Top Story" />}
         {storyIdList && <button onClick={handleMoreStories}>More Stories</button>}
       </section>
       <aside className="sidebar">
