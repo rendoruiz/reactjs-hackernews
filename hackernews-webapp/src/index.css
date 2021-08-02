@@ -141,6 +141,19 @@ section.story-content .story-title {
 section.story-content .story-url {
   font-size: 0.75rem;
   color: var(--color-accent);
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+}
+section.story-content .story-url > span {
+  max-width: 200px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  display: block;
+}
+section.story-content .story-url > .inline-glyph {
+  margin-left: 4px;
 }
 section.story-content .story-url-btn > .glyph {
   height: var(--size-glyph);

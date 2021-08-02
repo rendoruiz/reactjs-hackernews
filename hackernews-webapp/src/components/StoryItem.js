@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExternalLinkAlt, faShare } from '@fortawesome/free-solid-svg-icons';
-import { faBookmark, faCommentAlt, faEyeSlash, faFlag } from '@fortawesome/free-regular-svg-icons';
+import { faBookmark, faCommentAlt, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 import moment from 'moment';
 import { getStory } from './../api';
 
@@ -59,7 +59,16 @@ const StoryItem = ({ storyId }) => {
           </header>
           <main>
             <h3 className="story-title"><Link to={"/s/" + story.id}>{ story.title }</Link></h3>
-            <a className="story-url link-btn" href={story.url} target="_blank" rel="noreferrer">{ story.url }</a>
+            <a 
+              className="story-url link-btn" 
+              href={story.url} 
+              target="_blank" 
+              rel="noreferrer"
+              title={story.url}
+            >
+              { story.url && <span>{ story.url }</span> }
+              { story.url && <FontAwesomeIcon className="inline-glyph" icon={faExternalLinkAlt} /> }
+            </a>
           </main>
           <footer>
             <Link 
@@ -72,7 +81,6 @@ const StoryItem = ({ storyId }) => {
             <span className="btn"><FontAwesomeIcon className="glyph" icon={faShare} /> Share</span>
             <span className="btn"><FontAwesomeIcon className="glyph" icon={faBookmark} /> Save</span>
             <span className="btn"><FontAwesomeIcon className="glyph" icon={faEyeSlash} /> Hide</span>
-            <span className="btn"><FontAwesomeIcon className="glyph" icon={faFlag} /> Report</span>
           </footer>
         </section>
       </div>
