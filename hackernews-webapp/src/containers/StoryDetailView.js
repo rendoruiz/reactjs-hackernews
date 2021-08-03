@@ -11,9 +11,9 @@ const StoryDetailView = () => {
   const [isLoading, setIsLoading] = useState(true);
   // const [maxCommentDepth, setMaxCommentDepth] = useState(3);
   const maxCommentDepth = 3;
-  const defaultCommentItemCount = 10;
+  const commentItemCount = 10;
 
-  useEffect(() => {
+  useEffect(() => { 
     setTimeout(() => {
       getItemData(storyId).then((data) => {
         setStory(data);
@@ -35,11 +35,17 @@ const StoryDetailView = () => {
         story.kids && !isLoading &&
         <main className="comments">
           <CommentItemGroup 
-            commentItemIdList={story.kids.slice(0, defaultCommentItemCount)} 
+            commentItemIdList={story.kids.slice(0, commentItemCount)} 
             maxCommentDepth={maxCommentDepth} 
           />
+
+          { story.kids.length > commentItemCount &&
+            <a className="btn more-items">
+              <span>Load more comments </span> 
+              <span>({commentItemCount >= story.kids.length-commentItemCount ? story.kids.length-commentItemCount : commentItemCount} of {story.kids.length-commentItemCount})</span>  </a> }
         </main>
       }
+      { }
       { !story.kids && !isLoading && <span>No comments</span> }
       { isLoading && <span>fetching story...</span> }
     </div>

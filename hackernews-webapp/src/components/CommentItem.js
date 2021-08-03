@@ -26,7 +26,7 @@ const CommentItem = ({ id, maxCommentDepth, currentCommentDepth }) => {
   }, [maxCommentDepth, id]);
 
   return ( 
-    <div>
+    <div className={comment.deleted && 'd-none'}>
       {!isLoading 
         ? comment.by && !comment.deleted && 
           <div className="comment-item">

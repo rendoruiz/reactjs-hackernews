@@ -33,6 +33,11 @@ code {
   --size-glyph: 18px;
 }
 
+/* display: none */
+.d-none {
+  display: none;
+}
+
 /* override anchor style */
 a,
 a:visited {
@@ -64,6 +69,16 @@ a.link-btn:active {
 }
 .btn:active {
   transform: scale(0.95);
+}
+
+/* button - more-items */ 
+.btn.more-items {
+  background: var(--color-accent);
+  color: var(--color-content-background);
+  padding: 5px 20px;
+  margin: 0 20px;
+  font-weight: bold;
+  text-align: center;
 }
 
 
