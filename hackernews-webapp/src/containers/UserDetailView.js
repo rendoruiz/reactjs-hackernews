@@ -4,10 +4,11 @@ import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBirthdayCake } from '@fortawesome/free-solid-svg-icons';
 import { faStar } from '@fortawesome/free-regular-svg-icons';
-import { getUserData } from '../api';
+import { getUserData } from '../functions/hackernewsApi';
+
 import ContentGroup from "../components/ContentGroup";
 
-const UserDetail = () => {
+const UserDetailView = () => {
   const { id: userId } = useParams();
   const [user, setUser] = useState({});
   const [contentItemCount, setContentItemCount] = useState(10);
@@ -54,4 +55,4 @@ const UserDetail = () => {
   );
 }
  
-export default UserDetail;
+export default UserDetailView;

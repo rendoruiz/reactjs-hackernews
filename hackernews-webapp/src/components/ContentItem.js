@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { getStoryData } from '../api';
+
 import CommentTemplate from "./CommentTemplate";
 import StoryTemplate from "./StoryTemplate";
+import { getItemData } from '../functions/hackernewsApi';
 
 const ContentItem = ({ itemId }) => {
   const [item, setItem] = useState({});
@@ -11,7 +12,7 @@ const ContentItem = ({ itemId }) => {
 
   useEffect(() => {
     setTimeout(() => {
-      getStoryData(itemId).then(data => {
+      getItemData(itemId).then(data => {
         if (!data.deleted) {
           if (data.type === 'story') {
             setItem(data);

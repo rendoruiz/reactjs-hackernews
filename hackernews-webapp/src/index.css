@@ -19,9 +19,19 @@ code {
     monospace;
 }
 
+/* contain elements to their container width */
+code, pre {
+  overflow-x: auto;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+
 :root {
   --border-radius: 4px;
-  --color-accent: rgb(218, 141, 0);
+  --color-accent: rgb(255, 102, 0);
   --color-app-background: rgb(218, 224, 230);
   --content-background-rgb: 255, 255, 255;
   --color-content-background: rgba(var(--content-background-rgb), 1);
@@ -31,6 +41,11 @@ code {
   --color-action: rgb(135, 138, 140);
   --color-action-hover: rgba(26, 26, 27, 0.1);
   --size-glyph: 18px;
+}
+
+/* display: none */
+.d-none {
+  display: none;
 }
 
 /* override anchor style */
@@ -43,13 +58,21 @@ a.link-btn:hover,
 a.link-btn:active {
   text-decoration: underline;
 }
-
+.link-btn a,
+.link-btn a:visited {
+  color: var(--color-accent);
+}
+.link-btn a:hover,
+.link-btn a:active {
+  text-decoration: underline;
+}
 
 /* button */
 .btn,
 .btn:visited {
   padding: 2px;
   transition: all 100ms ease-in-out;
+  border: none;
   border-radius: var(--border-radius);
 }
 .btn:hover {
@@ -59,9 +82,20 @@ a.link-btn:active {
   transform: scale(0.95);
 }
 
+/* button - more-items */ 
+.btn.more-items {
+  background: var(--color-accent);
+  color: var(--color-content-background);
+  padding: 5px 20px;
+  margin: 0 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
 
 /* root */
 .content {
+  min-height: 100vh;
   display: grid;
   justify-content: center;
   background: var(--color-app-background);
@@ -134,6 +168,10 @@ section.story-content header {
   font-size: 0.75rem;
   color: var(--color-subtitle1);
 }
+section.story-content main {
+  display: grid;
+  justify-items: flex-start;
+}
 section.story-content .story-title {
   font-size: 1.2rem;
   color: var(--color-title);
@@ -160,6 +198,9 @@ section.story-content .story-url-btn > .glyph {
   width: var(--size-glyph);
   color: var(--color-action);
 }
+section.story-content .story-text {
+  margin-top: 10px;
+}
 section.story-content footer {
   margin-top: 30px;
   display: flex;
@@ -181,7 +222,7 @@ section.story-content footer .btn > .glyph {
 
 
 
-/* containers > UserDetail.js */
+/* containers > UserDetailView.js */
 .user-detail {
   
 }
@@ -219,4 +260,86 @@ section.story-content footer .btn > .glyph {
 }
 .user-content > .user-info-group .info-label + span > .inline-glyph {
   color: var(--color-accent);
+}
+
+
+/* containers > story detail */
+div.story-detail.page {
+  display: grid;
+  grid-template-columns: unset;
+  grid-template-rows: auto 1fr;
+  row-gap: 20px;
+  align-items: flex-start;
+}
+.story-detail .comments {
+  padding: 20px 10px;
+  border-radius: var(--border-radius);
+  background: var(--color-content-background);
+}
+
+
+/* components > commentitem */
+.comments {
+  display: grid;
+  row-gap: 30px;
+}
+.comments .comment-replies > div > .comment-item {
+  margin-top: 10px;
+  margin-left: -15px;
+}
+.comments .comment-replies > div:first-of-type > .comment-item {
+  margin-top: 20px;
+}
+.comment-item {
+  --header-height: 30px;
+  display: grid;
+  grid-template-columns: var(--header-height) 1fr;
+  column-gap: 8px;
+}
+.comment-item .comment-expansion {
+  display: grid;
+  grid-template-rows: var(--header-height) 1fr;
+  place-items: center;
+}
+.comment-item .comment-expansion .user-avatar {
+  width: calc(var(--header-height) - 2px);
+  height: calc(var(--header-height) - 2px);
+  background: var(--color-accent);
+  border-radius: 100%;
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.comment-item .comment-expansion .vertical-toggle {
+  border-left: 2px solid var(--color-app-background);
+  height: calc(100% - 10px);
+  align-self: flex-end;
+}
+.comment-item section.comment-content {
+  display: grid;
+  row-gap: 5px;
+}
+.comment-item header.comment-header {
+  height: var(--header-height);
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: var(--color-subtitle1);
+  display: inline-flex;
+  align-items: center;
+}
+.comment-item header.comment-header .comment-by {
+  color: var(--color-title);
+}
+.comment-item header.comment-header .comment-time {
+  font-weight: normal;
+}
+.comment-item footer.comment-actions {
+  /* margin-bottom: 10px; */
+}
+
+.comment-item section.comment-content .comment-replies {
+  display: grid;
+  row-gap: 10px;
 }

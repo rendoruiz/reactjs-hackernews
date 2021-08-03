@@ -1,10 +1,11 @@
 import { Link, useHistory } from 'react-router-dom';
+import ReactHtmlParser from 'react-html-parser';
+import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExternalLinkAlt, faShare } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark, faCommentAlt, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
-import moment from 'moment';
 
-const StoryTemplate = ({ story }) => {
+const StoryTemplate = ({ story, isDetailedView = false }) => {
   const history = useHistory();
 
   const handleClick = (e, storyId) => {
@@ -57,6 +58,12 @@ const StoryTemplate = ({ story }) => {
             { story.url && <span>{ story.url }</span> }
             { story.url && <FontAwesomeIcon className="inline-glyph" icon={faExternalLinkAlt} /> }
           </a>
+          {
+            story.text && isDetailedView &&
+            <div className="story-text link-btn">
+              { ReactHtmlParser(story.text) }
+            </div>
+          }
         </main>
         <footer>
           <Link 

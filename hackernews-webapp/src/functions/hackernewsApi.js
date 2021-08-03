@@ -16,8 +16,8 @@ const getTopStoryIds = async () => {
     });
 }
 
-const getStoryData = async (storyId) => {
-  const storyIdUrl = storyBaseUrl + storyId + '.json';
+const getItemData = async (itemId) => {
+  const storyIdUrl = storyBaseUrl + itemId + '.json';
   return await fetch(storyIdUrl)
     .then((response) => {
       if (!response.ok) {
@@ -44,4 +44,4 @@ const getUserData = async (userId) => {
     });
 }
 
-export { getTopStoryIds, getStoryData, getUserData };
+export { getTopStoryIds, getItemData, getUserData };

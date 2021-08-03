@@ -1,5 +1,5 @@
-import moment from 'moment';
 import ReactHtmlParser from 'react-html-parser';
+import moment from 'moment';
 
 const CommentTemplate = ({ comment }) => {
 
@@ -14,7 +14,7 @@ const CommentTemplate = ({ comment }) => {
           <span>&nbsp;&#183;&nbsp;</span>
           <span>{ moment.unix(comment.time).fromNow() }</span>
         </div>
-        <div>{ ReactHtmlParser(comment.text) }</div>
+        <div>{ ReactHtmlParser(comment.text)  }</div>
       </main>
     </div>
   );

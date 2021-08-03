@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
+
 import ContentGroup from "../components/ContentGroup";
 
-const StoryCatalog = () => {
+const StoryCatalogView = () => {
   const [contentItemCount, setContentItemCount] = useState(20);
   const [itemOrder, setItemOrder] = useState('top');
 
@@ -33,4 +34,4 @@ const StoryCatalog = () => {
   );
 }
  
-export default StoryCatalog;
+export default StoryCatalogView;
