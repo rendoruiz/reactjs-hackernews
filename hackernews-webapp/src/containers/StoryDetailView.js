@@ -11,7 +11,8 @@ const StoryDetailView = () => {
   const [isLoading, setIsLoading] = useState(true);
   // const [maxCommentDepth, setMaxCommentDepth] = useState(3);
   const maxCommentDepth = 3;
-  const commentItemCount = 10;
+  const defaultCommentItemCount = 10;
+  const [commentItemCount, setCommentItemCount] = useState(defaultCommentItemCount);
 
   useEffect(() => { 
     setTimeout(() => {
@@ -21,7 +22,13 @@ const StoryDetailView = () => {
         document.title = `${data.title} - PlebbitNews`;
       })
     }, 1000);
-  }, [maxCommentDepth, storyId]);
+  }, [maxCommentDepth, storyId, commentItemCount]);
+
+  const handleLoadMoreItems = () => {
+    if (story.kids.length > commentItemCount) {
+      setCommentItemCount(commentItemCount + 10);
+    }
+  }
 
   return ( 
     <div className="story-detail page">
@@ -40,9 +47,16 @@ const StoryDetailView = () => {
           />
 
           { story.kids.length > commentItemCount &&
-            <a className="btn more-items">
+            <a className="btn more-items"  onClick={handleLoadMoreItems}>
               <span>Load more comments </span> 
-              <span>({commentItemCount >= story.kids.length-commentItemCount ? story.kids.length-commentItemCount : commentItemCount} of {story.kids.length-commentItemCount})</span>  </a> }
+              <span>
+                ({defaultCommentItemCount >= story.kids.length-commentItemCount 
+                  ? story.kids.length-commentItemCount 
+                  : defaultCommentItemCount
+                  } of {story.kids.length-commentItemCount})
+              </span>  
+            </a> 
+          }
         </main>
       }
       { }

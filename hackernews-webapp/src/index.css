@@ -19,6 +19,16 @@ code {
     monospace;
 }
 
+/* contain elements to their container width */
+code, pre {
+  overflow-x: auto;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+
 :root {
   --border-radius: 4px;
   --color-accent: rgb(255, 102, 0);
@@ -62,6 +72,7 @@ a.link-btn:active {
 .btn:visited {
   padding: 2px;
   transition: all 100ms ease-in-out;
+  border: none;
   border-radius: var(--border-radius);
 }
 .btn:hover {
@@ -272,10 +283,11 @@ div.story-detail.page {
   display: grid;
   row-gap: 30px;
 }
-.comments > .comment-item .comment-item {
+.comments .comment-replies > div > .comment-item {
   margin-top: 10px;
+  margin-left: -15px;
 }
-.comments > .comment-item .comment-item:first-of-type {
+.comments .comment-replies > div:first-of-type > .comment-item {
   margin-top: 20px;
 }
 .comment-item {
@@ -300,9 +312,8 @@ div.story-detail.page {
   font-weight: bold;
   text-transform: uppercase;
 }
-.comment-item .comment-expansion div {
-  background: var(--color-action);
-  width: 2px;
+.comment-item .comment-expansion .vertical-toggle {
+  border-left: 2px solid var(--color-app-background);
   height: calc(100% - 10px);
   align-self: flex-end;
 }
@@ -331,5 +342,4 @@ div.story-detail.page {
 .comment-item section.comment-content .comment-replies {
   display: grid;
   row-gap: 10px;
-  /* margin-bottom: 20px; */
 }
