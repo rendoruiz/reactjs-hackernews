@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import StoryCatalogView from './containers/StoryCatalogView';
 import StoryDetailView from './containers/StoryDetailView';
 import UserDetailView from './containers/UserDetailView';
