@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getStoryData } from '../api';
+import { getItemData } from '../api';
 import CommentTemplate from "./CommentTemplate";
 import StoryTemplate from "./StoryTemplate";
 
@@ -11,7 +11,7 @@ const ContentItem = ({ itemId }) => {
 
   useEffect(() => {
     setTimeout(() => {
-      getStoryData(itemId).then(data => {
+      getItemData(itemId).then(data => {
         if (!data.deleted) {
           if (data.type === 'story') {
             setItem(data);
