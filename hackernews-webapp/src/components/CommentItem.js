@@ -5,21 +5,23 @@ import moment from 'moment';
 import ReactHtmlParser from 'react-html-parser';
 import CommentItemGroup from "./CommentItemGroup";
 
-const CommentItem = ({ id, maxCommentDepth, commentDepth, setCommentDepth }) => {
-  const [comment, setComment] = useState({});
+const CommentItem = ({ id, maxCommentDepth, currentCommentDepth }) => {
+  const [comment, setComment] = useState({kids: []});
   const [isLoading, setIsLoading] = useState(true);
+  const commentDepth = currentCommentDepth ?? 1;
 
   useEffect(() => {
-    if (isLoading) {
+    setTimeout(() => {
       getItemData(id).then((data) => {
-        setComment(data);
-        setCommentDepth(commentDepth + 1);
-        setIsLoading(false);
+        if (data) {
+          setComment(data);
+          setIsLoading(false);
+        }
       })
-    }
+    }, 1000);
 
     console.log('useeffect commentitem');
-  }, [id]);
+  }, [maxCommentDepth, comment]);
 
   // https://stackoverflow.com/a/49562686
   const getHashCode = (str) => {
@@ -30,46 +32,58 @@ const CommentItem = ({ id, maxCommentDepth, commentDepth, setCommentDepth }) => 
     return hash;
   }
   const pickColor = (str) => {
-    return `hsl(${getHashCode(str) % 360}, 100%, 80%)`;
+    if (str) {
+      return `hsl(${getHashCode(str) % 360}, 100%, 80%)`;
+    }
+    return false;
   }
 
   return ( 
-    !isLoading && comment &&
-    <div className="comment-item">
-      <aside className="comment-expansion">
-        <Link 
-          to={"/u/" + comment.by} 
-          className="user-avatar"
-          style={{backgroundColor: pickColor(comment.by)}}
-        >
-          { comment.by.substring(0, 1) }
-        </Link>
-        {/* <span style={{backgroundColor: pickColor(comment.by)}}>{ comment.by.substring(0, 1) }</span> */}
-        <div></div>
-      </aside>
+    !isLoading 
+      ? comment.by && !comment.deleted && 
+        <div className="comment-item">
+          <aside className="comment-expansion">
+            <Link 
+              to={"/u/" + comment.by} 
+              className="user-avatar"
+              style={{backgroundColor: pickColor(comment.by)}}
+            >
+              { comment.by ? comment.by.substring(0, 1) : '' }
+            </Link>
+            {/* <span style={{backgroundColor: pickColor(comment.by)}}>{ comment.by.substring(0, 1) }</span> */}
+            <div></div>
+          </aside>
 
-      <section className="comment-content">
-        <header className="comment-header">
-          <Link to={"/u/" + comment.by} className="link-btn comment-by">
-            { comment.by }
-          </Link>
-          <span>&nbsp;&#183;&nbsp;</span>
-          <span className="comment-time">{ moment.unix(comment.time).fromNow() }</span>
+          <section className="comment-content">
+            <header className="comment-header">
+              <Link to={"/u/" + comment.by} className="link-btn comment-by">
+                { comment.by }
+              </Link>
+              <span>&nbsp;&#183;&nbsp;</span>
+              <span className="comment-time">{ moment.unix(comment.time).fromNow() }</span>
 
-          <span>&nbsp;[ID: { comment.id }]</span>
-        </header>
-        <main className="comment-text link-btn">
-          { ReactHtmlParser(comment.text) }
-        </main>
-        {/* <footer className="comment-actions">
-          { comment.score }
-        </footer> */}
-        <div className="comment-replies">
-          {/* { comment.kids && <p>[{ JSON.stringify(comment.kids) }]</p> } */}
-          { comment.kids && commentDepth <= maxCommentDepth && <CommentItemGroup commentItemIdList={comment.kids} currentCommentDepth={commentDepth} /> }
+              <span>&nbsp;[ID: { comment.id }]</span>
+            </header>
+            <main className="comment-text link-btn">
+              { ReactHtmlParser(comment.text) }
+            </main>
+            {/* <footer className="comment-actions">
+              { comment.score }
+            </footer> */}
+            <div className="comment-replies">
+              {/* { comment.kids && <p>[{ JSON.stringify(comment.kids) }]</p> } */}
+              { comment.kids.length ?? 0 > 0 && (commentDepth < maxCommentDepth) ?
+                <CommentItemGroup 
+                  commentItemIdList={comment.kids} 
+                  maxCommentDepth={maxCommentDepth} 
+                  currentCommentDepth={commentDepth + 1}
+                /> 
+                : comment.kids.length ?? 0 > 0 && <span>[load more] { comment.kids && <p>[{ JSON.stringify(comment.kids) }]</p> }</span>
+              }
+            </div>
+          </section>
         </div>
-      </section>
-    </div>
+      : <span>Loading comment...</span>
   );
 }
  

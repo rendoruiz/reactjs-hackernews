@@ -8,6 +8,7 @@ const StoryDetail = () => {
   const { id: storyId } = useParams();
   const [story, setStory] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [maxCommentDepth, setMaxCommentDepth] = useState(3);
 
   useEffect(() => {
     setTimeout(() => {
@@ -16,11 +17,8 @@ const StoryDetail = () => {
         setIsLoading(false);
         document.title = `${data.title} - PlebbitNews`;
       })
-      if (story.kids) {
-        getItemData()
-      } 
     }, 1000);
-  }, [storyId, story]);
+  }, [maxCommentDepth, storyId]);
 
   return ( 
     <div className="story-detail page">
@@ -33,7 +31,10 @@ const StoryDetail = () => {
       {
         story.kids && !isLoading &&
         <main className="comments">
-          <CommentItemGroup commentItemIdList={story.kids} maxCommentDepth={3} />
+          <CommentItemGroup 
+            commentItemIdList={story.kids} 
+            maxCommentDepth={maxCommentDepth} 
+          />
         </main>
       }
       { !story.kids && !isLoading && <span>No comments</span> }
