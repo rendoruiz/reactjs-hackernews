@@ -23,54 +23,57 @@ const CommentItem = ({ id, maxCommentDepth, currentCommentDepth }) => {
     }, 1000);
 
     console.log('useeffect commentitem');
-  }, [maxCommentDepth]);
+  }, [maxCommentDepth, id]);
 
   return ( 
-    !isLoading 
-      ? comment.by && !comment.deleted && 
-        <div className="comment-item">
-          <aside className="comment-expansion">
-            <Link 
-              to={"/u/" + comment.by} 
-              className="user-avatar"
-              style={{backgroundColor: generateHslColor(comment.by)}}
-            >
-              { comment.by ? comment.by.substring(0, 1) : '' }
-            </Link>
-            <div></div>
-          </aside>
-
-          <section className="comment-content">
-            <header className="comment-header">
-              <Link to={"/u/" + comment.by} className="link-btn comment-by">
-                { comment.by }
+    <div>
+      {!isLoading 
+        ? comment.by && !comment.deleted && 
+          <div className="comment-item">
+            <aside className="comment-expansion">
+              <Link 
+                to={"/u/" + comment.by} 
+                className="user-avatar"
+                style={{backgroundColor: generateHslColor(comment.by)}}
+              >
+                { comment.by ? comment.by.substring(0, 1) : '' }
               </Link>
-              <span>&nbsp;&#183;&nbsp;</span>
-              <span className="comment-time">{ moment.unix(comment.time).fromNow() }</span>
+              <div></div>
+            </aside>
 
-              <span>&nbsp;[ID: { comment.id }]</span>
-            </header>
-            <main className="comment-text link-btn">
-              { ReactHtmlParser(comment.text) }
-            </main>
-            {/* <footer className="comment-actions">
-              { comment.score }
-            </footer> */}
-            <div className="comment-replies">
-              {
-                comment.kids && commentDepth < maxCommentDepth
-                  ? <CommentItemGroup 
-                      commentItemIdList={comment.kids} 
-                      maxCommentDepth={maxCommentDepth} 
-                      currentCommentDepth={commentDepth + 1}
-                    /> 
-                  : comment.kids && 
-                    <span>[load more] { comment.kids && <p>[{ JSON.stringify(comment.kids) }]</p> }</span>
-              }
-            </div>
-          </section>
-        </div>
-      : <span>Loading comment...</span>
+            <section className="comment-content">
+              <header className="comment-header">
+                <Link to={"/u/" + comment.by} className="link-btn comment-by">
+                  { comment.by }
+                </Link>
+                <span>&nbsp;&#183;&nbsp;</span>
+                <span className="comment-time">{ moment.unix(comment.time).fromNow() }</span>
+
+                <span>&nbsp;[ID: { comment.id }]</span>
+              </header>
+              <main className="comment-text link-btn">
+                { ReactHtmlParser(comment.text) }
+              </main>
+              {/* <footer className="comment-actions">
+                { comment.score }
+              </footer> */}
+              <div className="comment-replies">
+                {
+                  comment.kids && commentDepth < maxCommentDepth
+                    ? <CommentItemGroup 
+                        commentItemIdList={comment.kids} 
+                        maxCommentDepth={maxCommentDepth} 
+                        currentCommentDepth={commentDepth + 1}
+                      /> 
+                    : comment.kids && 
+                      <span>[load more] { comment.kids && <p>[{ JSON.stringify(comment.kids) }]</p> }</span>
+                }
+              </div>
+            </section>
+          </div>
+        : <span>Loading comment...</span>
+      }
+    </div>
   );
 }
  
