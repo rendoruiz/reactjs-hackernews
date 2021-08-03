@@ -71,18 +71,15 @@ const CommentItem = ({ id, maxCommentDepth, currentCommentDepth }) => {
               { comment.score }
             </footer> */}
             <div className="comment-replies">
-              {/* { comment.kids && <p>[{ JSON.stringify(comment.kids) }]</p> } */}
-              { !comment.kids 
-                  ? <span>NO KIDS</span>
-                  : comment.kids.length <= 0
-                    ? <span>no kids</span>
-                    : commentDepth < maxCommentDepth
-                      ? <CommentItemGroup 
-                          commentItemIdList={comment.kids} 
-                          maxCommentDepth={maxCommentDepth} 
-                          currentCommentDepth={commentDepth + 1}
-                        /> 
-                      : <span>[load more] { comment.kids && <p>[{ JSON.stringify(comment.kids) }]</p> }</span>
+              {
+                comment.kids && commentDepth < maxCommentDepth
+                  ? <CommentItemGroup 
+                      commentItemIdList={comment.kids} 
+                      maxCommentDepth={maxCommentDepth} 
+                      currentCommentDepth={commentDepth + 1}
+                    /> 
+                  : comment.kids && 
+                    <span>[load more] { comment.kids && <p>[{ JSON.stringify(comment.kids) }]</p> }</span>
               }
             </div>
           </section>
@@ -92,13 +89,3 @@ const CommentItem = ({ id, maxCommentDepth, currentCommentDepth }) => {
 }
  
 export default CommentItem;
-
-
-// { comment.kids.length ?? 0 > 0 && (commentDepth < maxCommentDepth) ?
-//   <CommentItemGroup 
-//     commentItemIdList={comment.kids} 
-//     maxCommentDepth={maxCommentDepth} 
-//     currentCommentDepth={commentDepth + 1}
-//   /> 
-//   : comment.kids.length ?? 0 > 0 && <span>[load more] { comment.kids && <p>[{ JSON.stringify(comment.kids) }]</p> }</span>
-// }
