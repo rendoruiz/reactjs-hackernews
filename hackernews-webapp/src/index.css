@@ -31,7 +31,8 @@ code, pre {
 
 :root {
   --border-radius: 4px;
-  --color-accent: rgb(255, 102, 0);
+  --accent-rgb: 255, 102, 0;
+  --color-accent: rgb(var(--accent-rgb));
   --color-app-background: rgb(218, 224, 230);
   --content-background-rgb: 255, 255, 255;
   --color-content-background: rgba(var(--content-background-rgb), 1);
@@ -86,10 +87,15 @@ a.link-btn:active {
 .btn.more-items {
   background: var(--color-accent);
   color: var(--color-content-background);
-  padding: 5px 20px;
+  padding: 6px 20px;
   margin: 0 20px;
+  font-size: 0.95rem;
   font-weight: bold;
   text-align: center;
+  cursor: pointer;
+}
+.btn.more-items:hover {
+  background-color: rgba(var(--accent-rgb), 0.85);
 }
 
 

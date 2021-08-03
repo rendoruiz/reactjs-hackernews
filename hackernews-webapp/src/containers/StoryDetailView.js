@@ -26,7 +26,7 @@ const StoryDetailView = () => {
 
   const handleLoadMoreItems = () => {
     if (story.kids.length > commentItemCount) {
-      setCommentItemCount(commentItemCount + 10);
+      setCommentItemCount(commentItemCount + defaultCommentItemCount);
     }
   }
 
@@ -47,7 +47,7 @@ const StoryDetailView = () => {
           />
 
           { story.kids.length > commentItemCount &&
-            <a className="btn more-items"  onClick={handleLoadMoreItems}>
+            <button className="btn more-items" onClick={handleLoadMoreItems}>
               <span>Load more comments </span> 
               <span>
                 ({defaultCommentItemCount >= story.kids.length-commentItemCount 
@@ -55,7 +55,7 @@ const StoryDetailView = () => {
                   : defaultCommentItemCount
                   } of {story.kids.length-commentItemCount})
               </span>  
-            </a> 
+            </button> 
           }
         </main>
       }
