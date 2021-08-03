@@ -10,20 +10,37 @@ const CommentItem = ({ id, maxCommentDepth, commentDepth, setCommentDepth }) => 
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    getItemData(id).then((data) => {
-      setComment(data);
-      setIsLoading(false);
-      setCommentDepth(commentDepth + 1);
-    })
+    if (isLoading) {
+      getItemData(id).then((data) => {
+        setComment(data);
+        setCommentDepth(commentDepth + 1);
+        setIsLoading(false);
+      })
+    }
+
+    console.log('useeffect commentitem');
   }, [id]);
+
+  // https://stackoverflow.com/a/49562686
+  const getHashCode = (str) => {
+    let hash = 0;
+    for (var i = 0; i < str.length; i++) {
+      hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    return hash;
+  }
+  const pickColor = (str) => {
+    return `hsl(${getHashCode(str) % 360}, 100%, 80%)`;
+  }
 
   return ( 
     !isLoading && comment &&
     <div className="comment-item">
       <aside className="comment-expansion">
-        <span>-</span>
+        <span style={{backgroundColor: pickColor(comment.by)}}>{ comment.by.substring(0, 1) }</span>
         <div></div>
       </aside>
+
       <section className="comment-content">
         <header className="comment-header">
           <Link to={"/u/" + comment.by} className="link-btn comment-by">
@@ -32,18 +49,17 @@ const CommentItem = ({ id, maxCommentDepth, commentDepth, setCommentDepth }) => 
           <span>&nbsp;&#183;&nbsp;</span>
           <span className="comment-time">{ moment.unix(comment.time).fromNow() }</span>
 
-          <span>[ID: { comment.id }]</span>
+          {/* <span>[ID: { comment.id }]</span> */}
         </header>
         <main className="comment-text">
           { ReactHtmlParser(comment.text) }
         </main>
-        <footer className="comment-actions">
-          Reply
-        </footer>
+        {/* <footer className="comment-actions">
+          { comment.score }
+        </footer> */}
         <div className="comment-replies">
           {/* <p>[{ JSON.stringify(comment.kids) }]</p> */}
           { comment.kids && commentDepth <= maxCommentDepth && <CommentItemGroup commentItemIdList={comment.kids} currentCommentDepth={commentDepth} /> }
-          
         </div>
       </section>
     </div>

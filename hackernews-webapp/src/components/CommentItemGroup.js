@@ -8,10 +8,12 @@ const CommentItemGroup = ({ commentItemIdList , maxCommentDepth = 1, currentComm
     if (currentCommentDepth) {
       setCommentDepth(currentCommentDepth);
     }
-  }, [])
+
+    console.log('useeffect commentitemgroup');
+  }, [currentCommentDepth])
 
   return ( 
-    commentItemIdList && commentItemIdList.slice(0, 10).map((commentId) => <CommentItem id={commentId} maxCommentDepth={maxCommentDepth} commentDepth={commentDepth} setCommentDepth={setCommentDepth} />)
+    commentItemIdList && commentItemIdList.slice(0, 10).map((commentId) => <CommentItem key={commentId} id={commentId} maxCommentDepth={maxCommentDepth} commentDepth={commentDepth} setCommentDepth={setCommentDepth} />)
   );
 }
  
