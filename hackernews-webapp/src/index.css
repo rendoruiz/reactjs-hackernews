@@ -291,7 +291,7 @@ div.story-detail.page {
 }
 .comments .comment-replies > div > .comment-item {
   margin-top: 10px;
-  margin-left: -15px;
+  margin-left: -10px;
 }
 .comments .comment-replies > div:first-of-type > .comment-item {
   margin-top: 20px;
@@ -340,6 +340,9 @@ div.story-detail.page {
 }
 .comment-item header.comment-header .comment-time {
   font-weight: normal;
+}
+.comment-item main.comment-text > * {
+  margin-top: 8px;
 }
 .comment-item footer.comment-actions {
   /* margin-bottom: 10px; */
