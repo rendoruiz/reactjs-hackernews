@@ -9,7 +9,8 @@ const StoryDetailView = () => {
   const { id: storyId } = useParams();
   const [story, setStory] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  const [maxCommentDepth, setMaxCommentDepth] = useState(3);
+  // const [maxCommentDepth, setMaxCommentDepth] = useState(3);
+  const maxCommentDepth = 3;
 
   useEffect(() => {
     setTimeout(() => {
