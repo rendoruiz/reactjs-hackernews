@@ -5,7 +5,7 @@ import CommentItemGroup from "../components/CommentItemGroup";
 import StoryTemplate from "../components/StoryTemplate"
 import { getItemData } from '../functions/hackernewsApi';
 
-const StoryDetail = () => {
+const StoryDetailView = () => {
   const { id: storyId } = useParams();
   const [story, setStory] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -44,4 +44,4 @@ const StoryDetail = () => {
   );
 }
  
-export default StoryDetail;
+export default StoryDetailView;

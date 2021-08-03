@@ -8,7 +8,7 @@ import { getUserData } from '../functions/hackernewsApi';
 
 import ContentGroup from "../components/ContentGroup";
 
-const UserDetail = () => {
+const UserDetailView = () => {
   const { id: userId } = useParams();
   const [user, setUser] = useState({});
   const [contentItemCount, setContentItemCount] = useState(10);
@@ -55,4 +55,4 @@ const UserDetail = () => {
   );
 }
  
-export default UserDetail;
+export default UserDetailView;
