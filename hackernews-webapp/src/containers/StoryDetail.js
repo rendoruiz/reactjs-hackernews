@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getItemData } from "../api";
+
 import CommentItemGroup from "../components/CommentItemGroup";
 import StoryTemplate from "../components/StoryTemplate"
+import { getItemData } from '../functions/hackernewsApi';
 
 const StoryDetail = () => {
   const { id: storyId } = useParams();

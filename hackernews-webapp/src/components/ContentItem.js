@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { getItemData } from '../api';
+
 import CommentTemplate from "./CommentTemplate";
 import StoryTemplate from "./StoryTemplate";
+import { getItemData } from '../functions/hackernewsApi';
 
 const ContentItem = ({ itemId }) => {
   const [item, setItem] = useState({});

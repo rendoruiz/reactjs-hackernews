@@ -1,9 +1,9 @@
 import { Link, useHistory } from 'react-router-dom';
+import ReactHtmlParser from 'react-html-parser';
+import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExternalLinkAlt, faShare } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark, faCommentAlt, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
-import ReactHtmlParser from 'react-html-parser';
-import moment from 'moment';
 
 const StoryTemplate = ({ story, isDetailedView = false }) => {
   const history = useHistory();

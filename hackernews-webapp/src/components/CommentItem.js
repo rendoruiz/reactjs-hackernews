@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getItemData } from './../api';
-import moment from 'moment';
 import ReactHtmlParser from 'react-html-parser';
+import moment from 'moment';
+
 import CommentItemGroup from "./CommentItemGroup";
+import { getItemData } from '../functions/hackernewsApi';
+import { generateHslColor } from "../functions/generateHslColor";
 
 const CommentItem = ({ id, maxCommentDepth, currentCommentDepth }) => {
   const [comment, setComment] = useState({kids: []});
@@ -23,21 +25,6 @@ const CommentItem = ({ id, maxCommentDepth, currentCommentDepth }) => {
     console.log('useeffect commentitem');
   }, [maxCommentDepth]);
 
-  // https://stackoverflow.com/a/49562686
-  const getHashCode = (str) => {
-    let hash = 0;
-    for (var i = 0; i < str.length; i++) {
-      hash = str.charCodeAt(i) + ((hash << 5) - hash);
-    }
-    return hash;
-  }
-  const pickColor = (str) => {
-    if (str) {
-      return `hsl(${getHashCode(str) % 360}, 100%, 80%)`;
-    }
-    return false;
-  }
-
   return ( 
     !isLoading 
       ? comment.by && !comment.deleted && 
@@ -46,11 +33,10 @@ const CommentItem = ({ id, maxCommentDepth, currentCommentDepth }) => {
             <Link 
               to={"/u/" + comment.by} 
               className="user-avatar"
-              style={{backgroundColor: pickColor(comment.by)}}
+              style={{backgroundColor: generateHslColor(comment.by)}}
             >
               { comment.by ? comment.by.substring(0, 1) : '' }
             </Link>
-            {/* <span style={{backgroundColor: pickColor(comment.by)}}>{ comment.by.substring(0, 1) }</span> */}
             <div></div>
           </aside>
 

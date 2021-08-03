@@ -1,6 +1,7 @@
-import ContentItem from './ContentItem';
-import { getTopStoryIds } from './../api';
 import { useState, useEffect } from 'react';
+
+import ContentItem from './ContentItem';
+import { getTopStoryIds } from '../functions/hackernewsApi';
 
 const ContentGroup = ({ orderBy, itemCount, setItemCount, contentType, customItemIdList }) => {
   const [itemIdList, setItemIdList] = useState(Array.apply({}, Array(itemCount)));

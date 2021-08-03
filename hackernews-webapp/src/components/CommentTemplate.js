@@ -1,5 +1,5 @@
-import moment from 'moment';
 import ReactHtmlParser from 'react-html-parser';
+import moment from 'moment';
 
 const CommentTemplate = ({ comment }) => {
 

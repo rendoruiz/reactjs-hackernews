@@ -4,7 +4,8 @@ import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBirthdayCake } from '@fortawesome/free-solid-svg-icons';
 import { faStar } from '@fortawesome/free-regular-svg-icons';
-import { getUserData } from '../api';
+import { getUserData } from '../functions/hackernewsApi';
+
 import ContentGroup from "../components/ContentGroup";
 
 const UserDetail = () => {

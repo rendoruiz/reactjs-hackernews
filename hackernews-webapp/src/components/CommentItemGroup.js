@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect } from "react";
+
 import CommentItem from "./CommentItem";
 
 const CommentItemGroup = ({ commentItemIdList , maxCommentDepth, currentCommentDepth }) => {
