@@ -48,9 +48,14 @@ const CommentItem = ({ id, maxCommentDepth, currentCommentDepth }) => {
                   { comment.by }
                 </Link>
                 <span>&nbsp;&#183;&nbsp;</span>
-                <span className="comment-time">{ getMinifiedMomentTime(moment.unix(comment.time).fromNow()) }</span>
+                <span 
+                  className="comment-time" 
+                  title={`${moment.unix(comment.time).fromNow()} | ${moment.unix(comment.time).format('LLLL')}`}
+                >
+                  { getMinifiedMomentTime(moment.unix(comment.time).fromNow()) }
+                </span>
 
-                <span>&nbsp;&nbsp;&nbsp;[ID: { comment.id }] [{moment.unix(comment.time).fromNow()}]</span>
+                <span>&nbsp;&nbsp;&nbsp;[ID: { comment.id }]</span>
               </header>
               <main className="comment-text link-btn">
                 { ReactHtmlParser(comment.text) }
