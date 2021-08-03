@@ -60,7 +60,7 @@ const StoryTemplate = ({ story, isDetailedView = false }) => {
           </a>
           {
             story.text && isDetailedView &&
-            <div className="story-text">
+            <div className="story-text link-btn">
               { ReactHtmlParser(story.text) }
             </div>
           }

@@ -43,7 +43,14 @@ a.link-btn:hover,
 a.link-btn:active {
   text-decoration: underline;
 }
-
+.link-btn a,
+.link-btn a:visited {
+  color: var(--color-accent);
+}
+.link-btn a:hover,
+.link-btn a:active {
+  text-decoration: underline;
+}
 
 /* button */
 .btn,
@@ -168,14 +175,6 @@ section.story-content .story-url-btn > .glyph {
 section.story-content .story-text {
   margin-top: 10px;
 }
-section.story-content .story-text a,
-section.story-content .story-text a:visited {
-  color: var(--color-accent)
-}
-section.story-content .story-text a:hover,
-section.story-content .story-text a:active {
-  text-decoration: underline;
-}
 section.story-content footer {
   margin-top: 30px;
   display: flex;
@@ -275,7 +274,7 @@ div.story-detail.page {
   grid-template-rows: var(--header-height) 1fr;
   place-items: center;
 }
-.comment-item .comment-expansion span {
+.comment-item .comment-expansion .user-avatar {
   width: calc(var(--header-height) - 2px);
   height: calc(var(--header-height) - 2px);
   background: var(--color-accent);
