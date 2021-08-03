@@ -11,6 +11,7 @@ const StoryDetailView = () => {
   const [isLoading, setIsLoading] = useState(true);
   // const [maxCommentDepth, setMaxCommentDepth] = useState(3);
   const maxCommentDepth = 3;
+  const defaultCommentItemCount = 10;
 
   useEffect(() => {
     setTimeout(() => {
@@ -34,7 +35,7 @@ const StoryDetailView = () => {
         story.kids && !isLoading &&
         <main className="comments">
           <CommentItemGroup 
-            commentItemIdList={story.kids} 
+            commentItemIdList={story.kids.slice(0, defaultCommentItemCount)} 
             maxCommentDepth={maxCommentDepth} 
           />
         </main>
