@@ -6,11 +6,13 @@ import moment from 'moment';
 import CommentItemGroup from "./CommentItemGroup";
 import { getItemData } from '../functions/hackernewsApi';
 import { generateHslColor } from "../functions/generateHslColor";
+import { getMinifiedMomentTime } from "../functions/getMinifiedMomentTime";
 
 const CommentItem = ({ id, maxCommentDepth, currentCommentDepth }) => {
-  const [comment, setComment] = useState({kids: []});
+  const [comment, setComment] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const commentDepth = currentCommentDepth ?? 1;
+  const [commentReplyIdList, setCommentReplyIdList] = useState([]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -22,27 +24,15 @@ const CommentItem = ({ id, maxCommentDepth, currentCommentDepth }) => {
       })
     }, 1000);
 
-    console.log('useeffect commentitem');
+    // console.log('useeffect commentitem');
   }, [maxCommentDepth, id]);
-  
-  const getMinifiedDateTime = (momentString) => {
-    const minified = momentString
-      .replace('year ago', 'y')
-      .replace('years ago', 'y')
-      .replace('month ago', 'm')
-      .replace('months ago', 'm')
-      .replace('week ago', 'w')
-      .replace('weeks ago', 'w')
-      .replace('day ago', 'd')
-      .replace('days ago', 'd')
-      .replace('an hour ago', '1h')
-      .replace('hours ago', 'h')
-      .replace('minute ago', 'm')
-      .replace('minutes ago', 'm')
-      .replace('second ago', 's')
-      .replace('seconds ago', 's')
-      .replace(' ', '');
-    return minified;
+
+  const handleLoadReplies = () => {
+    if (comment.kids) {
+      if (comment.kids.length > 0) {
+        setCommentReplyIdList(comment.kids);
+      }
+    }
   }
 
   return ( 
@@ -67,9 +57,14 @@ const CommentItem = ({ id, maxCommentDepth, currentCommentDepth }) => {
                   { comment.by }
                 </Link>
                 <span>&nbsp;&#183;&nbsp;</span>
-                <span className="comment-time">{ getMinifiedDateTime(moment.unix(comment.time).fromNow()) }</span>
+                <span 
+                  className="comment-time" 
+                  title={`${moment.unix(comment.time).fromNow()} | ${moment.unix(comment.time).format('LLLL')}`}
+                >
+                  { getMinifiedMomentTime(moment.unix(comment.time).fromNow()) }
+                </span>
 
-                <span>&nbsp;[ID: { comment.id }]</span>
+                <span>&nbsp;&nbsp;&nbsp;[ID: { comment.id }]</span>
               </header>
               <main className="comment-text link-btn">
                 { ReactHtmlParser(comment.text) }
@@ -85,13 +80,20 @@ const CommentItem = ({ id, maxCommentDepth, currentCommentDepth }) => {
                         maxCommentDepth={maxCommentDepth} 
                         currentCommentDepth={commentDepth + 1}
                       /> 
-                    : comment.kids && 
-                      <span>[load more] { comment.kids && <p>[{ JSON.stringify(comment.kids) }]</p> }</span>
+                    : comment.kids && commentReplyIdList.length === 0 &&
+                      <button onClick={handleLoadReplies} className="link-btn more-items">Load more replies ({comment.kids.length})</button>
+                }
+                {
+                  commentReplyIdList &&
+                    <CommentItemGroup 
+                      commentItemIdList={commentReplyIdList} 
+                      maxCommentDepth={1} 
+                    /> 
                 }
               </div>
             </section>
           </div>
-        : <span>Loading comment...</span>
+        : <span className="loader">Loading comment...</span>
       }
     </div>
   );

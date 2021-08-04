@@ -4,7 +4,7 @@ import CommentItem from "./CommentItem";
 
 const CommentItemGroup = ({ commentItemIdList , maxCommentDepth, currentCommentDepth }) => {
   useEffect(() => {
-    console.log('useeffect commentitemgroup');
+    // console.log('useeffect commentitemgroup');
   }, [])
 
   return ( 
