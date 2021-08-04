@@ -2,11 +2,14 @@
 
 # Readit News
 
-Using the Hacker News API with a twist for fun and knowledge, after learning the basics of React.js.
+Using the Hacker News API with a twist for fun and knowledge, after going through some React.js tutorials.
 
 ## Usage
 
-- [Link](https://hn.rendo.ca/) for general viewing.
+- [Deployed website](https://hn.rendo.ca/) for general viewing.
+- `npm install` to install npm dependencies.
+- `npm start` to test the project locally.
+- `npm run build` to build the project for deployment.
 
 ## Goals
 
@@ -17,11 +20,11 @@ Using the Hacker News API with a twist for fun and knowledge, after learning the
 
 ## Scope and Limitations
 
-- It Just Werks™: no performance optimizations and tests will be done.
 - Do not use the browser inspector to look up CSS properties when copying element designs on Reddit.
 - Only use API endpoints relating to stories and comments.
 - Provide a commented source URL for every snippet copied from the web with little to no modifications done.
-- Styling Loaders (e.g., "Loading...") are not a priority and highly likely will not be done.
+- Styling loaders (e.g., "Loading...") are not a priority and highly likely will not be done.
+- It Just Werks™: performance optimizations and tests are not a priority and highly likely will not be done.
 
 ## Resources
 
