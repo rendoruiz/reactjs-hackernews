@@ -9,9 +9,10 @@ import { generateHslColor } from "../functions/generateHslColor";
 import { getMinifiedMomentTime } from "../functions/getMinifiedMomentTime";
 
 const CommentItem = ({ id, maxCommentDepth, currentCommentDepth }) => {
-  const [comment, setComment] = useState({kids: []});
+  const [comment, setComment] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const commentDepth = currentCommentDepth ?? 1;
+  const [commentReplyIdList, setCommentReplyIdList] = useState([]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -23,8 +24,16 @@ const CommentItem = ({ id, maxCommentDepth, currentCommentDepth }) => {
       })
     }, 1000);
 
-    console.log('useeffect commentitem');
+    // console.log('useeffect commentitem');
   }, [maxCommentDepth, id]);
+
+  const handleLoadReplies = () => {
+    if (comment.kids) {
+      if (comment.kids.length > 0) {
+        setCommentReplyIdList(comment.kids);
+      }
+    }
+  }
 
   return ( 
     <div className={comment.deleted && 'd-none'}>
@@ -71,13 +80,20 @@ const CommentItem = ({ id, maxCommentDepth, currentCommentDepth }) => {
                         maxCommentDepth={maxCommentDepth} 
                         currentCommentDepth={commentDepth + 1}
                       /> 
-                    : comment.kids && 
-                      <button className="link-btn more-items">Load more replies { comment.kids && <p>[{ JSON.stringify(comment.kids) }]</p> }</button>
+                    : comment.kids && commentReplyIdList.length === 0 &&
+                      <button onClick={handleLoadReplies} className="link-btn more-items">Load more replies ({comment.kids.length})</button>
+                }
+                {
+                  commentReplyIdList &&
+                    <CommentItemGroup 
+                      commentItemIdList={commentReplyIdList} 
+                      maxCommentDepth={1} 
+                    /> 
                 }
               </div>
             </section>
           </div>
-        : <span>Loading comment...</span>
+        : <span className="loader">Loading comment...</span>
       }
     </div>
   );

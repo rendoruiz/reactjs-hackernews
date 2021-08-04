@@ -46,7 +46,7 @@ const StoryDetailView = () => {
             maxCommentDepth={maxCommentDepth} 
           />
 
-          { story.kids.length > commentItemCount &&
+          { !isLoading && story.kids.length > commentItemCount &&
             <button className="btn more-items" onClick={handleLoadMoreItems}>
               <span>Load more comments </span> 
               <span>
@@ -59,9 +59,8 @@ const StoryDetailView = () => {
           }
         </main>
       }
-      { }
-      { !story.kids && !isLoading && <span>No comments</span> }
-      { isLoading && <span>fetching story...</span> }
+      { isLoading && <span className="loader">Loading story...</span> }
+      { !story.kids && !isLoading && <span className="comments">No comments</span> }
     </div>
   );
 }
