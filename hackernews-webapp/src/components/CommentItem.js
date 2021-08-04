@@ -72,7 +72,7 @@ const CommentItem = ({ id, maxCommentDepth, currentCommentDepth }) => {
                         currentCommentDepth={commentDepth + 1}
                       /> 
                     : comment.kids && 
-                      <span>[load more] { comment.kids && <p>[{ JSON.stringify(comment.kids) }]</p> }</span>
+                      <button className="link-btn more-items">Load more replies { comment.kids && <p>[{ JSON.stringify(comment.kids) }]</p> }</button>
                 }
               </div>
             </section>

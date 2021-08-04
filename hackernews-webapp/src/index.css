@@ -54,19 +54,13 @@ a,
 a:visited {
   text-decoration: none;
   color: inherit;
+  cursor: pointer;
 }
 a.link-btn:hover,
 a.link-btn:active {
   text-decoration: underline;
 }
-.link-btn a,
-.link-btn a:visited {
-  color: var(--color-accent);
-}
-.link-btn a:hover,
-.link-btn a:active {
-  text-decoration: underline;
-}
+
 
 /* button */
 .btn,
@@ -75,6 +69,7 @@ a.link-btn:active {
   transition: all 100ms ease-in-out;
   border: none;
   border-radius: var(--border-radius);
+  cursor: pointer;
 }
 .btn:hover {
   background: var(--color-action-hover);
@@ -82,6 +77,31 @@ a.link-btn:active {
 .btn:active {
   transform: scale(0.95);
 }
+
+/* link button */
+a.link-btn,
+a.link-btn:visited,
+button.link-btn,
+button.link-btn:visited,
+.link-btn a,
+.link-btn a:visited,
+.link-btn button,
+.link-btn button:visited {
+  background: none;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+}
+a.link-btn:hover,
+button.link-btn:hover,
+.link-btn a:hover,
+.link-btn button:hover {
+  text-decoration: underline;
+}
+.link-btn a {
+  color: var(--color-accent);
+}
+
 
 /* button - more-items */ 
 .btn.more-items {
@@ -92,11 +112,21 @@ a.link-btn:active {
   font-size: 0.95rem;
   font-weight: bold;
   text-align: center;
-  cursor: pointer;
 }
 .btn.more-items:hover {
   background-color: rgba(var(--accent-rgb), 0.85);
 }
+
+/* link button - more items */
+.link-btn.more-items {
+  margin: 10px 0;
+  justify-self: flex-start;
+  display: inline-flex;
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: var(--color-accent);
+}
+
 
 
 /* root */
@@ -281,6 +311,9 @@ div.story-detail.page {
   padding: 20px 10px;
   border-radius: var(--border-radius);
   background: var(--color-content-background);
+}
+.story-detail .story-item {
+  cursor: unset;
 }
 
 
