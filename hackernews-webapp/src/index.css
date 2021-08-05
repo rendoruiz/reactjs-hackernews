@@ -138,7 +138,7 @@ button.link-btn:hover,
 }
 
 
-/* containers */
+/* view */
 .page {
   margin: 20px 0;
   display: grid;
@@ -258,7 +258,7 @@ section.story-content footer .btn > .glyph {
 
 
 
-/* containers > UserDetailView.js */
+/* view > UserDetailView.js */
 .user-detail {
   
 }
@@ -299,7 +299,7 @@ section.story-content footer .btn > .glyph {
 }
 
 
-/* containers > story detail */
+/* view > story detail */
 div.story-detail.page {
   display: grid;
   grid-template-columns: unset;
