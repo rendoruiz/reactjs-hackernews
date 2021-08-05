@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import StoryCatalogView from './containers/StoryCatalogView';
-import StoryDetailView from './containers/StoryDetailView';
-import UserDetailView from './containers/UserDetailView';
+import StoryCatalogView from './views/StoryCatalogView';
+import StoryDetailView from './views/StoryDetailView';
+import UserDetailView from './views/UserDetailView';
 
 function App() {
   return (
