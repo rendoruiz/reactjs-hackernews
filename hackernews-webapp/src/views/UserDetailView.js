@@ -10,7 +10,7 @@ import { generateHslColor } from '../functions/generateHslColor';
 
 
 const UserDetailView = () => {
-  const { id: userId } = useParams();
+  const { userId, contentType } = useParams();
   const [user, setUser] = useState(null);
   const [contentIdList, setContentIdList] = useState([]);
   const contentCountIncrement = 10;

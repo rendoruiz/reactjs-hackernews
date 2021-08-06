@@ -264,14 +264,20 @@ section.story-content footer .btn > .glyph {
 }
 
 /* views/UserDetailView.js > aside.user-contents */
+.user-contents {
+  display: grid;
+  align-content: flex-start;
+  row-gap: 10px;
+}
 .user-contents > header {
   border-radius: var(--border-radius);
   background: var(--color-content-background);
   padding: 10px 15px;
   display: flex;
   gap: 5px;
+  margin-bottom: 10px;
 }
-.user-contents > header .btn {
+.user-contents > header > .btn {
   padding: 5px 10px;
   display: flex;
   gap: 8px;
@@ -425,4 +431,13 @@ div.story-detail.page {
 .comment-item section.comment-content .comment-replies {
   display: grid;
   row-gap: 10px;
+}
+
+
+
+
+/* components/ContentItemStoryCard */
+.content-card {
+  background: var(--color-content-background);
+  border-radius: var(--border-radius);
 }

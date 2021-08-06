@@ -15,7 +15,7 @@ function App() {
             <Route path="/s/:id">
               <StoryDetailView />
             </Route>
-            <Route path="/u/:id">
+            <Route path="/u/:userId/:contentType?">
               <UserDetailView />
             </Route>
             <Route path="*">

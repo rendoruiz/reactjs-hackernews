@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { getItemData } from "../functions/hackernewsApi";
+import ContentItemCommentCard from "./ContentItemCommentCard";
+import ContentItemStoryCard from "./ContentItemStoryCard";
 
 const UserContentItem = ({ contentId = null }) => {
   const [contentItem, setContentItem] = useState(null);
@@ -11,19 +13,23 @@ const UserContentItem = ({ contentId = null }) => {
         setContentItem(data);
         setIsLoading(false);
       });
-    }, 1000)
+    }, 1000);
   }, [contentId]);
   
+  const generateContentCard = (contentType) => {
+    if (contentType === "story") {
+      return <ContentItemStoryCard story={contentItem} />
+    } else if (contentType === "comment") {
+      return <ContentItemCommentCard comment={contentItem} />
+    }
+  }
 
   return ( 
     !contentId 
       ? null
       : isLoading 
         ? <div className="loader">Loading Item...</div>
-        : !isLoading && contentItem
-          ? (contentItem.type === "story" && <div>Story Card</div>)
-          : (contentItem.type === "comment" && <div>Comment Card</div>)
-          // : contentItem.type === "comment" && <div>Comment Card</div>
+        : !isLoading && contentItem && generateContentCard(contentItem.type)
   );
 }
  
