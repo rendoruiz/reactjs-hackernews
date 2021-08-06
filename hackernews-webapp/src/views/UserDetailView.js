@@ -113,7 +113,7 @@ const UserDetailView = () => {
         { user && (
           <div className="user-profile">
             <header>
-              <div className="user-image" title="Generated profile image based on user's ID">
+              <div className="user-image" title="App-Generated profile image based on user's ID">
                 <div style={{backgroundColor: generateHslColor(user.id)}}>
                   { user.id ? user.id.substring(0, 1) : '' }
                 </div>
