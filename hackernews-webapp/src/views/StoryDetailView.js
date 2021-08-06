@@ -46,7 +46,7 @@ const StoryDetailView = () => {
             maxCommentDepth={maxCommentDepth} 
           />
 
-          { !isLoading && story.kids.length > commentItemCount &&
+          { story.kids.length > commentItemCount &&
             <button className="btn more-items" onClick={handleLoadMoreItems}>
               <span>Load more comments </span> 
               <span>

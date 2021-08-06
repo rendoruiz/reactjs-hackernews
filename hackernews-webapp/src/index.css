@@ -76,7 +76,7 @@ a.link-btn:active {
   background: var(--color-action-hover);
 }
 .btn:active {
-  transform: scale(0.95);
+  transform: scale(0.975);
 }
 
 /* link button */
@@ -275,7 +275,7 @@ section.story-content footer .btn > .glyph {
   background: var(--color-content-background);
   padding: 10px 15px;
   display: flex;
-  gap: 5px;
+  gap: 8px;
   margin-bottom: 10px;
 }
 .user-contents > header > .btn {
@@ -293,6 +293,9 @@ section.story-content footer .btn > .glyph {
 .user-contents > header > .btn.active {
   background: var(--color-action-active);
   color: var(--color-accent);
+}
+.user-contents > .btn.more-items {
+  margin-top: 10px;
 }
 
 /* views/UserDetailView.js > section.sidebar > user-profile */

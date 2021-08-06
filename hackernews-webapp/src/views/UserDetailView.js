@@ -16,7 +16,7 @@ const UserDetailView = () => {
   const [contentIdList, setContentIdList] = useState([]);
   const [contentTypeFilter, setContentTypeFilter] = useState(null);
   const contentCountIncrement = 10;
-  // const [contentCount, setContentCount] = useState(contentCountIncrement);
+  const [contentCount, setContentCount] = useState(contentCountIncrement);
 
   useEffect(() => {
     document.title = `${userId} (u/${userId}) - Readit News`;
@@ -35,7 +35,7 @@ const UserDetailView = () => {
     getUserData(userId).then((data) => {
       setUser(data);
       if (data.submitted) {
-        setContentIdList(data.submitted.slice(0, contentCountIncrement));
+        setContentIdList(data.submitted);
       }
     });
   }, [userId, contentType, history]);
@@ -47,6 +47,12 @@ const UserDetailView = () => {
     }
   }
 
+  const handleLoadMoreItems = () => {
+    if (contentIdList.length > contentCount) {
+      setContentCount(contentCount + contentCountIncrement);
+    }
+  }
+
   return ( 
     <div className="page user-detail">
       <aside className="user-contents">
@@ -55,6 +61,7 @@ const UserDetailView = () => {
             <Link 
               className={`btn ` + setActiveButton('overview')}
               to={`/u/${userId}`}
+              title="Show all submissions from this user"
             >
               <FontAwesomeIcon icon={faUser} className="glyph" />
               <span>Overview</span>
@@ -62,6 +69,7 @@ const UserDetailView = () => {
             <Link 
               className={`btn ` + setActiveButton('story')}
               to={`/u/${userId}/story`}
+              title="Only show story submissions from this user"
             >
               <FontAwesomeIcon icon={faNewspaper} className="glyph" />
             <span>Stories</span>
@@ -69,19 +77,35 @@ const UserDetailView = () => {
             <Link 
               className={`btn ` + setActiveButton('comment')}
               to={`/u/${userId}/comment`}
+              title="Only show comment submissions from this user"
             >
               <FontAwesomeIcon icon={faCommentAlt} className="glyph" />
               <span>Comments</span>
             </Link>
           </header> 
         }
-        { contentIdList.length > 0 && contentIdList.map((contentId) => 
+
+        {/* contentItems */}
+        { contentIdList.length > 0 && contentIdList.slice(0, contentCount).map((contentId) => 
           <UserContentItem 
             key={contentId}
             contentId={contentId}
             restrictContent={contentTypeFilter}
           />
         )}
+
+        {/* load more contentItem */}
+        { contentIdList.length > contentCount &&
+          <button className="btn more-items" onClick={handleLoadMoreItems}>
+            <span>Load more content </span> 
+            <span>
+              ({contentCountIncrement >= contentIdList.length-contentCount 
+                ? contentIdList.length-contentCount 
+                : contentCountIncrement
+                } of {contentIdList.length-contentCount})
+            </span>  
+          </button> 
+        }
       </aside>
 
       <section className="sidebar">
