@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBirthdayCake } from '@fortawesome/free-solid-svg-icons';
-import { faCommentAlt, faNewspaper, faStar, faUser, faUserCircle } from '@fortawesome/free-regular-svg-icons';
+import { faCommentAlt, faNewspaper, faStar, faUser } from '@fortawesome/free-regular-svg-icons';
 import { getUserData } from '../functions/hackernewsApi';
 import UserContentItem from '../components/UserContentItem';
 import { generateHslColor } from '../functions/generateHslColor';
@@ -14,7 +14,7 @@ const UserDetailView = () => {
   const [user, setUser] = useState(null);
   const [contentIdList, setContentIdList] = useState([]);
   const contentCountIncrement = 10;
-  const [contentCount, setContentCount] = useState(contentCountIncrement);
+  // const [contentCount, setContentCount] = useState(contentCountIncrement);
 
   useEffect(() => {
     document.title = `${userId} (u/${userId}) - Readit News`;
@@ -39,6 +39,7 @@ const UserDetailView = () => {
         }
         { contentIdList.length > 0 && contentIdList.map((contentId) => 
           <UserContentItem 
+            key={contentId}
             contentId={contentId}
           />
         )}
