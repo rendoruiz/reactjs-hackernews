@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import ContentGroup from "../components/ContentGroup";
+// import UserContentPanel from "../components/UserContentPanel";
 
 const StoryCatalogView = () => {
   const [contentItemCount, setContentItemCount] = useState(20);
@@ -25,7 +25,7 @@ const StoryCatalogView = () => {
           <button className="btn" onClick={(e) => handleOrderTypeClick({e, order: 'new'})}>New</button>
         </div>
         
-        <ContentGroup orderBy={itemOrder} itemCount={contentItemCount} setItemCount={setContentItemCount} contentType="story" />
+        {/* <UserContentPanel orderBy={itemOrder} itemCount={contentItemCount} setItemCount={setContentItemCount} contentType="story" /> */}
       </section>
       <aside className="sidebar">
 
