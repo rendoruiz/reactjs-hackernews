@@ -280,7 +280,18 @@ button.link-btn:hover,
 .user-detail .user-info-group .info-label + span > .inline-glyph {
   color: var(--color-accent);
 }
-
+.user-detail .user-original-link {
+  grid-column: 1 / 3;
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.user-detail .user-original-link > .glyph {
+  width: 18px;
+  height: 18px;
+}
 
 
 /* view > story detail */

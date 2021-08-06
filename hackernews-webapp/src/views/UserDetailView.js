@@ -7,6 +7,7 @@ import { faCommentAlt, faNewspaper, faStar, faUser } from '@fortawesome/free-reg
 import { getUserData } from '../functions/hackernewsApi';
 import UserContentItem from '../components/UserContentItem';
 import { generateHslColor } from '../functions/generateHslColor';
+import { faHackerNewsSquare } from '@fortawesome/free-brands-svg-icons';
 
 
 const UserDetailView = () => {
@@ -112,22 +113,31 @@ const UserDetailView = () => {
         { user && (
           <div className="user-profile">
             <header>
-              <div className="user-image">
+              <div className="user-image" title="Generated profile image based on user's ID">
                 <div style={{backgroundColor: generateHslColor(user.id)}}>
                   { user.id ? user.id.substring(0, 1) : '' }
                 </div>
               </div>
             </header>
             <main>
-              <h2 className="user-heading">u/{ user.id }</h2>
-              <div className="user-info-group">
+              <h2 className="user-heading" title="User name">u/{ user.id }</h2>
+              <div className="user-info-group" title="User score/karma">
                 <span className="info-label">Karma</span>
                 <span><FontAwesomeIcon className="inline-glyph" icon={faStar} /> { user.karma }</span>
               </div>
               <div className="user-info-group">
-                <span className="info-label">Cake day</span>
+                <span className="info-label" title="User account creation date">Cake day</span>
                 <span><FontAwesomeIcon className="inline-glyph" icon={faBirthdayCake} /> { moment.unix(user.created).format('LL') }</span>
               </div>
+              <a 
+                className="btn more-items user-original-link"
+                href={'https://news.ycombinator.com/submitted?id=' + user.id}
+                target="_blank"
+                title="View user profile on Hacker News"
+              >
+                <FontAwesomeIcon className="glyph" icon={faHackerNewsSquare} />
+                View Original
+              </a>
             </main>
           </div>
         )}
