@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBirthdayCake } from '@fortawesome/free-solid-svg-icons';
@@ -10,14 +10,27 @@ import { generateHslColor } from '../functions/generateHslColor';
 
 
 const UserDetailView = () => {
+  const history = useHistory();
   const { userId, contentType } = useParams();
   const [user, setUser] = useState(null);
   const [contentIdList, setContentIdList] = useState([]);
+  const [contentTypeFilter, setContentTypeFilter] = useState(null);
   const contentCountIncrement = 10;
   // const [contentCount, setContentCount] = useState(contentCountIncrement);
 
   useEffect(() => {
     document.title = `${userId} (u/${userId}) - Readit News`;
+
+    // set contentTypeFilter, redirect to same url without params if does not match
+    if (contentType === 'story') {
+      setContentTypeFilter('story');
+    } else if (contentType === 'comment') {
+      setContentTypeFilter('comment');
+    } else if (contentType) {
+      history.push(`/u/${userId}`);
+    } else {
+      setContentTypeFilter(null);
+    }
 
     getUserData(userId).then((data) => {
       setUser(data);
@@ -25,22 +38,48 @@ const UserDetailView = () => {
         setContentIdList(data.submitted.slice(0, contentCountIncrement));
       }
     });
-  }, [userId]);
+  }, [userId, contentType, history]);
+
+
+  const setActiveButton = (type) => {
+    if (type === contentTypeFilter || (type === 'overview' && !contentTypeFilter)) {
+      return ' active';
+    }
+  }
 
   return ( 
     <div className="page user-detail">
       <aside className="user-contents">
         { contentIdList.length > 0 && 
           <header>
-            <span className="btn"><FontAwesomeIcon icon={faUser} className="glyph" /><span>Overview</span></span>
-            <span className="btn"><FontAwesomeIcon icon={faNewspaper} className="glyph" /><span>Posts</span></span>
-            <span className="btn"><FontAwesomeIcon icon={faCommentAlt} className="glyph" /><span>Comments</span></span>
+            <Link 
+              className={`btn ` + setActiveButton('overview')}
+              to={`/u/${userId}`}
+            >
+              <FontAwesomeIcon icon={faUser} className="glyph" />
+              <span>Overview</span>
+            </Link>
+            <Link 
+              className={`btn ` + setActiveButton('story')}
+              to={`/u/${userId}/story`}
+            >
+              <FontAwesomeIcon icon={faNewspaper} className="glyph" />
+            <span>Stories</span>
+            </Link>
+            <Link 
+              className={`btn ` + setActiveButton('comment')}
+              to={`/u/${userId}/comment`}
+            >
+              <FontAwesomeIcon icon={faCommentAlt} className="glyph" />
+              <span>Comments</span>
+            </Link>
           </header> 
         }
         { contentIdList.length > 0 && contentIdList.map((contentId) => 
           <UserContentItem 
             key={contentId}
             contentId={contentId}
+            restrictContent={contentTypeFilter}
           />
         )}
       </aside>

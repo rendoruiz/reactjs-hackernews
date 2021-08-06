@@ -41,6 +41,7 @@ code, pre {
   --color-subtitle2: rgb(124, 124, 124);
   --color-action: rgb(135, 138, 140);
   --color-action-hover: rgba(26, 26, 27, 0.1);
+  --color-action-active: rgba(135, 138, 140, 0.1);
   --size-glyph: 18px;
 }
 
@@ -278,7 +279,7 @@ section.story-content footer .btn > .glyph {
   margin-bottom: 10px;
 }
 .user-contents > header > .btn {
-  padding: 5px 10px;
+  padding: 7px 10px;
   display: flex;
   gap: 8px;
   display: flex;
@@ -288,6 +289,10 @@ section.story-content footer .btn > .glyph {
 .user-contents > header .btn .glyph {
   height: 20px;
   width: 20px;
+}
+.user-contents > header > .btn.active {
+  background: var(--color-action-active);
+  color: var(--color-accent);
 }
 
 /* views/UserDetailView.js > section.sidebar > user-profile */
