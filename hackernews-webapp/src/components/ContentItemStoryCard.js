@@ -1,9 +1,95 @@
-const ContentItemStoryCard = ({ story = null }) => {
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
+import { Link, useHistory } from 'react-router-dom';
+import ReactHtmlParser from 'react-html-parser';
+import moment from 'moment';
+import { faCommentAlt } from '@fortawesome/free-regular-svg-icons';
+import { faHackerNewsSquare } from '@fortawesome/free-brands-svg-icons';
+
+const ContentItemStoryCard = ({ story = null, isDetailed = false }) => {
+  const history = useHistory();
+
+  const handleClick = (e, storyId) => {
+    if (!e.target.className.includes('btn')) {
+      history.push('/s/' + storyId);
+    }
+  }
 
   return ( 
-    !story ? null : 
+    !story ? null : story.deleted ? null : story.dead ? null :
       <div className="content-card story-card">
-        Story Card
+        <aside className="story-score">
+          <span title="Story score/karma">{ story.score }</span>
+        </aside>
+
+        <section className="story-content" onClick={(e) => handleClick(e, story.id)}>
+          <header>
+            <span>
+              Posted by&nbsp; 
+              <Link 
+                to={"/u/" + story.by} 
+                className="link-btn"
+                title="Open user page"
+              >
+                { "u/" + story.by }
+              </Link>
+            </span>
+            <span>
+              &nbsp;
+              <Link 
+                to={"/s/" + story.id}
+                className="link-btn"
+                title={moment.unix(story.time).format('LLLL')}
+              >
+                { moment.unix(story.time).fromNow() }
+              </Link>
+            </span>
+            <a href={story.url} target="_blank" rel="noreferrer" className="btn story-url-btn" title="Open story link in new tab">
+              <FontAwesomeIcon className="glyph" icon={faExternalLinkAlt} visibility={!story.url ? 'hidden' : 'visible'} />
+            </a>
+          </header>
+
+          <main>
+            <h3 className="story-title"><Link to={"/s/" + story.id}>{ story.title }</Link></h3>
+            <a 
+              className="story-url link-btn" 
+              href={story.url} 
+              target="_blank" 
+              rel="noreferrer"
+              title={story.url}
+            >
+              { story.url && <span>{ story.url }</span> }
+              { story.url && <FontAwesomeIcon className="inline-glyph" icon={faExternalLinkAlt} /> }
+            </a>
+            { story.text && isDetailed &&
+              <div className="story-text link-btn">
+                { ReactHtmlParser(story.text) }
+              </div>
+            }
+          </main>
+
+          <footer>
+            <Link 
+              className="btn"
+              to={'/s/' + story.id}
+            >
+              <FontAwesomeIcon className="glyph" icon={faCommentAlt} />
+              {`${story.descendants ?? 'No'} Comments`}
+            </Link>
+            {/* <span className="btn"><FontAwesomeIcon className="glyph" icon={faShare} /> Share</span>
+            <span className="btn"><FontAwesomeIcon className="glyph" icon={faBookmark} /> Save</span>
+            <span className="btn"><FontAwesomeIcon className="glyph" icon={faEyeSlash} /> Hide</span> */}
+            <a 
+              className="btn"
+              href={'https://news.ycombinator.com/item?id=' + story.id}
+              target="_blank"
+              title="View story on Hacker News"
+            >
+              <FontAwesomeIcon className="glyph" icon={faHackerNewsSquare} />
+              View Original
+            </a>
+          </footer>
+        </section>
       </div>
   );
 }

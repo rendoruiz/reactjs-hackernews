@@ -57,9 +57,9 @@ const UserDetailView = () => {
     <div className="page user-detail">
       <aside className="user-contents">
         { contentIdList.length > 0 && 
-          <header>
+          <header className="navigation-group">
             <Link 
-              className={`btn ` + setActiveButton('overview')}
+              className={`navigation-item ` + setActiveButton('overview')}
               to={`/u/${userId}`}
               title="Show all submissions from this user"
             >
@@ -67,7 +67,7 @@ const UserDetailView = () => {
               <span>Overview</span>
             </Link>
             <Link 
-              className={`btn ` + setActiveButton('story')}
+              className={`navigation-item ` + setActiveButton('story')}
               to={`/u/${userId}/story`}
               title="Only show story submissions from this user"
             >
@@ -75,7 +75,7 @@ const UserDetailView = () => {
             <span>Stories</span>
             </Link>
             <Link 
-              className={`btn ` + setActiveButton('comment')}
+              className={`navigation-item ` + setActiveButton('comment')}
               to={`/u/${userId}/comment`}
               title="Only show comment submissions from this user"
             >
