@@ -9,10 +9,11 @@ import CommentItem from "./CommentItem";
 const ContentItemCommentCard = ({ comment = null }) => {
   const [parentStory, setParentStory] = useState(null);
   const [parentComment, setParentComment] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (!parentStory) {
-      console.log('getParentReferences')
+      // console.log('getParentReferences')
       const getParentReferences = (commentId) => {
         setTimeout(() => {
           getItemData(commentId).then((data) => {
@@ -20,6 +21,7 @@ const ContentItemCommentCard = ({ comment = null }) => {
               // set comment parent story (mandatory)
               if (!parentStory && data.type === 'story') {
                 setParentStory(data);
+                setIsLoading(false);
                 return;
               }
               // set comment parent comment reference (optional)
@@ -88,8 +90,17 @@ const ContentItemCommentCard = ({ comment = null }) => {
         </section>
 
         <section className="comment-content">
-          { parentComment 
-            ? <CommentItem commentObject={comment} parentCommentObject={parentComment} /> 
+          {/* <div>
+            <h3>Comment Parent</h3>
+            { !parentComment && <span>Loading parent comment</span> }
+            { parentComment && <p>{ JSON.stringify(parentComment) }</p> }
+            <div>
+              <h3>Comment</h3>
+              <p>{ JSON.stringify(comment) }</p>
+            </div>
+          </div> */}
+          { isLoading ? <span>Loading comment...</span> : parentComment
+            ? <CommentItem commentObject={comment} parentCommentObject={parentComment} />
             : <CommentItem commentObject={comment} /> 
           }
         </section>

@@ -28,9 +28,7 @@ const CommentItem = ({ id = null, maxCommentDepth, currentCommentDepth, commentO
         })
       }, 1000);
     }
-
-    // console.log('useeffect commentitem');
-  }, [maxCommentDepth, id, commentObject]);
+  }, [maxCommentDepth, id, commentObject, parentCommentObject]);
 
   const handleLoadReplies = () => {
     if (comment.kids) {
