@@ -103,6 +103,10 @@ button.link-btn:hover,
   color: var(--color-accent);
 }
 
+a.accented-link {
+  color: var(--color-accent);
+}
+
 
 /* button - more-items */ 
 .btn.more-items {

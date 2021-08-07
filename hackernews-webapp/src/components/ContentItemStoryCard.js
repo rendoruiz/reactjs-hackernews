@@ -54,7 +54,7 @@ const ContentItemStoryCard = ({ story = null, isDetailed = false }) => {
             <a 
               className="story-url link-btn" 
               href={story.url} 
-              target="_blank" 
+              target="_blank"
               rel="noreferrer"
               title={story.url}
             >
@@ -82,7 +82,7 @@ const ContentItemStoryCard = ({ story = null, isDetailed = false }) => {
             <a 
               className="btn"
               href={'https://news.ycombinator.com/item?id=' + story.id}
-              target="_blank"
+              target="_blank" rel="noreferrer"
               title="View story on Hacker News"
             >
               <FontAwesomeIcon className="glyph" icon={faHackerNewsSquare} />

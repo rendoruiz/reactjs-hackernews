@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import CommentItemGroup from "../components/CommentItemGroup";
-import StoryTemplate from "../components/StoryTemplate"
+// import StoryTemplate from "../components/StoryTemplate"
 import { getItemData } from '../functions/hackernewsApi';
 
 const StoryDetailView = () => {
@@ -35,7 +35,7 @@ const StoryDetailView = () => {
       {
         story && !isLoading && 
         <header className="story">
-          <StoryTemplate story={story} isDetailedView={true} />
+          {/* <StoryTemplate story={story} isDetailedView={true} /> */}
         </header>
       }
       {
