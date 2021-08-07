@@ -6,37 +6,35 @@ const ContentItemCommentCard = ({ comment = null }) => {
   const [parentStory, setParentStory] = useState(null);
   const [parentComment, setParentComment] = useState(null);
 
-  const getParentReferences = (commentId) => {
-    setTimeout(() => {
-      getItemData(commentId).then((data) => {
-        if (data) {
-          // set comment parent story (mandatory)
-          if (!parentStory && data.type === 'story') {
-            setParentStory(data);
-            return;
-          }
-          // set comment parent comment reference (optional)
-          // cannot be the same as parentStory (i.e., redundant duplicate)
-          if (!parentStory && !parentComment && 
-            comment.parent === data.id && data.type === 'comment') {
-            setParentComment(data);
-          }
-          // recurse function until a story object is found
-          if (!parentStory) {
-            getParentReferences(data.parent);
-          }
-        }
-      });
-    }, 1000);
-  }
-
   useEffect(() => {
     if (!parentStory) {
       console.log('getParentReferences')
+      const getParentReferences = (commentId) => {
+        setTimeout(() => {
+          getItemData(commentId).then((data) => {
+            if (data) {
+              // set comment parent story (mandatory)
+              if (!parentStory && data.type === 'story') {
+                setParentStory(data);
+                return;
+              }
+              // set comment parent comment reference (optional)
+              // cannot be the same as parentStory (i.e., redundant duplicate)
+              if (!parentStory && !parentComment && 
+                comment.parent === data.id && data.type === 'comment') {
+                setParentComment(data);
+              }
+              // recurse function until a story object is found
+              if (!parentStory) {
+                getParentReferences(data.parent);
+              }
+            }
+          });
+        }, 1000);
+      }
       getParentReferences(comment.parent);
     }
-    console.log('useeffect')
-  }, [comment]);
+  }, [comment, parentStory, parentComment]);
 
   return ( 
     !comment ? null : comment.deleted ? null : comment.dead ? null :  
