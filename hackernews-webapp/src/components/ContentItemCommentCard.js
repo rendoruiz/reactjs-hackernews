@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { getItemData } from "../functions/hackernewsApi";
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
+import { faCommentAlt } from "@fortawesome/free-regular-svg-icons";
+import CommentItem from "./CommentItem";
 
 const ContentItemCommentCard = ({ comment = null }) => {
   const [parentStory, setParentStory] = useState(null);
@@ -40,18 +44,18 @@ const ContentItemCommentCard = ({ comment = null }) => {
     !comment ? null : comment.deleted ? null : comment.dead ? null :  
       <div className="content-card comment-card">
         <section className="comment-parent-story">
-            <h3>Parent Story</h3>
+          <FontAwesomeIcon className="glyph" icon={faCommentAlt} />
           { !parentStory && <span>Loading parent story</span> }
           { parentStory && 
             <div className="parent-story-content">
               <Link
-                to={"/u/" + parentStory.by} 
+                to={"/u/" + comment.by} 
                 className="link-btn"
                 title="Open user page"
               >
-                { parentStory.by }
+                { comment.by }
               </Link>
-              <span> commented on </span>
+              <span>&nbsp;commented on&nbsp;</span>
               <Link
                 to={"/s/" + parentStory.id} 
                 className="link-btn"
@@ -59,20 +63,35 @@ const ContentItemCommentCard = ({ comment = null }) => {
               >
                 { parentStory.title }
               </Link>
+              { parentStory.url &&
+                <a 
+                  className="story-url link-btn" 
+                  href={parentStory.url} 
+                  target="_blank"
+                  rel="noreferrer"
+                  title={parentStory.url}
+                >
+                  { parentStory.url && <span>{ parentStory.url }</span> }
+                  { parentStory.url && <FontAwesomeIcon className="inline-glyph" icon={faExternalLinkAlt} /> }
+                </a>
+              }
+              <span>&nbsp;&#183; Posted by&nbsp;</span>
+              <Link
+                to={"/u/" + parentStory.by} 
+                className="link-btn"
+                title="Open user page"
+              >
+                u/{ parentStory.by }
+              </Link>
             </div> 
           }
         </section>
 
         <section className="comment-content">
-          <div>
-            <h3>Comment Parent</h3>
-            { !parentComment && <span>Loading parent comment</span> }
-            { parentComment && <p>{ JSON.stringify(parentComment) }</p> }
-            <div>
-              <h3>Comment</h3>
-              <p>{ JSON.stringify(comment) }</p>
-            </div>
-          </div>
+          { parentComment 
+            ? <CommentItem commentObject={comment} parentCommentObject={parentComment} /> 
+            : <CommentItem commentObject={comment} /> 
+          }
         </section>
       </div>
   );
