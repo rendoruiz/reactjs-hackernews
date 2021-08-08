@@ -42,6 +42,10 @@ const ContentItemCommentCard = ({ comment = null }) => {
     }
   }, [comment, parentStory, parentComment]);
 
+  const minifyUrl = (url) => {
+    return url.replace(/(^\w+:|^)\/\//, '').replace('www.', '').substring(0, 25) + '...';
+  }
+
   return ( 
     !comment ? null : comment.deleted ? null : comment.dead ? null :  
       <div className="content-card comment-card">
@@ -52,7 +56,7 @@ const ContentItemCommentCard = ({ comment = null }) => {
             <div className="parent-story-content">
               <Link
                 to={"/u/" + comment.by} 
-                className="link-btn"
+                className="link-btn accented-link"
                 title="Open user page"
               >
                 { comment.by }
@@ -63,24 +67,24 @@ const ContentItemCommentCard = ({ comment = null }) => {
                 className="link-btn"
                 title="Open user page"
               >
-                { parentStory.title }
+                { parentStory.title }&nbsp;
               </Link>
               { parentStory.url &&
                 <a 
-                  className="story-url link-btn" 
+                  className="story-url link-btn accented-link" 
                   href={parentStory.url} 
                   target="_blank"
                   rel="noreferrer"
                   title={parentStory.url}
                 >
-                  { parentStory.url && <span>{ parentStory.url }</span> }
+                  { parentStory.url && <span>{ minifyUrl(parentStory.url) }</span> }
                   { parentStory.url && <FontAwesomeIcon className="inline-glyph" icon={faExternalLinkAlt} /> }
                 </a>
               }
-              <span>&nbsp;&#183; Posted by&nbsp;</span>
+              <span>&nbsp;<b>&#183;</b> Posted by&nbsp;</span>
               <Link
                 to={"/u/" + parentStory.by} 
-                className="link-btn"
+                className="link-btn parent-story-by"
                 title="Open user page"
               >
                 u/{ parentStory.by }

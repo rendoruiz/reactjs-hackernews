@@ -33,7 +33,8 @@ code, pre {
   --border-radius: 4px;
   --accent-rgb: 255, 102, 0;
   --color-accent: rgb(var(--accent-rgb));
-  --color-app-background: rgb(218, 224, 230);
+  --app-background-rgb: 218, 224, 230;
+  --color-app-background: rgb(var(--app-background-rgb));
   --content-background-rgb: 255, 255, 255;
   --color-content-background: rgba(var(--content-background-rgb), 1);
   --color-title: rgb(34, 34, 34);
@@ -217,21 +218,6 @@ a.accented-link {
 
 
 /* view > UserDetailView.js */
-/* .user-detail {
-  
-} */
-
-/* views/UserDetailView.js > aside.user-contents */
-.user-contents {
-  display: grid;
-  align-content: flex-start;
-  justify-content: stretch;
-  row-gap: 10px;
-}
-.user-contents > .btn.more-items {
-  margin-top: 10px;
-}
-
 .user-detail {
   row-gap: 20px;
 }
@@ -246,6 +232,18 @@ a.accented-link {
     grid-row: unset;
   }
 }
+
+/* views/UserDetailView.js > aside.user-contents */
+.user-detail .user-contents {
+  display: grid;
+  align-content: flex-start;
+  justify-content: stretch;
+  row-gap: 10px;
+}
+.user-detail .user-contents > .btn.more-items {
+  margin-top: 10px;
+}
+
 
 /* views/UserDetailView.js > section.sidebar > user-profile */
 .user-detail .user-profile {
@@ -506,4 +504,54 @@ div.story-detail.page {
 /*  */
 .comment-card {
   background: var(--color-content-background);
+}
+
+.comment-card > .comment-parent-story {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  /* column-gap: 10px; */
+  margin: 10px 10px 0;
+  padding-bottom: 10px;
+  border-bottom: 2px solid rgba(var(--app-background-rgb), 0.7);
+}
+.comment-card > .comment-parent-story .glyph {
+  width: 100%;
+  height: 100%;
+  padding: 0 10px 0 1px;
+}
+.comment-card > .comment-parent-story .parent-story-content {
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+.comment-card > .comment-parent-story .parent-story-content > * {
+  word-break: break-all;
+}
+.comment-card > .comment-parent-story .glyph,
+.comment-card > .comment-parent-story .parent-story-content > span,
+.comment-card > .comment-parent-story .parent-story-content > .parent-story-by {
+  color: var(--color-subtitle1);
+}
+.comment-card > .comment-parent-story .parent-story-content > .story-url > .inline-glyph {
+  margin-left: 5px;
+}
+
+.comment-card > .comment-content .comment-expansion {
+  grid-template-rows: unset;
+}
+.comment-card > .comment-content .comment-expansion .vertical-toggle {
+  border-left-style: dashed;
+}
+
+.comment-card > .comment-content {
+  padding: 0 10px 10px 5px;
+}
+.comment-card > .comment-content .comment-item {
+  column-gap: 3px;
+}
+.comment-card > .comment-content .comment-item .comment-item {
+  margin-left: -10px;
+  margin-top: 5px;
+}
+.comment-card > .comment-content .comment-item > .comment-content {
+  row-gap: unset;
 }
