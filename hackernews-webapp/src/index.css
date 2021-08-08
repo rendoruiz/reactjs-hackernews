@@ -238,7 +238,12 @@ a.accented-link {
   display: grid;
   align-content: flex-start;
   justify-content: stretch;
-  row-gap: 10px;
+  row-gap: 5px;
+}
+@media screen and (min-width: 640px) {
+  .user-detail .user-contents {
+    row-gap: 10px;
+  }
 }
 .user-detail .user-contents > .btn.more-items {
   margin-top: 10px;
@@ -314,20 +319,42 @@ a.accented-link {
 
 
 /* view > story detail */
-div.story-detail.page {
+.story-detail {
   display: grid;
   grid-template-columns: unset;
   grid-template-rows: auto 1fr;
-  row-gap: 20px;
+  row-gap: 10px;
   align-items: flex-start;
 }
 .story-detail .comments {
-  padding: 20px 10px;
+  padding: 10px 0;
   border-radius: var(--border-radius);
   background: var(--color-content-background);
+  row-gap: 20px;
 }
 .story-detail .story-item {
   cursor: unset;
+}
+
+.story-detail .comments > .comment-item {
+  padding: 10px 10px 0;
+}
+.story-detail .comments > .comment-item:not(:first-of-type) {
+  border-top: 1px solid var(--color-app-background);
+}
+@media screen and (min-width: 640px) {
+  .story-detail {
+    row-gap: 20px;
+  }
+  .story-detail .comments {
+    padding: 20px 10px;
+    row-gap: 30px;
+  }
+  .story-detail .comments > .comment-item,
+  .story-detail .comments > .comment-item:not(:first-of-type) {
+    border: unset;
+    padding: unset;
+  }
 }
 
 
@@ -397,6 +424,14 @@ div.story-detail.page {
 .comment-item header.comment-header .comment-time {
   font-weight: normal;
 }
+.comment-item main.comment-text {
+  font-size: 0.9rem;
+}
+@media screen and (min-width: 640px) {
+  .comment-item main.comment-text {
+    font-size: 1rem;
+  }
+}
 .comment-item main.comment-text > * {
   margin-top: 8px;
 }
@@ -404,6 +439,7 @@ div.story-detail.page {
   display: grid;
   row-gap: 10px;
 }
+
 
 
 
@@ -559,7 +595,27 @@ div.story-detail.page {
   height: unset;
 }
 .comment-card > .comment-content .comment-item.accented-background > .comment-content {
-  padding: 5px 10px;
+  padding: 8px 10px;
   background: rgba(var(--accent-rgb), 0.15);
   border-radius: var(--border-radius);
+}
+
+
+
+
+
+
+
+/* catalog */
+.catalog {
+  grid-template-columns: unset;
+}
+.catalog > .stories {
+  display: grid;
+  row-gap: 5px;
+}
+@media screen and (min-width: 640px) {
+  .catalog > .stories {
+    row-gap: 10px;
+  }
 }
