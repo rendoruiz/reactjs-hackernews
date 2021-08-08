@@ -186,12 +186,12 @@ a.accented-link {
   display: grid;
   word-break: break-word;
 }
-.page > .stories {
+/* .page > .stories {
 
 }
 .page > .sidebar {
   
-}
+} */
 
 @media screen and (min-width: 640px) {
   .page {
@@ -217,9 +217,9 @@ a.accented-link {
 
 
 /* view > UserDetailView.js */
-.user-detail {
+/* .user-detail {
   
-}
+} */
 
 /* views/UserDetailView.js > aside.user-contents */
 .user-contents {
@@ -384,9 +384,6 @@ div.story-detail.page {
 }
 .comment-item main.comment-text > * {
   margin-top: 8px;
-}
-.comment-item footer.comment-actions {
-  /* margin-bottom: 10px; */
 }
 .comment-item section.comment-content .comment-replies {
   display: grid;
