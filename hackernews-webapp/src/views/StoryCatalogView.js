@@ -13,7 +13,7 @@ const StoryCatalogView = () => {
       getTopStoryIds().then((data) => {
         setStoryItemIdList(data);
         document.title = "Top Stories - Readit News";
-        console.log(data);
+        // console.log(data);
       });
     // }, 1000);
   }, []);

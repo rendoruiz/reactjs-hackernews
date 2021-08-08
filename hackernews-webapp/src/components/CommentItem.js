@@ -72,7 +72,7 @@ const CommentItem = ({ id = null, maxCommentDepth, currentCommentDepth, commentO
               {/* <span>&nbsp;&nbsp;&nbsp;[ID: { comment.id }]</span> */}
             </header>
             <main className="comment-text link-btn">
-              { ReactHtmlParser(comment.text) }
+              { ReactHtmlParser(comment.text.replaceAll(/href/g, `target="_blank" rel="noreferrer" href`)) }
             </main>
             { commentObject
               ? (parentCommentObject && <CommentItem commentObject={commentObject} userId={userId} />)

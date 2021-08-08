@@ -80,7 +80,7 @@ const ContentItemStoryCard = ({ storyObject = null, itemId = null, isDetailed = 
             </a>
             { story.text && isDetailed &&
               <div className="story-text link-btn">
-                { ReactHtmlParser(story.text) }
+                { ReactHtmlParser(story.text.replaceAll(/href/g, `target="_blank" rel="noreferrer" href`)) }
               </div>
             }
           </main>
