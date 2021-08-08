@@ -3,8 +3,9 @@ import ContentItemStoryCard from "../components/ContentItemStoryCard";
 import { getTopStoryIds } from "../functions/hackernewsApi";
 
 const StoryCatalogView = () => {
-  const [itemCount, setItemCount] = useState(20);
-  const [itemOrder, setItemOrder] = useState('top');
+  // const [itemCount, setItemCount] = useState(20);
+  const itemCount = 20;
+  // const [itemOrder, setItemOrder] = useState('top');
   const [storyItemIdList, setStoryItemIdList] = useState(null);
 
   useEffect(() => {
@@ -17,7 +18,7 @@ const StoryCatalogView = () => {
 
   const handleOrderTypeClick = ({ e, order }) => {
     e.preventDefault();
-    setItemOrder(order);
+    // setItemOrder(order);
     console.log(this.type);
   }
 

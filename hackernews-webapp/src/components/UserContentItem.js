@@ -18,7 +18,7 @@ const UserContentItem = ({ contentId = null, restrictContent = null }) => {
   
   const generateContentCard = (contentType) => {
     if (contentType === "story" && restrictContent !== 'comment') {
-      return <ContentItemStoryCard story={contentItem} />
+      return <ContentItemStoryCard storyObject={contentItem} />
     } else if (contentType === "comment" && restrictContent !== 'story') {
       return <ContentItemCommentCard comment={contentItem} />
     } else {

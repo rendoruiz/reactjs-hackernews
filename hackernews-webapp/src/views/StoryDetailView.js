@@ -35,7 +35,7 @@ const StoryDetailView = () => {
       {
         story && !isLoading && 
         <header className="story">
-          <ContentItemStoryCard story={story} isDetailed={true} />
+          <ContentItemStoryCard storyObject={story} isDetailed={true} />
         </header>
       }
       {
