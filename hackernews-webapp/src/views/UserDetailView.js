@@ -132,7 +132,7 @@ const UserDetailView = () => {
               </div>
               <a 
                 className="btn more-items user-original-link"
-                href={'https://news.ycombinator.com/submitted?id=' + user.id}
+                href={'https://news.ycombinator.com/user?id=' + user.id}
                 target="_blank" rel="noreferrer"
                 title="View user profile on Hacker News"
               >
