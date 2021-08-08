@@ -225,10 +225,26 @@ a.accented-link {
 .user-contents {
   display: grid;
   align-content: flex-start;
+  justify-content: stretch;
   row-gap: 10px;
 }
 .user-contents > .btn.more-items {
   margin-top: 10px;
+}
+
+.user-detail {
+  row-gap: 20px;
+}
+.user-detail .sidebar {
+  grid-row: 1;
+}
+@media screen and (min-width: 960px) {
+  .user-detail {
+    row-gap: unset;
+  }
+  .user-detail .sidebar {
+    grid-row: unset;
+  }
 }
 
 /* views/UserDetailView.js > section.sidebar > user-profile */
@@ -239,6 +255,7 @@ a.accented-link {
 .user-detail .user-profile > header {
   padding: 0 10px;
   background-color: var(--color-accent);
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
 }
 .user-detail .user-image {
   border-radius: var(--border-radius);
