@@ -1,14 +1,19 @@
 import { useState, useEffect } from "react";
-
-// import UserContentPanel from "../components/UserContentPanel";
+import ContentItemStoryCard from "../components/ContentItemStoryCard";
+import { getTopStoryIds } from "../functions/hackernewsApi";
 
 const StoryCatalogView = () => {
-  const [contentItemCount, setContentItemCount] = useState(20);
+  const [itemCount, setItemCount] = useState(20);
   const [itemOrder, setItemOrder] = useState('top');
+  const [storyItemIdList, setStoryItemIdList] = useState(null);
 
   useEffect(() => {
-    document.title = "Catalog";
-  }, [])
+    getTopStoryIds().then((data) => {
+      setStoryItemIdList(data);
+      document.title = "Top Stories - Readit News";
+      console.log(data);
+    });
+  }, []);
 
   const handleOrderTypeClick = ({ e, order }) => {
     e.preventDefault();
@@ -25,7 +30,7 @@ const StoryCatalogView = () => {
           <button className="btn" onClick={(e) => handleOrderTypeClick({e, order: 'new'})}>New</button>
         </div>
         
-        {/* <UserContentPanel orderBy={itemOrder} itemCount={contentItemCount} setItemCount={setContentItemCount} contentType="story" /> */}
+        { !storyItemIdList ? <span>Loading stories...</span> : storyItemIdList.slice(0, itemCount).map((itemId) => <ContentItemStoryCard key={itemId} itemId={itemId} />) } <ContentItemStoryCard />
       </section>
       <aside className="sidebar">
 

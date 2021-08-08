@@ -5,15 +5,26 @@ import ReactHtmlParser from 'react-html-parser';
 import moment from 'moment';
 import { faCommentAlt } from '@fortawesome/free-regular-svg-icons';
 import { faHackerNewsSquare } from '@fortawesome/free-brands-svg-icons';
+import { useEffect, useState } from 'react';
+import { getItemData } from '../functions/hackernewsApi';
 
-const ContentItemStoryCard = ({ story = null, isDetailed = false }) => {
+const ContentItemStoryCard = ({ storyObject = null, itemId = null, isDetailed = false }) => {
   const history = useHistory();
+  const [story, setStory] = useState(storyObject ?? null);
 
   const handleClick = (e, storyId) => {
     if (!e.target.className.includes('btn')) {
       history.push('/s/' + storyId);
     }
   }
+
+  useEffect(() => {
+    if (!story && itemId) {
+      getItemData(itemId).then((data) => {
+        setStory(data);
+      });
+    }
+  }, [story, itemId]);
 
   return ( 
     !story ? null : story.deleted ? null : story.dead ? null :
