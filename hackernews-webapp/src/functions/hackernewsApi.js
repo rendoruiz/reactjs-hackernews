@@ -7,7 +7,7 @@ const userBaseUrl = baseUrl + 'user/';
 
 const getStoryIdList = async (order = null) => {
   const fetchUrl = order === 'best'
-    ? bestStoriesUrl : 'new'
+    ? bestStoriesUrl : order === 'new'
     ? newStoriesUrl : topStoriesUrl
   return await fetch(fetchUrl)
     .then((response) => {
