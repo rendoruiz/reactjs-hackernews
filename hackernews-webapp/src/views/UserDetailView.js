@@ -92,6 +92,7 @@ const UserDetailView = () => {
             key={contentId}
             contentId={contentId}
             restrictContent={contentTypeFilter}
+            userId={userId}
           />
         )}
 

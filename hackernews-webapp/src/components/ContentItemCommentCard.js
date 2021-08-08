@@ -6,7 +6,7 @@ import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 import { faCommentAlt } from "@fortawesome/free-regular-svg-icons";
 import CommentItem from "./CommentItem";
 
-const ContentItemCommentCard = ({ comment = null }) => {
+const ContentItemCommentCard = ({ comment = null, userId = null }) => {
   const [parentStory, setParentStory] = useState(null);
   const [parentComment, setParentComment] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -96,16 +96,15 @@ const ContentItemCommentCard = ({ comment = null }) => {
         <section className="comment-content">
           {/* <div>
             <h3>Comment Parent</h3>
-            { !parentComment && <span>Loading parent comment</span> }
-            { parentComment && <p>{ JSON.stringify(parentComment) }</p> }
+            { parentComment && <p>{ parentComment.by } <span>[{ parentComment.kids.join(', ') }]</span></p> }
             <div>
               <h3>Comment</h3>
-              <p>{ JSON.stringify(comment) }</p>
+              <p>{ comment.by } <span>{ comment.id }</span></p>
             </div>
           </div> */}
           { isLoading ? <span>Loading comment...</span> : parentComment
-            ? <CommentItem commentObject={comment} parentCommentObject={parentComment} />
-            : <CommentItem commentObject={comment} /> 
+            ? <CommentItem commentObject={comment} parentCommentObject={parentComment} userId={userId} />
+            : <CommentItem commentObject={comment} userId={userId} /> 
           }
         </section>
       </div>

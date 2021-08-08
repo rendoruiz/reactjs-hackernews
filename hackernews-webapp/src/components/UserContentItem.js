@@ -3,7 +3,7 @@ import { getItemData } from "../functions/hackernewsApi";
 import ContentItemCommentCard from "./ContentItemCommentCard";
 import ContentItemStoryCard from "./ContentItemStoryCard";
 
-const UserContentItem = ({ contentId = null, restrictContent = null }) => {
+const UserContentItem = ({ contentId = null, restrictContent = null, userId = null }) => {
   const [contentItem, setContentItem] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -17,10 +17,10 @@ const UserContentItem = ({ contentId = null, restrictContent = null }) => {
   }, [contentId]);
   
   const generateContentCard = (contentType) => {
-    if (contentType === "story" && restrictContent !== 'comment') {
-      return <ContentItemStoryCard storyObject={contentItem} />
-    } else if (contentType === "comment" && restrictContent !== 'story') {
-      return <ContentItemCommentCard comment={contentItem} />
+    if (contentType === "story" && restrictContent !== 'comment' && userId) {
+      return <ContentItemStoryCard storyObject={contentItem} userId={userId} />
+    } else if (contentType === "comment" && restrictContent !== 'story' && userId) {
+      return <ContentItemCommentCard comment={contentItem} userId={userId} />
     } else {
       return null;
     }

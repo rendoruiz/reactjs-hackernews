@@ -549,9 +549,17 @@ div.story-detail.page {
   column-gap: 3px;
 }
 .comment-card > .comment-content .comment-item .comment-item {
-  margin-left: -10px;
-  margin-top: 5px;
+  margin-left: -12px;
 }
 .comment-card > .comment-content .comment-item > .comment-content {
-  row-gap: unset;
+  row-gap: 5px;
+  margin-top: 10px;
+}
+.comment-card > .comment-content .comment-item > .comment-content > .comment-header {
+  height: unset;
+}
+.comment-card > .comment-content .comment-item.accented-background > .comment-content {
+  padding: 5px 10px;
+  background: rgba(var(--accent-rgb), 0.15);
+  border-radius: var(--border-radius);
 }

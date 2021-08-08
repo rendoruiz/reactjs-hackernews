@@ -8,7 +8,7 @@ import { getItemData } from '../functions/hackernewsApi';
 import { generateHslColor } from "../functions/generateHslColor";
 import { getMinifiedMomentTime } from "../functions/getMinifiedMomentTime";
 
-const CommentItem = ({ id = null, maxCommentDepth, currentCommentDepth, commentObject = null, parentCommentObject = null }) => {
+const CommentItem = ({ id = null, maxCommentDepth, currentCommentDepth, commentObject = null, parentCommentObject = null, userId = null }) => {
   const [comment, setComment] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const commentDepth = currentCommentDepth ?? 1;
@@ -42,7 +42,7 @@ const CommentItem = ({ id = null, maxCommentDepth, currentCommentDepth, commentO
     !id && !commentObject ? null : isLoading 
       ? <span className="loader">Loading comment...</span> 
       : comment.deleted ? null : comment.dead ? null :
-        <div className="comment-item">
+        <div className={"comment-item" +  (comment.by === userId ? ' accented-background' : '')}>
           <aside className="comment-expansion">
             { commentObject ? null :
               <Link 
@@ -75,7 +75,7 @@ const CommentItem = ({ id = null, maxCommentDepth, currentCommentDepth, commentO
               { ReactHtmlParser(comment.text) }
             </main>
             { commentObject
-              ? (parentCommentObject && <CommentItem commentObject={commentObject} />)
+              ? (parentCommentObject && <CommentItem commentObject={commentObject} userId={userId} />)
               : <div className="comment-replies">
                   {
                     comment.kids && commentDepth < maxCommentDepth
