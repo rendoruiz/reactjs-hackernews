@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import CommentItemGroup from "../components/CommentItemGroup";
-import StoryTemplate from "../components/StoryTemplate"
+import ContentItemStoryCard from "../components/ContentItemStoryCard";
 import { getItemData } from '../functions/hackernewsApi';
 
 const StoryDetailView = () => {
@@ -15,13 +15,13 @@ const StoryDetailView = () => {
   const [commentItemCount, setCommentItemCount] = useState(defaultCommentItemCount);
 
   useEffect(() => { 
-    setTimeout(() => {
+    // setTimeout(() => {
       getItemData(storyId).then((data) => {
         setStory(data);
         setIsLoading(false);
-        document.title = `${data.title} - PlebbitNews`;
+        document.title = `${data.title} - Readit News`;
       })
-    }, 1000);
+    // }, 1000);
   }, [maxCommentDepth, storyId, commentItemCount]);
 
   const handleLoadMoreItems = () => {
@@ -35,7 +35,7 @@ const StoryDetailView = () => {
       {
         story && !isLoading && 
         <header className="story">
-          <StoryTemplate story={story} isDetailedView={true} />
+          <ContentItemStoryCard storyObject={story} isDetailed={true} />
         </header>
       }
       {
@@ -46,7 +46,7 @@ const StoryDetailView = () => {
             maxCommentDepth={maxCommentDepth} 
           />
 
-          { !isLoading && story.kids.length > commentItemCount &&
+          { story.kids.length > commentItemCount &&
             <button className="btn more-items" onClick={handleLoadMoreItems}>
               <span>Load more comments </span> 
               <span>

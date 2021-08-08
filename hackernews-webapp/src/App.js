@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import StoryCatalogView from './containers/StoryCatalogView';
-import StoryDetailView from './containers/StoryDetailView';
-import UserDetailView from './containers/UserDetailView';
+import StoryCatalogView from './views/StoryCatalogView';
+import StoryDetailView from './views/StoryDetailView';
+import UserDetailView from './views/UserDetailView';
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
             <Route path="/s/:id">
               <StoryDetailView />
             </Route>
-            <Route path="/u/:id">
+            <Route path="/u/:userId/:contentType?">
               <UserDetailView />
             </Route>
             <Route path="*">
