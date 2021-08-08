@@ -15,13 +15,13 @@ const StoryDetailView = () => {
   const [commentItemCount, setCommentItemCount] = useState(defaultCommentItemCount);
 
   useEffect(() => { 
-    setTimeout(() => {
+    // setTimeout(() => {
       getItemData(storyId).then((data) => {
         setStory(data);
         setIsLoading(false);
         document.title = `${data.title} - Readit News`;
       })
-    }, 1000);
+    // }, 1000);
   }, [maxCommentDepth, storyId, commentItemCount]);
 
   const handleLoadMoreItems = () => {

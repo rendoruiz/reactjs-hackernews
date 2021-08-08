@@ -8,12 +8,12 @@ const UserContentItem = ({ contentId = null, restrictContent = null, userId = nu
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => {
+    // setTimeout(() => {
       getItemData(contentId).then((data) => {
         setContentItem(data);
         setIsLoading(false);
       });
-    }, 1000);
+    // }, 1000);
   }, [contentId]);
   
   const generateContentCard = (contentType) => {

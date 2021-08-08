@@ -19,14 +19,14 @@ const CommentItem = ({ id = null, maxCommentDepth, currentCommentDepth, commentO
       setComment(parentCommentObject ?? commentObject);
       setIsLoading(false);
     } else {
-      setTimeout(() => {
+      // setTimeout(() => {
         getItemData(id).then((data) => {
           if (data) {
             setComment(data);
             setIsLoading(false);
           }
         })
-      }, 1000);
+      // }, 1000);
     }
   }, [maxCommentDepth, id, commentObject, parentCommentObject]);
 

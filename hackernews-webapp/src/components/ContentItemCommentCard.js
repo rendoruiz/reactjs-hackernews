@@ -15,7 +15,7 @@ const ContentItemCommentCard = ({ comment = null, userId = null }) => {
     if (!parentStory) {
       // console.log('getParentReferences')
       const getParentReferences = (commentId) => {
-        setTimeout(() => {
+        // setTimeout(() => {
           getItemData(commentId).then((data) => {
             if (data) {
               // set comment parent story (mandatory)
@@ -36,7 +36,7 @@ const ContentItemCommentCard = ({ comment = null, userId = null }) => {
               }
             }
           });
-        }, 1000);
+        // }, 1000);
       }
       getParentReferences(comment.parent);
     }
