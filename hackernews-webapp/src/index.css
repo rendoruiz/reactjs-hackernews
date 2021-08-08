@@ -321,11 +321,11 @@ div.story-detail.page {
   display: grid;
   row-gap: 30px;
 }
-.comments .comment-replies > div > .comment-item {
+.comments .comment-replies > .comment-item {
   margin-top: 10px;
-  margin-left: -10px;
+  margin-left: -15px;
 }
-.comments .comment-replies > div:first-of-type > .comment-item {
+.comments .comment-replies > .comment-item:first-of-type {
   margin-top: 20px;
 }
 .comment-item {
@@ -355,6 +355,15 @@ div.story-detail.page {
   height: calc(100% - 10px);
   align-self: flex-end;
 }
+/* remove vertical toggle on top level comments on mobile */
+.comments > .comment-item > .comment-expansion > .vertical-toggle {
+  display: none;
+}
+@media screen and (min-width: 640px) {
+  .comments > .comment-item > .comment-expansion > .vertical-toggle {
+    display: block;
+  }
+}
 .comment-item section.comment-content {
   display: grid;
   row-gap: 5px;
@@ -379,11 +388,12 @@ div.story-detail.page {
 .comment-item footer.comment-actions {
   /* margin-bottom: 10px; */
 }
-
 .comment-item section.comment-content .comment-replies {
   display: grid;
   row-gap: 10px;
 }
+
+
 
 
 
