@@ -11,6 +11,7 @@ import { getItemData } from '../functions/hackernewsApi';
 const ContentItemStoryCard = ({ storyObject = null, itemId = null, isDetailed = false }) => {
   const history = useHistory();
   const [story, setStory] = useState(storyObject ?? null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleClick = (e, storyId) => {
     if (!e.target.className.includes('btn')) {
@@ -19,15 +20,20 @@ const ContentItemStoryCard = ({ storyObject = null, itemId = null, isDetailed = 
   }
 
   useEffect(() => {
-    if (!story && itemId) {
-      getItemData(itemId).then((data) => {
-        setStory(data);
-      });
-    }
-  }, [story, itemId]);
+    // setTimeout(() => {
+      if (story && !itemId) {
+        setIsLoading(false);
+      } else if (!story && itemId) {
+        getItemData(itemId).then((data) => {
+          setStory(data);
+          setIsLoading(false);
+        });
+      } 
+    // }, 1000);
+  }, [story, itemId, isLoading]);
 
   return ( 
-    !story ? null : story.deleted ? null : story.dead ? null :
+    (!story && !itemId) ? null : isLoading ? <span>Loading story card...</span> : story.deleted ? null : story.dead ? null :
       <div className="content-card story-card">
         <aside className="story-score">
           <span title="Story score/karma">{ story.score }</span>

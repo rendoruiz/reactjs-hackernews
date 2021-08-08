@@ -9,11 +9,13 @@ const StoryCatalogView = () => {
   const [storyItemIdList, setStoryItemIdList] = useState(null);
 
   useEffect(() => {
-    getTopStoryIds().then((data) => {
-      setStoryItemIdList(data);
-      document.title = "Top Stories - Readit News";
-      console.log(data);
-    });
+    // setTimeout(() => {
+      getTopStoryIds().then((data) => {
+        setStoryItemIdList(data);
+        document.title = "Top Stories - Readit News";
+        console.log(data);
+      });
+    // }, 1000);
   }, []);
 
   // const handleOrderTypeClick = ({ e, order }) => {
@@ -31,7 +33,7 @@ const StoryCatalogView = () => {
           <button className="btn" onClick={(e) => handleOrderTypeClick({e, order: 'new'})}>New</button>
         </div> */}
         
-        { !storyItemIdList ? <span>Loading stories...</span> : storyItemIdList.slice(0, itemCount).map((itemId) => <ContentItemStoryCard key={itemId} itemId={itemId} />) } <ContentItemStoryCard />
+        { !storyItemIdList ? <span>Loading stories...</span> : storyItemIdList.slice(0, itemCount).map((itemId) => <ContentItemStoryCard key={itemId} itemId={itemId} /> ) } <ContentItemStoryCard />
       </section>
       <aside className="sidebar">
 
