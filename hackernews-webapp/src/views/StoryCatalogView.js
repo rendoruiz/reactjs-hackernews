@@ -16,20 +16,20 @@ const StoryCatalogView = () => {
     });
   }, []);
 
-  const handleOrderTypeClick = ({ e, order }) => {
-    e.preventDefault();
-    // setItemOrder(order);
-    console.log(this.type);
-  }
+  // const handleOrderTypeClick = ({ e, order }) => {
+  //   e.preventDefault();
+  //   // setItemOrder(order);
+  //   console.log(this.type);
+  // }
 
   return ( 
     <div className="page catalog">
       <section className="stories">
-        <div className="stories-actions">
+        {/* <div className="stories-actions">
           <button className="btn" onClick={(e) => handleOrderTypeClick({e, order: 'top'})}>Top</button>
           <button className="btn" onClick={(e) => handleOrderTypeClick({e, order: 'best'})}>Best</button>
           <button className="btn" onClick={(e) => handleOrderTypeClick({e, order: 'new'})}>New</button>
-        </div>
+        </div> */}
         
         { !storyItemIdList ? <span>Loading stories...</span> : storyItemIdList.slice(0, itemCount).map((itemId) => <ContentItemStoryCard key={itemId} itemId={itemId} />) } <ContentItemStoryCard />
       </section>
