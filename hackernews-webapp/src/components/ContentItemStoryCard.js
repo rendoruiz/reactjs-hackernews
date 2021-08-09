@@ -25,15 +25,15 @@ const ContentItemStoryCard = ({ storyObject = null, itemId = null, isDetailed = 
         setIsLoading(false);
       } else if (!story && itemId) {
         getItemData(itemId).then((data) => {
-          setStory(data);
-          setIsLoading(false);
+              setStory(data);
+              setIsLoading(false);
         });
       } 
     // }, 1000);
   }, [story, itemId, isLoading]);
 
   return ( 
-    (!story && !itemId) ? null : isLoading ? <span>Loading story card...</span> : story.deleted ? null : story.dead ? null :
+    (!story && !itemId) ? null : isLoading ? <span>Loading story card...</span> : !story ? null : story.deleted ? null : story.dead ? null :
       <div className="content-card story-card">
         <aside className="story-score">
           <span title="Story score/karma">{ story.score }</span>
