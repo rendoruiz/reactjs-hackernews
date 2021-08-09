@@ -41,7 +41,7 @@ const CommentItem = ({ id = null, maxCommentDepth, currentCommentDepth, commentO
   return ( 
     !id && !commentObject ? null : isLoading 
       ? <span className="loader">Loading comment...</span> 
-      : comment.deleted ? null : comment.dead ? null :
+      : !comment ? null : comment.deleted ? null : comment.dead ? null :
         <div className={"comment-item" +  (comment.by === userId ? ' accented-background' : '')}>
           <aside className="comment-expansion">
             { commentObject ? null :
