@@ -430,6 +430,7 @@ a.accented-link {
   font-weight: normal;
 }
 .comment-item main.comment-text {
+  word-break: break-word;
   font-size: 0.9rem;
 }
 @media screen and (min-width: 640px) {
@@ -521,6 +522,7 @@ a.accented-link {
 }
 .story-card section.story-content .story-text {
   margin-top: 10px;
+  word-break: break-word;
 }
 .story-card section.story-content footer {
   margin-top: 30px;
@@ -565,7 +567,8 @@ a.accented-link {
   line-height: 1.5;
 }
 .comment-card > .comment-parent-story .parent-story-content > * {
-  word-break: break-all;
+  word-break: break-word;
+  display: inline-block;
 }
 .comment-card > .comment-parent-story .glyph,
 .comment-card > .comment-parent-story .parent-story-content > span,
