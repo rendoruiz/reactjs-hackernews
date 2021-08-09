@@ -26,8 +26,10 @@ const ContentItemCommentCard = ({ comment = null, userId = null }) => {
               }
               // set comment parent comment reference (optional)
               // cannot be the same as parentStory (i.e., redundant duplicate)
+              // dead or deleted parent comment will not be rendered
               if (!parentStory && !parentComment && 
-                comment.parent === data.id && data.type === 'comment') {
+                comment.parent === data.id && data.type === 'comment'
+                && !data.deleted && !data.dead) {
                 setParentComment(data);
               }
               // recurse function until a story object is found
@@ -96,10 +98,12 @@ const ContentItemCommentCard = ({ comment = null, userId = null }) => {
         <section className="comment-content">
           {/* <div>
             <h3>Comment Parent</h3>
-            { parentComment && <p>{ parentComment.by } <span>[{ parentComment.kids.join(', ') }]</span></p> }
+            { parentComment && <p>{ parentComment.by } { parentComment.id } <span>[{ parentComment.kids.join(', ') }]</span></p> }
+            <p>{ parentComment && JSON.stringify(parentComment) }</p>
             <div>
               <h3>Comment</h3>
               <p>{ comment.by } <span>{ comment.id }</span></p>
+              <p>{ JSON.stringify(comment) }</p>
             </div>
           </div> */}
           { isLoading ? <span>Loading comment...</span> : parentComment
