@@ -67,10 +67,11 @@ const ContentItemCommentCard = ({ comment = null, userId = null }) => {
               <Link
                 to={"/s/" + parentStory.id} 
                 className="link-btn"
-                title="Open user page"
+                title="Open story"
               >
-                { parentStory.title }&nbsp;
+                { parentStory.title }
               </Link>
+              <span>&nbsp;</span>
               { parentStory.url &&
                 <a 
                   className="story-url link-btn accented-link" 
