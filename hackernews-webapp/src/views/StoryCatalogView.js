@@ -7,12 +7,12 @@ import { Link, useHistory, useParams } from "react-router-dom";
 import { faBurn, faCertificate, faChartLine } from "@fortawesome/free-solid-svg-icons";
 
 const StoryCatalogView = () => {
-  // const [itemCount, setItemCount] = useState(20);
-  const itemCount = 20;
   const { order } = useParams();
   const [itemOrder, setItemOrder] = useState(null);
-  const [storyItemIdList, setStoryItemIdList] = useState(null);
+  const [storyItemIdList, setStoryItemIdList] = useState([]);
   const history = useHistory();
+  const itemCountIncrement = 20;
+  const [itemCount, setItemCount] = useState(itemCountIncrement);
 
   useEffect(() => {
     // setTimeout(() => {
@@ -56,6 +56,12 @@ const StoryCatalogView = () => {
     }
   }
 
+  const handleLoadMoreItems = () => {
+    if (storyItemIdList.length > itemCount) {
+      setItemCount(itemCount + itemCountIncrement);
+    }
+  }
+
   return ( 
     <div className="page catalog">
       <section className="stories">
@@ -85,8 +91,21 @@ const StoryCatalogView = () => {
             <span>New Story</span>
           </Link>
         </header> 
-        
-        { !storyItemIdList ? <span>Loading stories...</span> : storyItemIdList.slice(0, itemCount).map((itemId) => <ContentItemStoryCard key={itemId} itemId={itemId} /> ) } 
+
+        { storyItemIdList.length <= 0 ? <span>Loading stories...</span> : storyItemIdList.slice(0, itemCount).map((itemId) => <ContentItemStoryCard key={itemId} itemId={itemId} /> ) } 
+
+        {/* load more story items */}
+        { storyItemIdList.length <= 0 ? null : storyItemIdList.length > itemCount &&
+          <button className="btn more-items" onClick={handleLoadMoreItems}>
+            <span>Load more stories </span> 
+            <span>
+              ({itemCountIncrement >= storyItemIdList.length-itemCount 
+                ? storyItemIdList.length-itemCount 
+                : itemCountIncrement
+                } of {storyItemIdList.length-itemCount})
+            </span>  
+          </button> 
+        }
       </section>
       <aside className="sidebar">
 
