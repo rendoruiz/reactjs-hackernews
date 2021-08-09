@@ -16,7 +16,6 @@ const StoryCatalogView = () => {
 
   useEffect(() => {
     // setTimeout(() => {
-
       if (order === 'best') {
         setDocumentTitle('Best');
         setItemOrder('best');
@@ -44,7 +43,6 @@ const StoryCatalogView = () => {
       else {
         history.push(`/`);
       }
-
     // }, 1000);
   }, [order, history]);
 
@@ -54,7 +52,6 @@ const StoryCatalogView = () => {
 
   const setActiveButton = (type) => {
     if (type === itemOrder) {
-      console.log('qq')
       return ' active';
     }
   }
@@ -88,13 +85,6 @@ const StoryCatalogView = () => {
             <span>New Story</span>
           </Link>
         </header> 
-
-
-        {/* <div className="stories-actions">
-          <button className="btn" onClick={(e) => handleOrderTypeClick({e, order: 'top'})}>Top</button>
-          <button className="btn" onClick={(e) => handleOrderTypeClick({e, order: 'best'})}>Best</button>
-          <button className="btn" onClick={(e) => handleOrderTypeClick({e, order: 'new'})}>New</button>
-        </div> */}
         
         { !storyItemIdList ? <span>Loading stories...</span> : storyItemIdList.slice(0, itemCount).map((itemId) => <ContentItemStoryCard key={itemId} itemId={itemId} /> ) } 
       </section>
