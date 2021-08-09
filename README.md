@@ -2,7 +2,7 @@
 
 # Readit News
 
-Using the Hacker News API with a twist for fun and knowledge, after going through some React.js tutorials.
+Using the Hacker News API with a twist for fun and knowledge, after going through some React.js tutorials<sup>[[0](#source-1)]</sup>.
 
 ## Usage
 
@@ -30,4 +30,4 @@ Using the Hacker News API with a twist for fun and knowledge, after going throug
 
 - [Reddit for UI/UX](https://www.reddit.com)
 - [Hacker News API @ GitHub](https://github.com/HackerNews/API)
-- [The Net Ninja's Full Modern React Video Tutorial @ YouTube](https://www.youtube.com/playlist?list=PL4cUxeGkcC9gZD-Tvwfod2gaISzfRiP9d)
+- <sup id="source-1">[0]</sup>[The Net Ninja's Full Modern React Video Tutorial @ YouTube](https://www.youtube.com/playlist?list=PL4cUxeGkcC9gZD-Tvwfod2gaISzfRiP9d)

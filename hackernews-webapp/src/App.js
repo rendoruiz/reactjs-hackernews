@@ -9,7 +9,7 @@ function App() {
       <div className="App">
         <div className="content">
           <Switch>
-            <Route exact path="/">
+            <Route exact path="/:order?">
               <StoryCatalogView />
             </Route>
             <Route path="/s/:id">
@@ -19,7 +19,7 @@ function App() {
               <UserDetailView />
             </Route>
             <Route path="*">
-              <StoryCatalogView />
+              {/* <StoryCatalogView /> */}
             </Route>
           </Switch>
         </div>
