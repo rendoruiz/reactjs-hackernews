@@ -7,7 +7,7 @@ import api from '../api';
 
 const StoryView = () => {
   const { id: storyId } = useParams();
-  const [story, setStory] = useState({});
+  const [story, setStory] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   // const [maxCommentDepth, setMaxCommentDepth] = useState(3);
   const maxCommentDepth = 3;
@@ -17,9 +17,14 @@ const StoryView = () => {
   useEffect(() => { 
     // setTimeout(() => {
       api.get(`item/${storyId}.json`).then((res) => {
-        setStory(res.data);
+        if (res.data) {
+          setStory(res.data);
+          document.title = `${res.data.title} - Readit News`;
+        }
+      }).catch((error) => {
+        console.log('StoryView ' + error);
+      }).then(() => {
         setIsLoading(false);
-        document.title = `${res.data.title} - Readit News`;
       });
     // }, 1000);
   }, [maxCommentDepth, storyId, commentItemCount]);
@@ -30,7 +35,7 @@ const StoryView = () => {
     }
   }
 
-  return ( 
+  return isLoading ? <span>Loading Story...</span> : !story ? <span>Connection error</span> : ( 
     <div className="story-detail container">
       {
         story && !isLoading && 

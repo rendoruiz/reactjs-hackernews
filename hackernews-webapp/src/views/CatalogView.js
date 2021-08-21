@@ -1,35 +1,44 @@
 import { useState, useEffect } from "react";
 import ContentItemStoryCard from "../components/ContentItemStoryCard";
 
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { faBurn, faCertificate, faChartLine } from "@fortawesome/free-solid-svg-icons";
 import api from '../api';
 import NavigationItem from "../components/NavigationItem";
 
 const CatalogView = () => {
-  const { order } = useParams();
   const location = useLocation();
-  // const [itemOrder, setItemOrder] = useState(null);
-  const [storyItemIdList, setStoryItemIdList] = useState([]);
+  const [storyIdList, setStoryIdList] = useState([]);
   const itemCountIncrement = 20;
   const [itemCount, setItemCount] = useState(itemCountIncrement);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const contentOrder = location.pathname.split('/').pop();
-    console.log(contentOrder === null);
+    let request;
     // setTimeout(() => {
       if (contentOrder === 'best') {
         setDocumentTitle('Best');
-        api.get('beststories.json').then((res) => setStoryItemIdList(res.data));
+        request = 'beststories';
       } 
       else if (contentOrder === 'new') {
         setDocumentTitle('New');
-        api.get('newstories.json').then((res) => setStoryItemIdList(res.data));
+        request = 'newstories';
       } 
       else {
         setDocumentTitle('Top');
-        api.get('topstories.json').then((res) => setStoryItemIdList(res.data));
+        request = 'topstories';
       } 
+
+      api.get(request + '.json').then((res) => { 
+        if (res.data) {
+          setStoryIdList(res.data)
+        }
+      }).catch((error) => {
+        console.log('CatalogView ' + error);
+      }).then(() => {
+        setIsLoading(false);
+      });
     // }, 1000);
   }, [location]);
 
@@ -38,12 +47,12 @@ const CatalogView = () => {
   }
 
   const handleLoadMoreItems = () => {
-    if (storyItemIdList.length > itemCount) {
+    if (storyIdList.length > itemCount) {
       setItemCount(itemCount + itemCountIncrement);
     }
   }
 
-  return ( 
+  return isLoading ? <span>Loading Stories...</span> : storyIdList.length <= 0 ? <span>Connection error</span> : ( 
     <div className="page catalog">
       <section className="stories">
         <nav className="navigation-group">
@@ -67,17 +76,17 @@ const CatalogView = () => {
           />
         </nav> 
 
-        { storyItemIdList.length <= 0 ? <span>Loading stories...</span> : storyItemIdList.slice(0, itemCount).map((itemId) => <ContentItemStoryCard key={itemId} itemId={itemId} /> ) } 
+        { storyIdList.length <= 0 ? <span>Loading stories...</span> : storyIdList.slice(0, itemCount).map((itemId) => <ContentItemStoryCard key={itemId} itemId={itemId} /> ) } 
 
         {/* load more story items */}
-        { storyItemIdList.length <= 0 ? null : storyItemIdList.length > itemCount &&
+        { storyIdList.length <= 0 ? null : storyIdList.length > itemCount &&
           <button className="btn more-items" onClick={handleLoadMoreItems}>
             <span>Load more stories </span> 
             <span>
-              ({itemCountIncrement >= storyItemIdList.length-itemCount 
-                ? storyItemIdList.length-itemCount 
+              ({itemCountIncrement >= storyIdList.length-itemCount 
+                ? storyIdList.length-itemCount 
                 : itemCountIncrement
-                } of {storyItemIdList.length-itemCount})
+                } of {storyIdList.length-itemCount})
             </span>  
           </button> 
         }
