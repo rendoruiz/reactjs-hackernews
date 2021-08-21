@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import SiteHeader from './components/SiteHeader';
 import StoryCatalogView from './views/StoryCatalogView';
 import StoryDetailView from './views/StoryDetailView';
 import UserDetailView from './views/UserDetailView';
@@ -8,6 +9,7 @@ function App() {
     <Router>
       <div className="App">
         <div className="content">
+          <SiteHeader />
           <Switch>
             <Route exact path="/:order?">
               <StoryCatalogView />
