@@ -11,7 +11,6 @@ import api from '../api';
 import NavigationItem from '../components/NavigationItem';
 
 const UserView = () => {
-  const history = useHistory();
   const { userId } = useParams();
   const location = useLocation();
   const [user, setUser] = useState(null);
@@ -19,30 +18,31 @@ const UserView = () => {
   const [contentTypeFilter, setContentTypeFilter] = useState(null);
   const contentCountIncrement = 10;
   const [contentCount, setContentCount] = useState(contentCountIncrement);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const contentType = location.pathname.split('/').pop();
-    console.log(contentType);
     document.title = `${userId} (u/${userId}) - Readit News`;
 
-    // set contentTypeFilter, redirect to same url without params if does not match
+    // set contentTypeFilter
     if (contentType === 'story') {
       setContentTypeFilter('story');
     } else if (contentType === 'comment') {
       setContentTypeFilter('comment');
-    } else if (contentType) {
-      history.push(`/u/${userId}`);
     } else {
       setContentTypeFilter(null);
     }
     
     api.get(`user/${userId}.json`).then((res) => {
-      setUser(res.data);
-      if (res.data.submitted) {
-        setContentIdList(res.data.submitted);
+      if (res.data) {
+        setUser(res.data);
+        if (res.data.submitted) {
+          setContentIdList(res.data.submitted);
+        }
       }
+      setIsLoading(false);
     });
-  }, [userId, history]);
+  }, [userId, location]);
 
   const handleLoadMoreItems = () => {
     if (contentIdList.length > contentCount) {
@@ -50,7 +50,7 @@ const UserView = () => {
     }
   }
 
-  return ( 
+  return isLoading ? <span>Loading User...</span> : !user ? <span>User does not exist</span> : ( 
     <div className="page user-detail">
       <aside className="user-contents">
         { contentIdList.length > 0 && 
