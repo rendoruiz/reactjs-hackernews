@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import ContentItemStoryCard from "../components/ContentItemStoryCard";
-import { getStoryIdList } from "../functions/hackernewsApi";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useHistory, useParams } from "react-router-dom";
 import { faBurn, faCertificate, faChartLine } from "@fortawesome/free-solid-svg-icons";
+import api from '../api';
 
 const StoryCatalogView = () => {
   const { order } = useParams();
@@ -19,25 +19,19 @@ const StoryCatalogView = () => {
       if (order === 'best') {
         setDocumentTitle('Best');
         setItemOrder('best');
-        getStoryIdList('best').then((data) => {
-          setStoryItemIdList(data);
-        });
+        api.get('beststories.json').then((res) => setStoryItemIdList(res.data));
         console.log('loading best')
       } 
       else if (order === 'new') {
         setDocumentTitle('New');
         setItemOrder('new');
-        getStoryIdList('new').then((data) => {
-          setStoryItemIdList(data);
-        });
+        api.get('newstories.json').then((res) => setStoryItemIdList(res.data));
         console.log('loading new')
       } 
       else if (order === 'top' || !order) {
         setDocumentTitle('Top');
         setItemOrder('top');
-        getStoryIdList('top').then((data) => {
-          setStoryItemIdList(data);
-        });
+        api.get('topstories.json').then((res) => setStoryItemIdList(res.data));
         console.log('loading top')
       } 
       else {

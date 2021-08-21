@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { getItemData } from "../functions/hackernewsApi";
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 import { faCommentAlt } from "@fortawesome/free-regular-svg-icons";
 import CommentItem from "./CommentItem";
+import api from '../api';
 
 const ContentItemCommentCard = ({ comment = null, userId = null }) => {
   const [parentStory, setParentStory] = useState(null);
@@ -16,11 +16,12 @@ const ContentItemCommentCard = ({ comment = null, userId = null }) => {
       // console.log('getParentReferences')
       const getParentReferences = (commentId) => {
         // setTimeout(() => {
-          getItemData(commentId).then((data) => {
-            if (data) {
+          api.get(`item/${commentId}.json`).then((res) => {
+            console.log(res.data)
+            if (res.data) {
               // set comment parent story (mandatory)
-              if (!parentStory && data.type === 'story') {
-                setParentStory(data);
+              if (!parentStory && res.data.type === 'story') {
+                setParentStory(res.data);
                 setIsLoading(false);
                 return;
               }
@@ -28,13 +29,13 @@ const ContentItemCommentCard = ({ comment = null, userId = null }) => {
               // cannot be the same as parentStory (i.e., redundant duplicate)
               // dead or deleted parent comment will not be rendered
               if (!parentStory && !parentComment && 
-                comment.parent === data.id && data.type === 'comment'
-                && !data.deleted && !data.dead) {
-                setParentComment(data);
+                comment.parent === res.data.id && res.data.type === 'comment'
+                && !res.data.deleted && !res.data.dead) {
+                setParentComment(res.data);
               }
               // recurse function until a story object is found
               if (!parentStory) {
-                getParentReferences(data.parent);
+                getParentReferences(res.data.parent);
               }
             }
           });

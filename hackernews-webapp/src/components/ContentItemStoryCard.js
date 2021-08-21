@@ -6,7 +6,7 @@ import moment from 'moment';
 import { faCommentAlt } from '@fortawesome/free-regular-svg-icons';
 import { faHackerNewsSquare } from '@fortawesome/free-brands-svg-icons';
 import { useEffect, useState } from 'react';
-import { getItemData } from '../functions/hackernewsApi';
+import api from '../api';
 
 const ContentItemStoryCard = ({ storyObject = null, itemId = null, isDetailed = false }) => {
   const history = useHistory();
@@ -24,9 +24,9 @@ const ContentItemStoryCard = ({ storyObject = null, itemId = null, isDetailed = 
       if (story && !itemId) {
         setIsLoading(false);
       } else if (!story && itemId) {
-        getItemData(itemId).then((data) => {
-              setStory(data);
-              setIsLoading(false);
+        api.get(`item/${itemId}.json`).then((res) => {
+          setStory(res.data);
+          setIsLoading(false);
         });
       } 
     // }, 1000);
