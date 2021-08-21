@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useHistory, useParams } from "react-router-dom";
+import { useHistory, useLocation, useParams } from "react-router-dom";
 import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBirthdayCake } from '@fortawesome/free-solid-svg-icons';
@@ -8,10 +8,12 @@ import UserContentItem from '../components/UserContentItem';
 import { generateHslColor } from '../functions/generateHslColor';
 import { faHackerNewsSquare } from '@fortawesome/free-brands-svg-icons';
 import api from '../api';
+import NavigationItem from '../components/NavigationItem';
 
 const UserView = () => {
   const history = useHistory();
-  const { userId, contentType } = useParams();
+  const { userId } = useParams();
+  const location = useLocation();
   const [user, setUser] = useState(null);
   const [contentIdList, setContentIdList] = useState([]);
   const [contentTypeFilter, setContentTypeFilter] = useState(null);
@@ -19,6 +21,8 @@ const UserView = () => {
   const [contentCount, setContentCount] = useState(contentCountIncrement);
 
   useEffect(() => {
+    const contentType = location.pathname.split('/').pop();
+    console.log(contentType);
     document.title = `${userId} (u/${userId}) - Readit News`;
 
     // set contentTypeFilter, redirect to same url without params if does not match
@@ -38,14 +42,7 @@ const UserView = () => {
         setContentIdList(res.data.submitted);
       }
     });
-  }, [userId, contentType, history]);
-
-
-  const setActiveButton = (type) => {
-    if (type === contentTypeFilter || (type === 'overview' && !contentTypeFilter)) {
-      return ' active';
-    }
-  }
+  }, [userId, history]);
 
   const handleLoadMoreItems = () => {
     if (contentIdList.length > contentCount) {
@@ -57,32 +54,26 @@ const UserView = () => {
     <div className="page user-detail">
       <aside className="user-contents">
         { contentIdList.length > 0 && 
-          <header className="navigation-group">
-            <Link 
-              className={`navigation-item ` + setActiveButton('overview')}
-              to={`/u/${userId}`}
+          <nav className="navigation-group">
+            <NavigationItem 
+              routeTo={`/u/${userId}`}
+              label="Overwview"
+              faIcon={faUser}
               title="Show all submissions from this user"
-            >
-              <FontAwesomeIcon icon={faUser} className="glyph" />
-              <span>Overview</span>
-            </Link>
-            <Link 
-              className={`navigation-item ` + setActiveButton('story')}
-              to={`/u/${userId}/story`}
+            />
+            <NavigationItem 
+              routeTo={`/u/${userId}/story`}
+              label="Stories"
+              faIcon={faNewspaper}
               title="Only show story submissions from this user"
-            >
-              <FontAwesomeIcon icon={faNewspaper} className="glyph" />
-            <span>Stories</span>
-            </Link>
-            <Link 
-              className={`navigation-item ` + setActiveButton('comment')}
-              to={`/u/${userId}/comment`}
+            />
+            <NavigationItem 
+              routeTo={`/u/${userId}/comment`} 
+              label="Comments"
+              faIcon={faCommentAlt}
               title="Only show comment submissions from this user"
-            >
-              <FontAwesomeIcon icon={faCommentAlt} className="glyph" />
-              <span>Comments</span>
-            </Link>
-          </header> 
+            />
+          </nav> 
         }
 
         {/* contentItems */}

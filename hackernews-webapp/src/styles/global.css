@@ -130,7 +130,7 @@ a.accented-link {
 
 
 /* navigation items */
-.navigation-group {
+nav.navigation-group {
   border-radius: var(--border-radius);
   background: var(--color-content-background);
   padding: 10px;

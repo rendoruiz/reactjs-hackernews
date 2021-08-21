@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useLocation } from "react-router-dom";
 import styles from '../styles/NavigationItem.module.css'
 
-const NavigationLinkItem = ({ routeTo, label, faIcon = null, title }) => {
+const NavigationItem = ({ routeTo, label, faIcon = null, title }) => {
   const location = useLocation();
 
   const setActive = () => {
@@ -23,4 +23,4 @@ const NavigationLinkItem = ({ routeTo, label, faIcon = null, title }) => {
   );
 }
  
-export default NavigationLinkItem;
+export default NavigationItem;

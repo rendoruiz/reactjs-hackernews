@@ -1,50 +1,40 @@
 import { useState, useEffect } from "react";
 import ContentItemStoryCard from "../components/ContentItemStoryCard";
 
-import { useHistory, useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { faBurn, faCertificate, faChartLine } from "@fortawesome/free-solid-svg-icons";
 import api from '../api';
 import NavigationItem from "../components/NavigationItem";
 
 const CatalogView = () => {
   const { order } = useParams();
-  const [itemOrder, setItemOrder] = useState(null);
+  const location = useLocation();
+  // const [itemOrder, setItemOrder] = useState(null);
   const [storyItemIdList, setStoryItemIdList] = useState([]);
-  const history = useHistory();
   const itemCountIncrement = 20;
   const [itemCount, setItemCount] = useState(itemCountIncrement);
 
   useEffect(() => {
+    const contentOrder = location.pathname.split('/').pop();
+    console.log(contentOrder === null);
     // setTimeout(() => {
-      if (order === 'best') {
+      if (contentOrder === 'best') {
         setDocumentTitle('Best');
-        setItemOrder('best');
         api.get('beststories.json').then((res) => setStoryItemIdList(res.data));
-        console.log('loading best')
       } 
-      else if (order === 'new') {
+      else if (contentOrder === 'new') {
         setDocumentTitle('New');
-        setItemOrder('new');
         api.get('newstories.json').then((res) => setStoryItemIdList(res.data));
-        console.log('loading new')
       } 
-      else if (order === 'top' || !order) {
+      else {
         setDocumentTitle('Top');
-        setItemOrder('top');
         api.get('topstories.json').then((res) => setStoryItemIdList(res.data));
-        console.log('loading top')
       } 
     // }, 1000);
-  }, [order, history]);
+  }, [location]);
 
   const setDocumentTitle = (type) => {
     document.title = `${type} Stories - Readit News`;
-  }
-
-  const setActiveButton = (type) => {
-    if (type === itemOrder) {
-      return ' active';
-    }
   }
 
   const handleLoadMoreItems = () => {
