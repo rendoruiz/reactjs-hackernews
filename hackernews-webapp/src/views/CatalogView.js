@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import ContentItemStoryCard from "../components/ContentItemStoryCard";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link, useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { faBurn, faCertificate, faChartLine } from "@fortawesome/free-solid-svg-icons";
 import api from '../api';
+import NavigationItem from "../components/NavigationItem";
 
 const CatalogView = () => {
   const { order } = useParams();
@@ -56,32 +56,26 @@ const CatalogView = () => {
   return ( 
     <div className="page catalog">
       <section className="stories">
-        <header className="navigation-group">
-          <Link 
-            className={`navigation-item ` + setActiveButton('top')}
-            to={`/top`}
-            title="Top Stories from Hacker News"
-          >
-            <FontAwesomeIcon icon={faChartLine} className="glyph" />
-            <span>Top Story</span>
-          </Link>
-          <Link 
-            className={`navigation-item ` + setActiveButton('best')}
-            to={`/best`}
-            title="Best Stories from Hacker News"
-          >
-            <FontAwesomeIcon icon={faBurn} className="glyph" />
-          <span>Best Story</span>
-          </Link>
-          <Link 
-            className={`navigation-item ` + setActiveButton('new')}
-            to={`/new`}
-            title="New Stories from Hacker News"
-          >
-            <FontAwesomeIcon icon={faCertificate} className="glyph" />
-            <span>New Story</span>
-          </Link>
-        </header> 
+        <nav className="navigation-group">
+          <NavigationItem 
+            routeTo='/' 
+            label='Top'
+            faIcon={faChartLine}
+            title='Hacker News Top Stories'
+          />
+          <NavigationItem 
+            routeTo='/best' 
+            label='Best'
+            faIcon={faBurn}
+            title='Hacker News Best Stories'
+          />
+          <NavigationItem 
+            routeTo='/new' 
+            label='New'
+            faIcon={faCertificate}
+            title='Hacker News New Stories'
+          />
+        </nav> 
 
         { storyItemIdList.length <= 0 ? <span>Loading stories...</span> : storyItemIdList.slice(0, itemCount).map((itemId) => <ContentItemStoryCard key={itemId} itemId={itemId} /> ) } 
 

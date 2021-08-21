@@ -31,7 +31,7 @@ const StoryView = () => {
   }
 
   return ( 
-    <div className="story-detail page">
+    <div className="story-detail container">
       {
         story && !isLoading && 
         <header className="story">

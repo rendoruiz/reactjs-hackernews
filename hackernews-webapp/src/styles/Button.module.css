@@ -1,0 +1,23 @@
+@import './variables.css';
+
+.button {
+  padding: 5px;
+  border: none;
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: bold;
+  transition: all 100ms ease-out;
+}
+.button:hover {
+  background: var(--color-button-hover);
+}
+.button:active {
+  transform: scale(0.95);
+}
+
+.buttonLarge {
+  composes: button;
+  padding: 5px 10px;
+}

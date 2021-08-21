@@ -1,3 +1,22 @@
 :root {
+  --border-radius: 4px;
+  --accent-rgb: 255, 102, 0;
+  --color-accent: rgb(var(--accent-rgb));
+  --app-background-rgb: 218, 224, 230;
+  --color-app-background: rgb(var(--app-background-rgb));
+  --content-background-rgb: 255, 255, 255;
+  --color-content-background: rgba(var(--content-background-rgb), 1);
+  --color-title: rgb(34, 34, 34);
+  --color-subtitle1: rgb(135, 138, 140);
+  --color-subtitle2: rgb(124, 124, 124);
   
+  --color-action: rgb(135, 138, 140);
+  --color-action-hover: rgba(26, 26, 27, 0.1);
+  --color-action-active: rgba(135, 138, 140, 0.1);
+  --size-glyph: 18px;
+
+
+  --color-button: rgb(135, 138, 140);
+  --color-button-hover: rgba(26, 26, 27, 0.1);
+  --color-button-active: rgba(135, 138, 140, 0.1);
 }

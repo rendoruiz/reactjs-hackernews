@@ -1,0 +1,13 @@
+@import './variables.css';
+
+.navigationItem {
+  composes: buttonLarge from "./Button.module.css";
+  border-radius: 20px;
+}
+.navigationItem.active {
+  background: var(--color-button-active);
+  color: var(--color-accent);
+}
+.navigationItem:hover.active {
+  background: var(--color-button-hover);
+}

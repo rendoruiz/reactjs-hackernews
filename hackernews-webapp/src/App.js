@@ -8,24 +8,22 @@ import UserView from './views/UserView';
 function App() {
   return (
     <Router>
-      <div className="App">
-        <div className="content">
-          <SiteHeader />
-          <Switch>
-            <Route exact path={["/", "/top", "/best", "/new"]}>
-              <CatalogView />
-            </Route>
-            <Route exact path={["/u/:userId/", "/u/:userId/story", "/u/:userId/comment"]}>
-              <UserView />
-            </Route>
-            <Route path="/s/:id">
-              <StoryView />
-            </Route>
-            <Route path="*">
-              <NotFoundView />
-            </Route>
-          </Switch>
-        </div>
+      <SiteHeader />
+      <div className="content">
+        <Switch>
+          <Route exact path={["/", "/top", "/best", "/new"]}>
+            <CatalogView />
+          </Route>
+          <Route exact path={["/u/:userId/", "/u/:userId/story", "/u/:userId/comment"]}>
+            <UserView />
+          </Route>
+          <Route path="/s/:id">
+            <StoryView />
+          </Route>
+          <Route path="*">
+            <NotFoundView />
+          </Route>
+        </Switch>
       </div>
     </Router>
   );
