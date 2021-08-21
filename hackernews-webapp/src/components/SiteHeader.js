@@ -12,7 +12,7 @@ const SiteHeader = () => {
   return ( 
     <header className={styles.header}>
       <div className={styles.logo}>
-        <img className={styles.logoImage} src={logo} alt="" srcset="" />
+        <img className={styles.logoImage} src={logo} alt="" />
         <span className={styles.logoText} onClick={handleOnClick}>Readit News</span>
       </div>
     </header> 

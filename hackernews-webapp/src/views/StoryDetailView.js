@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 
 import CommentItemGroup from "../components/CommentItemGroup";
 import ContentItemStoryCard from "../components/ContentItemStoryCard";
-import { getItemData } from '../functions/hackernewsApi';
+import api from '../api';
 
 const StoryDetailView = () => {
   const { id: storyId } = useParams();
@@ -16,11 +16,11 @@ const StoryDetailView = () => {
 
   useEffect(() => { 
     // setTimeout(() => {
-      getItemData(storyId).then((data) => {
-        setStory(data);
+      api.get(`item/${storyId}.json`).then((res) => {
+        setStory(res.data);
         setIsLoading(false);
-        document.title = `${data.title} - Readit News`;
-      })
+        document.title = `${res.data.title} - Readit News`;
+      });
     // }, 1000);
   }, [maxCommentDepth, storyId, commentItemCount]);
 

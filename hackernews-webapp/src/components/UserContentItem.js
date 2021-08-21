@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { getItemData } from "../functions/hackernewsApi";
 import ContentItemCommentCard from "./ContentItemCommentCard";
 import ContentItemStoryCard from "./ContentItemStoryCard";
+import api from '../api';
 
 const UserContentItem = ({ contentId = null, restrictContent = null, userId = null }) => {
   const [contentItem, setContentItem] = useState(null);
@@ -9,8 +9,8 @@ const UserContentItem = ({ contentId = null, restrictContent = null, userId = nu
 
   useEffect(() => {
     // setTimeout(() => {
-      getItemData(contentId).then((data) => {
-        setContentItem(data);
+      api.get(`item/${contentId}.json`).then((res) => {
+        setContentItem(res.data);
         setIsLoading(false);
       });
     // }, 1000);

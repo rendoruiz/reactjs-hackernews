@@ -4,9 +4,9 @@ import ReactHtmlParser from 'react-html-parser';
 import moment from 'moment';
 
 import CommentItemGroup from "./CommentItemGroup";
-import { getItemData } from '../functions/hackernewsApi';
 import { generateHslColor } from "../functions/generateHslColor";
 import { getMinifiedMomentTime } from "../functions/getMinifiedMomentTime";
+import api from '../api';
 
 const CommentItem = ({ id = null, maxCommentDepth, currentCommentDepth, commentObject = null, parentCommentObject = null, userId = null }) => {
   const [comment, setComment] = useState(null);
@@ -20,12 +20,12 @@ const CommentItem = ({ id = null, maxCommentDepth, currentCommentDepth, commentO
       setIsLoading(false);
     } else {
       // setTimeout(() => {
-        getItemData(id).then((data) => {
-          if (data) {
-            setComment(data);
+        api.get(`item/${id}.json`).then((res) => {
+          if (res.data) {
+            setComment(res.data);
             setIsLoading(false);
           }
-        })
+        });
       // }, 1000);
     }
   }, [maxCommentDepth, id, commentObject, parentCommentObject]);
