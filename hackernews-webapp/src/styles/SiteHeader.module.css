@@ -1,0 +1,20 @@
+@import './variables.css';
+
+.header {
+  background: white;
+  padding: 8px 20px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.logoImage {
+  width: 30px;
+  height: 30px;
+}
+.logoText {
+  font-size: 24px;
+}
