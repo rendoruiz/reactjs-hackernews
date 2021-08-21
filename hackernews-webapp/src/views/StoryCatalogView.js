@@ -34,9 +34,6 @@ const StoryCatalogView = () => {
         api.get('topstories.json').then((res) => setStoryItemIdList(res.data));
         console.log('loading top')
       } 
-      else {
-        history.push(`/`);
-      }
     // }, 1000);
   }, [order, history]);
 
