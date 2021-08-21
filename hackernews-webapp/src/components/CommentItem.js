@@ -21,10 +21,11 @@ const CommentItem = ({ id = null, maxCommentDepth, currentCommentDepth, commentO
     } else {
       // setTimeout(() => {
         api.get(`item/${id}.json`).then((res) => {
-          if (res.data) {
-            setComment(res.data);
-            setIsLoading(false);
-          }
+          setComment(res.data);
+        }).catch((error) => {
+          console.log('CommentItem ' + error);
+        }).then(() => {
+          setIsLoading(false);
         });
       // }, 1000);
     }

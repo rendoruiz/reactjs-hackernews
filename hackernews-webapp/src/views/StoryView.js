@@ -17,10 +17,8 @@ const StoryView = () => {
   useEffect(() => { 
     // setTimeout(() => {
       api.get(`item/${storyId}.json`).then((res) => {
-        if (res.data) {
           setStory(res.data);
           document.title = `${res.data.title} - Readit News`;
-        }
       }).catch((error) => {
         console.log('StoryView ' + error);
       }).then(() => {

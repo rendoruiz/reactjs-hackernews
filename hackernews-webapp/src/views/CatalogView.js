@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import ContentItemStoryCard from "../components/ContentItemStoryCard";
-
 import { useLocation } from "react-router-dom";
 import { faBurn, faCertificate, faChartLine } from "@fortawesome/free-solid-svg-icons";
+
 import api from '../api';
 import NavigationItem from "../components/NavigationItem";
+import ContentItemStoryCard from "../components/ContentItemStoryCard";
 
 const CatalogView = () => {
   const location = useLocation();
@@ -31,9 +31,7 @@ const CatalogView = () => {
       } 
 
       api.get(request + '.json').then((res) => { 
-        if (res.data) {
-          setStoryIdList(res.data)
-        }
+        setStoryIdList(res.data)
       }).catch((error) => {
         console.log('CatalogView ' + error);
       }).then(() => {

@@ -25,7 +25,11 @@ const ContentItemStoryCard = ({ storyObject = null, itemId = null, isDetailed = 
         setIsLoading(false);
       } else if (!story && itemId) {
         api.get(`item/${itemId}.json`).then((res) => {
+          console.log(res.data)
           setStory(res.data);
+        }).catch((error) => {
+          console.log('ContentItemStoryCard ' + error);
+        }).then(() => {
           setIsLoading(false);
         });
       } 
@@ -33,7 +37,7 @@ const ContentItemStoryCard = ({ storyObject = null, itemId = null, isDetailed = 
   }, [story, itemId, isLoading]);
 
   return ( 
-    (!story && !itemId) ? null : isLoading ? <span>Loading story card...</span> : !story ? null : story.deleted ? null : story.dead ? null :
+    (!story && !itemId) ? null : isLoading ? <span>Loading story card...</span> : !story ? <span>Connection error</span> : story.deleted ? null : story.dead ? null :
       <div className="content-card story-card">
         <aside className="story-score">
           <span title="Story score/karma">{ story.score }</span>

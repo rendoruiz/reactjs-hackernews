@@ -34,12 +34,13 @@ const UserView = () => {
     }
     
     api.get(`user/${userId}.json`).then((res) => {
-      if (res.data) {
-        setUser(res.data);
-        if (res.data.submitted) {
-          setContentIdList(res.data.submitted);
-        }
+      setUser(res.data);
+      if (res.data.submitted) {
+        setContentIdList(res.data.submitted);
       }
+    }).catch((error) => {
+      console.log('UserView ' + error);
+    }).then(() => {
       setIsLoading(false);
     });
   }, [userId, location]);

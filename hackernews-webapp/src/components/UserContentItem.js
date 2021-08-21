@@ -11,6 +11,9 @@ const UserContentItem = ({ contentId = null, restrictContent = null, userId = nu
     // setTimeout(() => {
       api.get(`item/${contentId}.json`).then((res) => {
         setContentItem(res.data);
+      }).catch((error) => {
+        console.log('UserContentItem ' + error);
+      }).then(() => {
         setIsLoading(false);
       });
     // }, 1000);
@@ -31,7 +34,7 @@ const UserContentItem = ({ contentId = null, restrictContent = null, userId = nu
       ? null
       : isLoading 
         ? <div className="loader">Loading Item...</div>
-        : !isLoading && contentItem && generateContentCard(contentItem.type)
+        : !contentItem ? <span>Connection error</span> : generateContentCard(contentItem.type)
   );
 }
  

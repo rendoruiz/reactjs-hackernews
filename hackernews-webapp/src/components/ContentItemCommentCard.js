@@ -17,27 +17,26 @@ const ContentItemCommentCard = ({ comment = null, userId = null }) => {
       const getParentReferences = (commentId) => {
         // setTimeout(() => {
           api.get(`item/${commentId}.json`).then((res) => {
-            console.log(res.data)
-            if (res.data) {
-              // set comment parent story (mandatory)
-              if (!parentStory && res.data.type === 'story') {
-                setParentStory(res.data);
-                setIsLoading(false);
-                return;
-              }
-              // set comment parent comment reference (optional)
-              // cannot be the same as parentStory (i.e., redundant duplicate)
-              // dead or deleted parent comment will not be rendered
-              if (!parentStory && !parentComment && 
-                comment.parent === res.data.id && res.data.type === 'comment'
-                && !res.data.deleted && !res.data.dead) {
-                setParentComment(res.data);
-              }
-              // recurse function until a story object is found
-              if (!parentStory) {
-                getParentReferences(res.data.parent);
-              }
+            // set comment parent story (mandatory)
+            if (!parentStory && res.data.type === 'story') {
+              setParentStory(res.data);
+              setIsLoading(false);
+              return;
             }
+            // set comment parent comment reference (optional)
+            // cannot be the same as parentStory (i.e., redundant duplicate)
+            // dead or deleted parent comment will not be rendered
+            if (!parentStory && !parentComment && 
+              comment.parent === res.data.id && res.data.type === 'comment'
+              && !res.data.deleted && !res.data.dead) {
+              setParentComment(res.data);
+            }
+            // recurse function until a story object is found
+            if (!parentStory) {
+              getParentReferences(res.data.parent);
+            }
+          }).catch((error) => {
+            console.log('ContentItemCommentCard ' + error);
           });
         // }, 1000);
       }
