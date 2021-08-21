@@ -6,7 +6,7 @@ import { Link, useHistory, useParams } from "react-router-dom";
 import { faBurn, faCertificate, faChartLine } from "@fortawesome/free-solid-svg-icons";
 import api from '../api';
 
-const StoryCatalogView = () => {
+const CatalogView = () => {
   const { order } = useParams();
   const [itemOrder, setItemOrder] = useState(null);
   const [storyItemIdList, setStoryItemIdList] = useState([]);
@@ -105,4 +105,4 @@ const StoryCatalogView = () => {
   );
 }
  
-export default StoryCatalogView;
+export default CatalogView;

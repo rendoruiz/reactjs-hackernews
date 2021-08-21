@@ -5,7 +5,7 @@ import CommentItemGroup from "../components/CommentItemGroup";
 import ContentItemStoryCard from "../components/ContentItemStoryCard";
 import api from '../api';
 
-const StoryDetailView = () => {
+const StoryView = () => {
   const { id: storyId } = useParams();
   const [story, setStory] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -65,4 +65,4 @@ const StoryDetailView = () => {
   );
 }
  
-export default StoryDetailView;
+export default StoryView;

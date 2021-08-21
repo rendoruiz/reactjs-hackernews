@@ -222,7 +222,7 @@ a.accented-link {
 
 
 
-/* view > UserDetailView.js */
+/* view > UserView.js */
 .user-detail {
   row-gap: 20px;
 }
@@ -238,7 +238,7 @@ a.accented-link {
   }
 }
 
-/* views/UserDetailView.js > aside.user-contents */
+/* views/UserView.js > aside.user-contents */
 .user-detail .user-contents {
   display: grid;
   align-content: flex-start;
@@ -255,7 +255,7 @@ a.accented-link {
 }
 
 
-/* views/UserDetailView.js > section.sidebar > user-profile */
+/* views/UserView.js > section.sidebar > user-profile */
 .user-detail .user-profile {
   border-radius: var(--border-radius);
   background: var(--color-content-background);

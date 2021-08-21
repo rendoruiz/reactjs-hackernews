@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import SiteHeader from './components/SiteHeader';
-import NotFound from './views/NotFound';
-import StoryCatalogView from './views/StoryCatalogView';
-import StoryDetailView from './views/StoryDetailView';
-import UserDetailView from './views/UserDetailView';
+import NotFoundView from './views/NotFoundView';
+import CatalogView from './views/CatalogView';
+import StoryView from './views/StoryView';
+import UserView from './views/UserView';
 
 function App() {
   return (
@@ -13,16 +13,16 @@ function App() {
           <SiteHeader />
           <Switch>
             <Route exact path={["/", "/top", "/best", "/new"]}>
-              <StoryCatalogView />
+              <CatalogView />
             </Route>
             <Route exact path={["/u/:userId/", "/u/:userId/story", "/u/:userId/comment"]}>
-              <UserDetailView />
+              <UserView />
             </Route>
             <Route path="/s/:id">
-              <StoryDetailView />
+              <StoryView />
             </Route>
             <Route path="*">
-              <NotFound />
+              <NotFoundView />
             </Route>
           </Switch>
         </div>

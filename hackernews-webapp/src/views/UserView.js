@@ -9,7 +9,7 @@ import { generateHslColor } from '../functions/generateHslColor';
 import { faHackerNewsSquare } from '@fortawesome/free-brands-svg-icons';
 import api from '../api';
 
-const UserDetailView = () => {
+const UserView = () => {
   const history = useHistory();
   const { userId, contentType } = useParams();
   const [user, setUser] = useState(null);
@@ -146,4 +146,4 @@ const UserDetailView = () => {
   );
 }
  
-export default UserDetailView;
+export default UserView;
