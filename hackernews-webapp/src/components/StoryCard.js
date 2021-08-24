@@ -78,7 +78,7 @@ const StoryCard = ({ storyData = null, storyId = null, isDetailed = false }) => 
             <IconButtonLink 
               link={"/s/" + story.id}
               icon={faCommentAlt}
-              text={`${story.descendants ?? "No"} Comments`}
+              text={`${story.descendants > 0 ? story.descendants : "No"} Comment${story.descendants > 1 ? "s" : ""}`}
               title="View story comments"
               className={styles.button}
               iconClassName={buttonStyles.buttonIcon}
