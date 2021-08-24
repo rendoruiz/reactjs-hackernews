@@ -15,6 +15,7 @@ import ContentTimeLink from './Links/ContentTimeLink';
 import StoryDead from './Story/StoryDead';
 import ExternalUrlLink from './Links/ExternalUrlLink';
 import ParsedHtmlText from './ParsedHtmlText';
+import IconButtonLink from './Links/IconButtonLink';
 
 const ContentItemStoryCard = ({ storyObject = null, itemId = null, isDetailed = false }) => {
   const history = useHistory();
@@ -59,33 +60,27 @@ const ContentItemStoryCard = ({ storyObject = null, itemId = null, isDetailed = 
           </header>
 
           <main>
-            <h3 className="story-title">
+            <h2 className="story-title">
               <Link to={"/s/" + story.id}>{ story.title }</Link>
-            </h3>
+            </h2>
             <ExternalUrlLink externalUrl={story.url} text={story.url} title={story.url} />
             { story.text && isDetailed && <ParsedHtmlText htmlText={story.text} /> }
           </main>
 
           <footer>
-            <Link 
-              className="btn"
-              to={'/s/' + story.id}
-            >
-              <FontAwesomeIcon className="glyph" icon={faCommentAlt} />
-              {`${story.descendants ?? 'No'} Comments`}
-            </Link>
-            {/* <span className="btn"><FontAwesomeIcon className="glyph" icon={faShare} /> Share</span>
-            <span className="btn"><FontAwesomeIcon className="glyph" icon={faBookmark} /> Save</span>
-            <span className="btn"><FontAwesomeIcon className="glyph" icon={faEyeSlash} /> Hide</span> */}
-            <a 
-              className="btn"
-              href={'https://news.ycombinator.com/item?id=' + story.id}
-              target="_blank" rel="noreferrer"
-              title="View story on Hacker News"
-            >
-              <FontAwesomeIcon className="glyph" icon={faHackerNewsSquare} />
-              View Original
-            </a>
+            <IconButtonLink 
+              link={"/s/" + story.id}
+              icon={faCommentAlt}
+              text={`${story.descendants ?? "No"} Comments`}
+              title="View story comments"
+            />
+            <IconButtonLink
+              link={"https://news.ycombinator.com/item?id=" + story.id}
+              icon={faHackerNewsSquare}
+              text="View Original"
+              title="View original submission on Hacker News"
+              external
+            />
           </footer>
         </section>
       </div>
