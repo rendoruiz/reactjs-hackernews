@@ -3,12 +3,13 @@ import { useLocation } from "react-router-dom";
 import { faBurn, faCertificate, faChartLine } from "@fortawesome/free-solid-svg-icons";
 
 import api from '../api';
-import NavigationItem from "../components/NavigationItem";
-import StoryCard from "../components/StoryCard";
-import NavigationBar from "../components/NavigationBar";
-import styles from "../styles/views/CatalogView.module.css";
 import CatalogViewLoader from "../components/Loaders/CatalogViewLoader";
 import ConnectionError from "../components/ConnectionError";
+import NavigationBar from "../components/NavigationBar";
+import NavigationItem from "../components/NavigationItem";
+import StoryCard from "../components/StoryCard";
+
+import styles from "../styles/views/CatalogView.module.css";
 
 const CatalogView = () => {
   const location = useLocation();

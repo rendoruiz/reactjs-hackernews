@@ -1,9 +1,11 @@
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
+
 import SiteHeader from './components/SiteHeader';
 import NotFoundView from './views/NotFoundView';
 import CatalogView from './views/CatalogView';
 import StoryView from './views/StoryView';
 import UserView from './views/UserView';
+
 import styles from './styles/App.module.css';
 
 function App() {
