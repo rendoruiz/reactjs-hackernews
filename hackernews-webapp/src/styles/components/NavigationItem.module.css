@@ -1,4 +1,4 @@
-@import './variables.css';
+@import './../variables.css';
 
 .navigationItem {
   composes: buttonLarge from "./Button.module.css";

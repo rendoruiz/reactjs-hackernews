@@ -13,8 +13,8 @@ import StoryDead from './Story/StoryDead';
 import ExternalLink from './Links/ExternalLink';
 import ParsedHtmlText from './ParsedHtmlText';
 import IconButtonLink from './Links/IconButtonLink';
-import styles from '../styles/StoryCard.module.css'
-import buttonStyles from '../styles/Button.module.css'
+import styles from '../styles/components/StoryCard.module.css'
+import buttonStyles from '../styles/components/Button.module.css'
 
 const StoryCard = ({ storyData = null, storyId = null, isDetailed = false }) => {
   const history = useHistory();

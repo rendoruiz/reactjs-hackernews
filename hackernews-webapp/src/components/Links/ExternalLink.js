@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 
-import styles from '../../styles/ExternalLink.module.css'
+import styles from '../../styles/components/ExternalLink.module.css'
 
 const ExternalLink = ({ link, text, title, className, iconClassName }) => {
   const minifyUrl = (url) => {

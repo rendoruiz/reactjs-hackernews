@@ -1,5 +1,5 @@
 import { useHistory } from 'react-router';
-import styles from '../styles/SiteHeader.module.css'
+import styles from '../styles/components/SiteHeader.module.css'
 import logo from '../images/logo30.png'
 
 const SiteHeader = () => {
