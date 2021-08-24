@@ -22,6 +22,7 @@ const StoryView = () => {
     api.get(`item/${storyId}.json`).then((response) => {
       setStory(response.data);
       document.title = `${response.data.title} - Readit News`;
+      console.log(response.data);
     }).catch((error) => {
       console.log('StoryView ' + error);
     }).then(() => {
@@ -39,7 +40,7 @@ const StoryView = () => {
     <div className={styles.storyView}>
       <StoryCard storyData={story} isDetailed={true} />
       {
-        story.kids ? <> 
+        !story.kids ? <CommentEmpty /> : <> 
           <div className={styles.commentList}>
             <CommentItemGroup 
               commentItemIdList={story.kids.slice(0, commentItemCount)} 
@@ -57,7 +58,6 @@ const StoryView = () => {
             }
           </div>
         </>
-        : <CommentEmpty />
       }
     </div>
   );
