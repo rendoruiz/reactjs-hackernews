@@ -6,7 +6,11 @@ import { faCommentAlt } from "@fortawesome/free-regular-svg-icons";
 
 import api from '../api';
 import CommentItem from "./CommentItem";
+import UserViewLink from "./Links/UserViewLink";
 
+import styles from '../styles/components/CommentCard.module.css'
+import StoryViewLink from "./Links/StoryViewLink";
+import ExternalLink from "./Links/ExternalLink";
 
 const CommentCard = ({ commentData, userId }) => {
   const [parentStory, setParentStory] = useState(null);
@@ -44,57 +48,37 @@ const CommentCard = ({ commentData, userId }) => {
     }
   }, [commentData, parentStory, parentComment]);
 
-  const minifyUrl = (url) => {
-    return url.replace(/(^\w+:|^)\/\//, '').replace('www.', '').substring(0, 25) + '...';
-  }
-
   return ( 
     !commentData ? null : commentData.deleted ? null : commentData.dead ? null :  
       <div className="content-card comment-card">
-        <section className="comment-parent-story">
+        <header className="comment-parent-story">
           <FontAwesomeIcon className="glyph" icon={faCommentAlt} />
           { !parentStory && <span>Loading parent story</span> }
           { parentStory && 
             <div className="parent-story-content">
-              <Link
-                to={"/u/" + commentData.by} 
-                className="link-btn accented-link"
-                title="Open user page"
-              >
-                { commentData.by }
-              </Link>
-              <span>&nbsp;commented on&nbsp;</span>
-              <Link
-                to={"/s/" + parentStory.id} 
-                className="link-btn"
-                title="Open story"
-              >
-                { parentStory.title }
-              </Link>
-              <span>&nbsp;</span>
-              { parentStory.url &&
-                <a 
-                  className="story-url link-btn accented-link" 
-                  href={parentStory.url} 
-                  target="_blank"
-                  rel="noreferrer"
-                  title={parentStory.url}
-                >
-                  { parentStory.url && <span>{ minifyUrl(parentStory.url) }</span> }
-                  { parentStory.url && <FontAwesomeIcon className="inline-glyph" icon={faExternalLinkAlt} /> }
-                </a>
-              }
-              <span>&nbsp;<b>&#183;</b> Posted by&nbsp;</span>
-              <Link
-                to={"/u/" + parentStory.by} 
-                className="link-btn parent-story-by"
-                title="Open user page"
-              >
-                u/{ parentStory.by }
-              </Link>
+              <UserViewLink 
+                userId={commentData.by} 
+                isText 
+                className={styles.storyUser} 
+              />
+              &nbsp;commented on&nbsp;
+              <StoryViewLink 
+                storyId={parentStory.id} 
+                text={parentStory.title} 
+                className={styles.storyTitle} 
+              />
+              &nbsp;
+              <ExternalLink 
+                link={parentStory.url}
+                text={parentStory.url}
+              />
+              &nbsp;<b>&#183;</b> Posted by&nbsp;
+              <UserViewLink 
+                userId={parentStory.by}
+              />
             </div> 
           }
-        </section>
+        </header>
 
         <section className="comment-content">
           { isLoading ? <span>Loading comment...</span> : parentComment

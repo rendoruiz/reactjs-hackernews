@@ -4,7 +4,7 @@ const UserViewLink = ({ userId, isText = false, className }) => {
   return !userId ? null : ( 
     <Link
       to={"/u/" + userId}
-      title="Go to user page"
+      title="View user page"
       className={className}
     >
       { (!isText ? "u/" : "") + userId }
