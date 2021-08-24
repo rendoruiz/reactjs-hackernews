@@ -13,10 +13,10 @@ import DateTimeContentLink from './Links/DateTimeContentLink';
 import ExternalLink from './Links/ExternalLink';
 import ParsedHtmlText from './ParsedHtmlText';
 import IconButtonLink from './Links/IconButtonLink';
+import StoryViewLink from './Links/StoryViewLink';
 
 import styles from '../styles/components/StoryCard.module.css'
 import buttonStyles from '../styles/components/Button.module.css'
-import StoryViewLink from './Links/StoryViewLink';
 
 const StoryCard = ({ storyData, storyId, isDetailed = false }) => {
   const history = useHistory();
@@ -69,10 +69,9 @@ const StoryCard = ({ storyData, storyId, isDetailed = false }) => {
             <StoryViewLink storyId={story.id} text={story.title} className={styles.title} />
             <ExternalLink 
               link={story.url} 
-              text={story.url} 
-              title={story.url} 
+              text={story.url}
             />
-            { story.text && isDetailed && <ParsedHtmlText htmlText={story.text} /> }
+            { isDetailed && <ParsedHtmlText htmlText={story.text} /> }
           </main>
 
           <footer className={styles.contentFooter}>
