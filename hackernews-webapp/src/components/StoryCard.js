@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { faCommentAlt } from '@fortawesome/free-regular-svg-icons';
 import { faHackerNewsSquare } from '@fortawesome/free-brands-svg-icons';
 
