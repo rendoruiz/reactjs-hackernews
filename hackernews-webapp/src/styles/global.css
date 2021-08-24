@@ -14,6 +14,20 @@ code {
 
 
 
+
+/* override anchor style */
+a,
+a:visited {
+  color: inherit;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+
+
 /* contain elements to their container width */
 code, pre {
   overflow-x: auto;
@@ -46,17 +60,7 @@ code, pre {
   display: none;
 }
 
-/* override anchor style */
-a,
-a:visited {
-  text-decoration: none;
-  color: inherit;
-  cursor: pointer;
-}
-a.link-btn:hover,
-a.link-btn:active {
-  text-decoration: underline;
-}
+
 
 
 /* button */

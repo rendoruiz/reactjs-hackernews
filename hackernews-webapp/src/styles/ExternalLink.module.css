@@ -8,11 +8,8 @@
   gap: 5px;
   align-items: center;
 }
-.link:hover {
-  text-decoration: underline;
-}
 
 .linkIcon {
-  height: var(--fs-subtitle);
   width: auto !important;
+  height: var(--fs-subtitle);
 }

@@ -18,6 +18,8 @@
   font-size: var(--fs-subtitle);
 }
 
+
+
 .button,
 .externalLinkButton {
   composes: button from "./Button.module.css";
@@ -38,10 +40,14 @@
   background: var(--color-content-background);
 }
 
+.contentHeader,
+.contentFooter {
+  color: var(--color-subtitle1);
+  display: flex;
+}
+
 .contentHeader {
   height: 22px;
-  display: flex;
-  color: var(--color-subtitle1);
 }
 .externalLinkButton {
   margin-left: auto;
@@ -56,8 +62,6 @@
 
 .contentFooter {
   margin-top: 30px;
-  color: var(--color-subtitle1);
-  display: flex;
   gap: 4px;
 }
 .button {

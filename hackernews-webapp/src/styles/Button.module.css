@@ -8,6 +8,7 @@
   align-items: center;
   gap: 8px;
   font-weight: bold;
+  text-decoration: none;
   transition: all 100ms ease-out;
 }
 .button:visited {
@@ -15,6 +16,7 @@
 }
 .button:hover {
   background: var(--color-button-hover);
+  text-decoration: none;
 }
 .button:active {
   transform: scale(0.95);
