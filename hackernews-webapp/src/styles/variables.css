@@ -6,6 +6,7 @@
   --color-accent: rgb(var(--accent-rgb));
   --color-body-background: rgb(var(--body-background-rgb));
   --color-content-background: rgb(var(--content-background-rgb));
+  --color-dark: rgb(34, 34, 34);
 
   /* buttons */
   --icon-size: 18px;
@@ -16,7 +17,6 @@
   /* text */
   --fs-title: 1.2rem;
   --fs-subtitle: 0.75rem;
-  --color-title: rgb(34, 34, 34);
   --color-subtitle1: rgb(135, 138, 140);
   --color-subtitle2: rgb(124, 124, 124);
 }

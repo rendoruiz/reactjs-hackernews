@@ -4,6 +4,7 @@
   padding: 10px;
   border-radius: var(--corner-rounding);
   background: var(--color-content-background);
+  color: var(--color-dark);
   display: flex;
   gap: 8px;
 }
