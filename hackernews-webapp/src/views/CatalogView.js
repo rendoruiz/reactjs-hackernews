@@ -7,6 +7,7 @@ import NavigationItem from "../components/NavigationItem";
 import StoryCard from "../components/StoryCard";
 import NavigationBar from "../components/NavigationBar";
 import styles from "../styles/views/CatalogView.module.css";
+import CatalogViewLoader from "../components/Loaders/CatalogViewLoader";
 
 const CatalogView = () => {
   const location = useLocation();
@@ -18,28 +19,27 @@ const CatalogView = () => {
   useEffect(() => {
     const contentOrder = location.pathname.split('/').pop();
     let request;
-    // setTimeout(() => {
-      if (contentOrder === 'best') {
-        setDocumentTitle('Best');
-        request = 'beststories';
-      } 
-      else if (contentOrder === 'new') {
-        setDocumentTitle('New');
-        request = 'newstories';
-      } 
-      else {
-        setDocumentTitle('Top');
-        request = 'topstories';
-      } 
 
-      api.get(request + '.json').then((res) => { 
-        setStoryIdList(res.data)
-      }).catch((error) => {
-        console.log('CatalogView ' + error);
-      }).then(() => {
-        setIsLoading(false);
-      });
-    // }, 1000);
+    if (contentOrder === 'best') {
+      setDocumentTitle('Best');
+      request = 'beststories';
+    } 
+    else if (contentOrder === 'new') {
+      setDocumentTitle('New');
+      request = 'newstories';
+    } 
+    else {
+      setDocumentTitle('Top');
+      request = 'topstories';
+    } 
+
+    api.get(request + '.json').then((response) => { 
+      setStoryIdList(response.data)
+    }).catch((error) => {
+      console.log('CatalogView ' + error);
+    }).then(() => {
+      setIsLoading(false);
+    });
   }, [location]);
 
   const setDocumentTitle = (type) => {
@@ -52,7 +52,7 @@ const CatalogView = () => {
     }
   }
 
-  return isLoading ? <span>Loading Stories...</span> : storyIdList.length <= 0 ? <span>Connection error</span> : ( 
+  return isLoading ? <CatalogViewLoader /> : storyIdList.length <= 0 ? <span>Connection error</span> : ( 
     <div className={styles.catalogView}>
       <section className={styles.storyList}>
         <NavigationBar>
