@@ -1,9 +1,17 @@
 import ReactHtmlParser from 'react-html-parser';
 
-const ParsedHtmlText = ({ htmlText }) => {
+import styles from '../styles/components/ParsedHtmlText.module.css'
+
+const ParsedHtmlText = ({ htmlText, className }) => {
+  const parseHtml = (rawHtmlText) => {
+    console.log(ReactHtmlParser(rawHtmlText))
+    console.log(ReactHtmlParser(rawHtmlText).children)
+    return ReactHtmlParser(rawHtmlText.replaceAll(/href/g, `target="_blank" rel="noreferrer" href`))
+  }
+
   return !htmlText ? null : ( 
-    <div>
-      { ReactHtmlParser(htmlText.replaceAll(/href/g, `target="_blank" rel="noreferrer" href`)) }
+    <div className={styles.htmlText}>
+      { parseHtml(htmlText) }
     </div>
   );
 }
