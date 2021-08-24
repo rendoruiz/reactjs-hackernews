@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 
-const UserViewLink = ({ username, isText = false }) => {
-  return !username ? null : ( 
+const UserViewLink = ({ userId, isText = false }) => {
+  return !userId ? null : ( 
     <Link
-      to={"/u/" + username}
+      to={"/u/" + userId}
       title="Go to user page"
     >
-      { (!isText ? "u/" : "") + username }
+      { (!isText ? "u/" : "") + userId }
     </Link>
   );
 }

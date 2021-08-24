@@ -16,6 +16,7 @@ import IconButtonLink from './Links/IconButtonLink';
 
 import styles from '../styles/components/StoryCard.module.css'
 import buttonStyles from '../styles/components/Button.module.css'
+import StoryViewLink from './Links/StoryViewLink';
 
 const StoryCard = ({ storyData, storyId, isDetailed = false }) => {
   const history = useHistory();
@@ -51,7 +52,7 @@ const StoryCard = ({ storyData, storyId, isDetailed = false }) => {
         <section className={styles.content} onClick={(e) => handleClick(e, story.id)}>
           <header className={styles.contentHeader}>
             Posted by&nbsp;
-            <UserViewLink username={story.by} />&nbsp;
+            <UserViewLink userId={story.by} />&nbsp;
             <DateTimeContentLink 
               contentId={story.id} 
               contentTime={story.time} 
@@ -65,7 +66,7 @@ const StoryCard = ({ storyData, storyId, isDetailed = false }) => {
           </header>
 
           <main>
-            <Link to={'/s/' + story.id} className={styles.title}>{ story.title }</Link>
+            <StoryViewLink storyId={story.id} text={story.title} className={styles.title} />
             <ExternalLink 
               link={story.url} 
               text={story.url} 
