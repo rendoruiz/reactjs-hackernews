@@ -1,7 +1,7 @@
 @import './../variables.css';
 
 .navigationItem {
-  composes: buttonLarge from "./Button.module.css";
+  composes: largeButton from "./Button.module.css";
   border-radius: 20px;
 }
 .navigationItem.active {

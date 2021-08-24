@@ -3,7 +3,7 @@
 .button {
   padding: 5px;
   border: none;
-  border-radius: var(--border-radius);
+  border-radius: var(--corner-rounding);
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -23,11 +23,11 @@
 }
 
 .buttonIcon {
-  width: 18px !important;
-  height: 18px;
+  width: var(--icon-size) !important;
+  height: var(--icon-size);
 }
 
-.buttonLarge {
+.largeButton {
   composes: button;
   padding: 5px 10px;
 }

@@ -39,11 +39,11 @@ code, pre {
 }
 
 :root {
-  --border-radius: 4px;
+  --corner-rounding: 4px;
   --accent-rgb: 255, 102, 0;
   --color-accent: rgb(var(--accent-rgb));
-  --app-background-rgb: 218, 224, 230;
-  --color-app-background: rgb(var(--app-background-rgb));
+  --body-background-rgb: 218, 224, 230;
+  --color-body-background: rgb(var(--body-background-rgb));
   --content-background-rgb: 255, 255, 255;
   --color-content-background: rgba(var(--content-background-rgb), 1);
   --color-title: rgb(34, 34, 34);
@@ -69,7 +69,7 @@ code, pre {
   padding: 2px;
   transition: all 100ms ease-in-out;
   border: none;
-  border-radius: var(--border-radius);
+  border-radius: var(--corner-rounding);
   cursor: pointer;
 }
 .btn:hover {
@@ -135,7 +135,7 @@ a.accented-link {
 
 /* navigation items */
 nav.navigation-group {
-  border-radius: var(--border-radius);
+  border-radius: var(--corner-rounding);
   background: var(--color-content-background);
   padding: 10px;
   display: flex;
@@ -149,7 +149,7 @@ nav.navigation-group {
   min-height: 100vh;
   display: grid;
   justify-content: stretch;
-  background: var(--color-app-background);
+  background: var(--color-body-background);
 }
 @media screen and (min-width: 640px) {
   .content {
@@ -229,16 +229,16 @@ nav.navigation-group {
 
 /* views/UserView.js > section.sidebar > user-profile */
 .user-detail .user-profile {
-  border-radius: var(--border-radius);
+  border-radius: var(--corner-rounding);
   background: var(--color-content-background);
 }
 .user-detail .user-profile > header {
   padding: 0 10px;
   background-color: var(--color-accent);
-  border-radius: var(--border-radius) var(--border-radius) 0 0;
+  border-radius: var(--corner-rounding) var(--corner-rounding) 0 0;
 }
 .user-detail .user-image {
-  border-radius: var(--border-radius);
+  border-radius: var(--corner-rounding);
   background: var(--color-content-background);
   transform: translateY(25px);
   height: 90px;
@@ -247,7 +247,7 @@ nav.navigation-group {
   color: var(--color-content-background);
 }
 .user-detail .user-image > div {
-  border-radius: var(--border-radius);
+  border-radius: var(--corner-rounding);
   margin: 4px;
   display: grid;
   place-items: center;
@@ -305,7 +305,7 @@ nav.navigation-group {
 }
 .story-detail .comments {
   padding: 10px 0;
-  border-radius: var(--border-radius);
+  border-radius: var(--corner-rounding);
   background: var(--color-content-background);
   row-gap: 20px;
 }
@@ -317,7 +317,7 @@ nav.navigation-group {
   padding: 10px 10px 0;
 }
 .story-detail .comments > .comment-item:not(:first-of-type) {
-  border-top: 1px solid var(--color-app-background);
+  border-top: 1px solid var(--color-body-background);
 }
 @media screen and (min-width: 640px) {
   .story-detail {
@@ -370,7 +370,7 @@ nav.navigation-group {
   text-transform: uppercase;
 }
 .comment-item .comment-expansion .vertical-toggle {
-  border-left: 2px solid var(--color-app-background);
+  border-left: 2px solid var(--color-body-background);
   height: calc(100% - 10px);
   align-self: flex-end;
 }
@@ -426,11 +426,11 @@ nav.navigation-group {
 
 /* components/StoryCard */
 .content-card {
-  border-radius: var(--border-radius);
+  border-radius: var(--corner-rounding);
 }
 
 .story-card {
-  border-radius: var(--border-radius);
+  border-radius: var(--corner-rounding);
   display: grid;
   grid-template-columns: 40px 1fr;
   user-select: none;
@@ -439,7 +439,7 @@ nav.navigation-group {
 /* score left column */
 .story-card aside.story-score {
   padding: 10px;
-  border-radius: var(--border-radius) 0 0 var(--border-radius);
+  border-radius: var(--corner-rounding) 0 0 var(--corner-rounding);
   background: rgba(var(--content-background-rgb), 0.7);
   display: grid;
   word-break: unset;
@@ -453,7 +453,7 @@ nav.navigation-group {
 /* content right column */
 .story-card section.story-content {
   padding: 10px 8px 4px 8px;
-  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  border-radius: 0 var(--corner-rounding) var(--corner-rounding) 0;
   background: var(--color-content-background);
 }
 .story-card section.story-content header {
@@ -527,7 +527,7 @@ nav.navigation-group {
   /* column-gap: 10px; */
   margin: 10px 10px 0;
   padding-bottom: 10px;
-  border-bottom: 2px solid rgba(var(--app-background-rgb), 0.7);
+  border-bottom: 2px solid rgba(var(--body-background-rgb), 0.7);
 }
 .comment-card > .comment-parent-story .glyph {
   width: 100%;
@@ -577,7 +577,7 @@ nav.navigation-group {
 .comment-card > .comment-content .comment-item.accented-background > .comment-content {
   padding: 8px 10px;
   background: rgba(var(--accent-rgb), 0.15);
-  border-radius: var(--border-radius);
+  border-radius: var(--corner-rounding);
 }
 
 
