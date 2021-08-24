@@ -19,6 +19,7 @@
 }
 .detailedStoryCard {
   composes: storyCard;
+  border: none;
   cursor: unset;
 }
 
