@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useLocation } from "react-router-dom";
-import styles from '../styles/components/NavigationItem.module.css'
+import styles from '../styles/components/NavigationBar.module.css'
 
 const NavigationItem = ({ routeTo, label, faIcon = null, title }) => {
   const location = useLocation();

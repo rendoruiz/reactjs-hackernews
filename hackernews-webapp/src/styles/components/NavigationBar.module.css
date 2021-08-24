@@ -1,5 +1,13 @@
 @import './../variables.css';
 
+.navigationBar {
+  padding: 10px;
+  border-radius: var(--corner-rounding);
+  background: var(--color-content-background);
+  display: flex;
+  gap: 8px;
+}
+
 .navigationItem {
   composes: largeButton from "./Button.module.css";
   border-radius: 20px;

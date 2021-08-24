@@ -71,16 +71,6 @@ a:hover {
 }
 
 
-/* navigation items */
-nav.navigation-group {
-  border-radius: var(--corner-rounding);
-  background: var(--color-content-background);
-  padding: 10px;
-  display: flex;
-  gap: 8px;
-  margin-bottom: 10px;
-}
-
 
 /* root */
 .content {

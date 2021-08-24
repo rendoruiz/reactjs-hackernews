@@ -5,6 +5,7 @@ import { faBurn, faCertificate, faChartLine } from "@fortawesome/free-solid-svg-
 import api from '../api';
 import NavigationItem from "../components/NavigationItem";
 import StoryCard from "../components/StoryCard";
+import NavigationBar from "../components/NavigationBar";
 
 const CatalogView = () => {
   const location = useLocation();
@@ -53,7 +54,7 @@ const CatalogView = () => {
   return isLoading ? <span>Loading Stories...</span> : storyIdList.length <= 0 ? <span>Connection error</span> : ( 
     <div className="page catalog">
       <section className="stories">
-        <nav className="navigation-group">
+        <NavigationBar>
           <NavigationItem 
             routeTo='/' 
             label='Top'
@@ -72,6 +73,8 @@ const CatalogView = () => {
             faIcon={faCertificate}
             title='Hacker News New Stories'
           />
+        </NavigationBar>
+        <nav className="navigation-group">
         </nav> 
 
         { storyIdList.length <= 0 ? <span>Loading stories...</span> : storyIdList.slice(0, itemCount).map((itemId) => <StoryCard key={itemId} storyId={itemId} /> ) } 
