@@ -10,7 +10,8 @@
 }
 
 .navigationItem {
-  composes: largeButton from "./Button.module.css";
+  composes: button from "./Button.module.css";
+  padding: 5px 10px;
   border-radius: 20px;
 }
 .navigationItem.active {

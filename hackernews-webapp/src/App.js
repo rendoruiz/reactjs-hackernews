@@ -11,23 +11,21 @@ function App() {
     <div className={styles.container}>
       <Router>
         <SiteHeader />
-        <div className={styles.content}>
-          <Switch>
+        <Switch>
           <Redirect from='/top' to='/' />
-            <Route exact path={["/", "/best", "/new"]}>
-              <CatalogView />
-            </Route>
-            <Route exact path={["/u/:userId/", "/u/:userId/story", "/u/:userId/comment"]}>
-              <UserView />
-            </Route>
-            <Route path="/s/:id">
-              <StoryView />
-            </Route>
-            <Route path={["*", "/404"]}>
-              <NotFoundView />
-            </Route>
-          </Switch>
-        </div>
+          <Route exact path={["/", "/best", "/new"]}>
+            <CatalogView />
+          </Route>
+          <Route exact path={["/u/:userId/", "/u/:userId/story", "/u/:userId/comment"]}>
+            <UserView />
+          </Route>
+          <Route path="/s/:id">
+            <StoryView />
+          </Route>
+          <Route path={["*", "/404"]}>
+            <NotFoundView />
+          </Route>
+        </Switch>
       </Router>
     </div>
   );

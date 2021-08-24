@@ -5,11 +5,14 @@
   border: none;
   border-radius: var(--corner-rounding);
   display: inline-flex;
+  justify-content: center;
   align-items: center;
   gap: 8px;
   font-weight: bold;
+  text-align: center;
   text-decoration: none;
   transition: all 100ms ease-out;
+  cursor: pointer;
 }
 .button:visited {
   color: inherit;
@@ -28,7 +31,11 @@
   height: var(--icon-size);
 }
 
-.largeButton {
+.accentedButton {
   composes: button;
-  padding: 5px 10px;
+  background: var(--color-accent);
+  color: var(--color-light);
+}
+.accentedButton:hover {
+  background-color: rgba(var(--accent-rgb), 0.85);
 }

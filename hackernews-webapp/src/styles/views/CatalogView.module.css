@@ -1,0 +1,21 @@
+.catalogView {
+  composes: content from "./../App.module.css";
+}
+
+.storyList {
+  display: grid;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.storyList > nav:first-child {
+  margin-bottom: 5px;
+}
+.storyList > button:last-child {
+  margin-top: 5px;
+}
+
+.button {
+  composes: accentedButton from "./../components/Button.module.css";
+  padding: 8px;
+}

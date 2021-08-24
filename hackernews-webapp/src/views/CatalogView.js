@@ -6,6 +6,7 @@ import api from '../api';
 import NavigationItem from "../components/NavigationItem";
 import StoryCard from "../components/StoryCard";
 import NavigationBar from "../components/NavigationBar";
+import styles from "../styles/views/CatalogView.module.css";
 
 const CatalogView = () => {
   const location = useLocation();
@@ -52,8 +53,8 @@ const CatalogView = () => {
   }
 
   return isLoading ? <span>Loading Stories...</span> : storyIdList.length <= 0 ? <span>Connection error</span> : ( 
-    <div className="page catalog">
-      <section className="stories">
+    <div className={styles.catalogView}>
+      <section className={styles.storyList}>
         <NavigationBar>
           <NavigationItem 
             routeTo='/' 
@@ -74,27 +75,21 @@ const CatalogView = () => {
             title='Hacker News New Stories'
           />
         </NavigationBar>
-        <nav className="navigation-group">
-        </nav> 
 
         { storyIdList.length <= 0 ? <span>Loading stories...</span> : storyIdList.slice(0, itemCount).map((itemId) => <StoryCard key={itemId} storyId={itemId} /> ) } 
 
         {/* load more story items */}
         { storyIdList.length <= 0 ? null : storyIdList.length > itemCount &&
-          <button className="btn more-items" onClick={handleLoadMoreItems}>
-            <span>Load more stories </span> 
-            <span>
-              ({itemCountIncrement >= storyIdList.length-itemCount 
-                ? storyIdList.length-itemCount 
-                : itemCountIncrement
-                } of {storyIdList.length-itemCount})
-            </span>  
+          <button className={styles.button} onClick={handleLoadMoreItems}>
+            Load more stories&nbsp;
+            ({itemCountIncrement >= storyIdList.length-itemCount 
+              ? storyIdList.length-itemCount 
+              : itemCountIncrement
+              } of {storyIdList.length-itemCount})
           </button> 
         }
       </section>
-      <aside className="sidebar">
-
-      </aside>
+      {/* <aside className="sidebar"></aside> */}
     </div>
   );
 }
