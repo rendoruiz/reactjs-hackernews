@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { faCommentAlt } from '@fortawesome/free-regular-svg-icons';
-import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 import { faHackerNewsSquare } from '@fortawesome/free-brands-svg-icons';
 
 import api from '../api';
@@ -11,10 +10,11 @@ import StoryDeleted from './Story/StoryDeleted';
 import UserViewLink from './Links/UserViewLink';
 import DateTimeContentLink from './Links/DateTimeContentLink';
 import StoryDead from './Story/StoryDead';
-import ExternalUrlLink from './Links/ExternalUrlLink';
+import ExternalLink from './Links/ExternalLink';
 import ParsedHtmlText from './ParsedHtmlText';
 import IconButtonLink from './Links/IconButtonLink';
 import styles from '../styles/StoryCard.module.css'
+import buttonStyles from '../styles/Button.module.css'
 
 const StoryCard = ({ storyData = null, storyId = null, isDetailed = false }) => {
   const history = useHistory();
@@ -22,7 +22,7 @@ const StoryCard = ({ storyData = null, storyId = null, isDetailed = false }) => 
   const [isLoading, setIsLoading] = useState(true);
 
   const handleClick = (e, id) => {
-    if (e.target.nodeName !== 'A') {
+    if (e.target.nodeName !== 'A' && e.target.nodeName !== 'svg') {
       history.push('/s/' + id);
     }
   }
@@ -44,41 +44,51 @@ const StoryCard = ({ storyData = null, storyId = null, isDetailed = false }) => 
 
   return ( 
     (!story && !storyId) ? null : isLoading ? <StoryCardLoader /> : !story ? <ConnectionError /> : story.deleted ? <StoryDeleted /> : story.dead ? <StoryDead /> : (
-      <div className="content-card story-card">
-        <aside className="story-score">
-          <span title="Story score/karma">{ story.score }</span>
-        </aside>
+      <div className={isDetailed ? styles.detailedStoryCard : styles.storyCard}>
+        <aside className={styles.score}>{ story.score }</aside>
 
-        <section className={styles.storyContent} onClick={(e) => handleClick(e, story.id)}>
-          <header>
-            <span>Posted by </span><UserViewLink username={story.by} />&nbsp;
-            <DateTimeContentLink contentId={story.id} contentTime={story.time} />
-            <IconButtonLink
-              link={story.url}
-              icon={faExternalLinkAlt}
-              title="View link in new tab"
-              external
+        <section className={styles.content} onClick={(e) => handleClick(e, story.id)}>
+          <header className={styles.contentHeader}>
+            Posted by&nbsp;
+            <UserViewLink username={story.by} />&nbsp;
+            <DateTimeContentLink 
+              contentId={story.id} 
+              contentTime={story.time} 
             />
+            <ExternalLink 
+              link={story.url} 
+              title="View story link in new tab" 
+              className={styles.externalLinkButton}
+              iconClassName={buttonStyles.buttonIcon}
+            /> 
           </header>
 
           <main>
-            <p>{ story.title }</p>
-            <ExternalUrlLink externalUrl={story.url} text={story.url} title={story.url} />
+            <p className={styles.title}>{ story.title }</p>
+            <ExternalLink 
+              link={story.url} 
+              text={story.url} 
+              title={story.url} 
+            />
             { story.text && isDetailed && <ParsedHtmlText htmlText={story.text} /> }
           </main>
 
-          <footer>
+          <footer className={styles.contentFooter}>
             <IconButtonLink 
               link={"/s/" + story.id}
               icon={faCommentAlt}
               text={`${story.descendants ?? "No"} Comments`}
               title="View story comments"
+              className={styles.button}
+              iconClassName={buttonStyles.buttonIcon}
             />
             <IconButtonLink
               link={"https://news.ycombinator.com/item?id=" + story.id}
               icon={faHackerNewsSquare}
               text="View Original"
               title="View original submission on Hacker News"
+              className={styles.button}
+              iconClassName={buttonStyles.buttonIcon}
               external
             />
           </footer>

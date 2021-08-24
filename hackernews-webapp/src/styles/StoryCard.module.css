@@ -1,0 +1,66 @@
+@import './variables.css';
+
+.storyCard {
+  border-radius: var(--border-radius);
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  cursor: pointer;
+}
+.detailedStoryCard {
+  composes: storyCard;
+  cursor: unset;
+}
+
+.score,
+.contentHeader,
+.storyLink,
+.button {
+  font-size: var(--fs-subtitle);
+}
+
+.button,
+.externalLinkButton {
+  composes: button from "./Button.module.css";
+}
+
+.score {
+  padding: 10px 2px;
+  border-radius: var(--border-radius) 0 0 var(--border-radius);
+  background: rgba(var(--content-background-rgb), 0.7);
+  font-weight: bold;
+  text-align: center;
+  word-break: keep-all;
+}
+
+.content {
+  padding: 10px 8px 4px 8px;
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  background: var(--color-content-background);
+}
+
+.contentHeader {
+  height: 22px;
+  display: flex;
+  color: var(--color-subtitle1);
+}
+.externalLinkButton {
+  margin-left: auto;
+  padding: 3px;
+}
+
+.title {
+  margin-bottom: 2px;
+  font-size: var(--fs-title);
+  font-weight: bold;
+}
+
+.contentFooter {
+  margin-top: 30px;
+  color: var(--color-subtitle1);
+  display: flex;
+  gap: 4px;
+}
+.button {
+  padding: 5px 7px;
+  gap: 6px;
+}

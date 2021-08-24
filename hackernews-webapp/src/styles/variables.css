@@ -18,4 +18,7 @@
   --color-button: rgb(135, 138, 140);
   --color-button-hover: rgba(26, 26, 27, 0.1);
   --color-button-active: rgba(135, 138, 140, 0.1);
+
+  --fs-title: 1.2rem;
+  --fs-subtitle: 0.75rem;
 }
