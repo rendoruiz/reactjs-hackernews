@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { faCommentAlt } from '@fortawesome/free-regular-svg-icons';
 import { faHackerNewsSquare } from '@fortawesome/free-brands-svg-icons';
 
@@ -65,7 +65,7 @@ const StoryCard = ({ storyData = null, storyId = null, isDetailed = false }) => 
           </header>
 
           <main>
-            <p className={styles.title}>{ story.title }</p>
+            <Link to={'/s/' + story.id} className={styles.title}>{ story.title }</Link>
             <ExternalLink 
               link={story.url} 
               text={story.url} 

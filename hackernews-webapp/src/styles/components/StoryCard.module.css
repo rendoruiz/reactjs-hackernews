@@ -69,6 +69,10 @@
   font-size: var(--fs-title);
   font-weight: bold;
   color: var(--color-dark);
+  display: block;
+}
+.title:hover {
+  text-decoration: none;
 }
 
 .contentFooter {
