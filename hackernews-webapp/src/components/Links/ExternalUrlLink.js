@@ -5,7 +5,7 @@ const ExternalUrlLink = ({ externalUrl, text = null, title = null }) => {
   return !externalUrl ? null : ( 
     <a href={externalUrl} target="_blank" rel="noreferrer" 
       className="btn story-url-btn" 
-      title={title ? title : "Open link in new tab"}
+      title={title ? title : "View link in new tab"}
     >
       { text && <span>{ text }</span> }
       <FontAwesomeIcon className="glyph" icon={faExternalLinkAlt} />

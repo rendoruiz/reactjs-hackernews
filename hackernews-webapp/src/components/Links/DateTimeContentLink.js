@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import moment from 'moment';
 
-const ContentTimeLink = ({ contentId, contentTime }) => {
+const DateTimeContentLink = ({ contentId, contentTime }) => {
   return !contentId || !contentTime ? null : ( 
     <Link
       to={"/s/" + contentId}
@@ -12,4 +12,4 @@ const ContentTimeLink = ({ contentId, contentTime }) => {
   );
 }
  
-export default ContentTimeLink;
+export default DateTimeContentLink;

@@ -1,68 +1,68 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
-import { Link, useHistory } from 'react-router-dom';
-import ReactHtmlParser from 'react-html-parser';
-import moment from 'moment';
-import { faCommentAlt } from '@fortawesome/free-regular-svg-icons';
-import { faHackerNewsSquare } from '@fortawesome/free-brands-svg-icons';
 import { useEffect, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { faCommentAlt } from '@fortawesome/free-regular-svg-icons';
+import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
+import { faHackerNewsSquare } from '@fortawesome/free-brands-svg-icons';
+
 import api from '../api';
 import StoryCardLoader from './Loaders/StoryCardLoader';
 import ConnectionError from './ConnectionError';
 import StoryDeleted from './Story/StoryDeleted';
 import UserViewLink from './Links/UserViewLink';
-import ContentTimeLink from './Links/ContentTimeLink';
+import DateTimeContentLink from './Links/DateTimeContentLink';
 import StoryDead from './Story/StoryDead';
 import ExternalUrlLink from './Links/ExternalUrlLink';
 import ParsedHtmlText from './ParsedHtmlText';
 import IconButtonLink from './Links/IconButtonLink';
+import styles from '../styles/StoryCard.module.css'
 
-const ContentItemStoryCard = ({ storyObject = null, itemId = null, isDetailed = false }) => {
+const StoryCard = ({ storyData = null, storyId = null, isDetailed = false }) => {
   const history = useHistory();
-  const [story, setStory] = useState(storyObject ?? null);
+  const [story, setStory] = useState(storyData ?? null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const handleClick = (e, storyId) => {
-    if (!e.target.className.includes('btn')) {
-      history.push('/s/' + storyId);
+  const handleClick = (e, id) => {
+    if (e.target.nodeName !== 'A') {
+      history.push('/s/' + id);
     }
   }
 
   useEffect(() => {
-    // setTimeout(() => {
-      if (story && !itemId) {
+    // fetch story data from server if only storyId is provided
+    if (story && !storyId) {
+      setIsLoading(false);
+    } else if (!story && storyId) {
+      api.get(`item/${storyId}.json`).then((response) => {
+        setStory(response.data);
+      }).catch((error) => {
+        console.log('StoryCard ' + error);
+      }).then(() => {
         setIsLoading(false);
-      } else if (!story && itemId) {
-        api.get(`item/${itemId}.json`).then((res) => {
-          console.log(res.data)
-          setStory(res.data);
-        }).catch((error) => {
-          console.log('ContentItemStoryCard ' + error);
-        }).then(() => {
-          setIsLoading(false);
-        });
-      } 
-    // }, 1000);
-  }, [story, itemId, isLoading]);
+      });
+    } 
+  }, [storyId, story, isLoading]);
 
   return ( 
-    (!story && !itemId) ? null : isLoading ? <StoryCardLoader /> : !story ? <ConnectionError /> : story.deleted ? <StoryDeleted /> : story.dead ? <StoryDead /> : (
+    (!story && !storyId) ? null : isLoading ? <StoryCardLoader /> : !story ? <ConnectionError /> : story.deleted ? <StoryDeleted /> : story.dead ? <StoryDead /> : (
       <div className="content-card story-card">
         <aside className="story-score">
           <span title="Story score/karma">{ story.score }</span>
         </aside>
 
-        <section className="story-content" onClick={(e) => handleClick(e, story.id)}>
+        <section className={styles.storyContent} onClick={(e) => handleClick(e, story.id)}>
           <header>
-            <span>Posted by <UserViewLink username={story.by} /></span>&nbsp;
-            <ContentTimeLink contentId={story.id} contentTime={story.time} />
-            <ExternalUrlLink externalUrl={story.url} />
+            <span>Posted by </span><UserViewLink username={story.by} />&nbsp;
+            <DateTimeContentLink contentId={story.id} contentTime={story.time} />
+            <IconButtonLink
+              link={story.url}
+              icon={faExternalLinkAlt}
+              title="View link in new tab"
+              external
+            />
           </header>
 
           <main>
-            <h2 className="story-title">
-              <Link to={"/s/" + story.id}>{ story.title }</Link>
-            </h2>
+            <p>{ story.title }</p>
             <ExternalUrlLink externalUrl={story.url} text={story.url} title={story.url} />
             { story.text && isDetailed && <ParsedHtmlText htmlText={story.text} /> }
           </main>
@@ -88,4 +88,4 @@ const ContentItemStoryCard = ({ storyObject = null, itemId = null, isDetailed = 
   );
 }
  
-export default ContentItemStoryCard;
+export default StoryCard;

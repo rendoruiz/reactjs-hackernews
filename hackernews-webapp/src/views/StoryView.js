@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import CommentItemGroup from "../components/CommentItemGroup";
-import ContentItemStoryCard from "../components/ContentItemStoryCard";
+import StoryCard from "../components/StoryCard";
 import api from '../api';
 
 const StoryView = () => {
@@ -38,7 +38,7 @@ const StoryView = () => {
       {
         story && !isLoading && 
         <header className="story">
-          <ContentItemStoryCard storyObject={story} isDetailed={true} />
+          <StoryCard storyData={story} isDetailed={true} />
         </header>
       }
       {

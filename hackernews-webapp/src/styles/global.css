@@ -420,7 +420,7 @@ nav.navigation-group {
 
 
 
-/* components/ContentItemStoryCard */
+/* components/StoryCard */
 .content-card {
   border-radius: var(--border-radius);
 }

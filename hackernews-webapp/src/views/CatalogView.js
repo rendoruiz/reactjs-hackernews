@@ -4,7 +4,7 @@ import { faBurn, faCertificate, faChartLine } from "@fortawesome/free-solid-svg-
 
 import api from '../api';
 import NavigationItem from "../components/NavigationItem";
-import ContentItemStoryCard from "../components/ContentItemStoryCard";
+import StoryCard from "../components/StoryCard";
 
 const CatalogView = () => {
   const location = useLocation();
@@ -74,7 +74,7 @@ const CatalogView = () => {
           />
         </nav> 
 
-        { storyIdList.length <= 0 ? <span>Loading stories...</span> : storyIdList.slice(0, itemCount).map((itemId) => <ContentItemStoryCard key={itemId} itemId={itemId} /> ) } 
+        { storyIdList.length <= 0 ? <span>Loading stories...</span> : storyIdList.slice(0, itemCount).map((itemId) => <StoryCard key={itemId} storyId={itemId} /> ) } 
 
         {/* load more story items */}
         { storyIdList.length <= 0 ? null : storyIdList.length > itemCount &&
