@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 
-const IconButtonLink = ({ link, icon, text = null, title, external = false, className = "", iconClassName = "" }) => {
+const IconButtonLink = ({ link, icon, text, title, external = false, className, iconClassName }) => {
   const externalLinkAttributes = !external ? null : {target: "_blank", rel: "noreferrer"}
 
   return (!link || !icon) ? null : ( 

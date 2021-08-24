@@ -2,7 +2,7 @@ import ReactHtmlParser from 'react-html-parser';
 
 import styles from '../styles/components/ParsedHtmlText.module.css'
 
-const ParsedHtmlText = ({ htmlText, className }) => {
+const ParsedHtmlText = ({ htmlText }) => {
   const parseHtml = (rawHtmlText) => {
     console.log(ReactHtmlParser(rawHtmlText))
     console.log(ReactHtmlParser(rawHtmlText).children)

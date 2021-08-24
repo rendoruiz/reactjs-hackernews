@@ -3,7 +3,7 @@ import CommentCard from "./CommentCard";
 import StoryCard from "./StoryCard";
 import api from '../api';
 
-const UserContentItem = ({ contentId = null, restrictContent = null, userId = null }) => {
+const UserContentItem = ({ contentId, restrictContent, userId }) => {
   const [contentItem, setContentItem] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -23,7 +23,7 @@ const UserContentItem = ({ contentId = null, restrictContent = null, userId = nu
     if (contentType === "story" && restrictContent !== 'comment' && userId) {
       return <StoryCard storyData={contentItem} userId={userId} />
     } else if (contentType === "comment" && restrictContent !== 'story' && userId) {
-      return <CommentCard comment={contentItem} userId={userId} />
+      return <CommentCard commentData={contentItem} userId={userId} />
     } else {
       return null;
     }

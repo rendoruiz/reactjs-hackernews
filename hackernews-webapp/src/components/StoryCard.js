@@ -17,7 +17,7 @@ import IconButtonLink from './Links/IconButtonLink';
 import styles from '../styles/components/StoryCard.module.css'
 import buttonStyles from '../styles/components/Button.module.css'
 
-const StoryCard = ({ storyData = null, storyId = null, isDetailed = false }) => {
+const StoryCard = ({ storyData, storyId, isDetailed = false }) => {
   const history = useHistory();
   const [story, setStory] = useState(storyData ?? null);
   const [isLoading, setIsLoading] = useState(true);
