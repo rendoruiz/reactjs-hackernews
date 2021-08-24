@@ -2,20 +2,30 @@
   composes: content from "./../App.module.css";
 }
 
-.storyList {
+.catalog {
   display: grid;
   align-items: flex-start;
-  gap: 10px;
+  gap: 4px;
 }
 
-.storyList > nav:first-child {
-  margin-bottom: 5px;
+.catalog > nav:first-child {
+  margin-bottom: 1px;
 }
-.storyList > button:last-child {
+.catalog > button:last-child {
   margin-top: 5px;
 }
 
 .button {
   composes: accentedButton from "./../components/Button.module.css";
   padding: 8px;
+}
+
+
+@media screen and (min-width: 640px) {
+  .catalog {
+    gap: 10px;
+  }
+  .catalog > nav:first-child {
+    margin-bottom: 5px;
+  }
 }

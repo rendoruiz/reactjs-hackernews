@@ -8,10 +8,11 @@ import StoryCard from "../components/StoryCard";
 import NavigationBar from "../components/NavigationBar";
 import styles from "../styles/views/CatalogView.module.css";
 import CatalogViewLoader from "../components/Loaders/CatalogViewLoader";
+import ConnectionError from "../components/ConnectionError";
 
 const CatalogView = () => {
   const location = useLocation();
-  const [storyIdList, setStoryIdList] = useState([]);
+  const [storyIdList, setStoryIdList] = useState(null);
   const itemCountIncrement = 20;
   const [itemCount, setItemCount] = useState(itemCountIncrement);
   const [isLoading, setIsLoading] = useState(true);
@@ -46,15 +47,15 @@ const CatalogView = () => {
     document.title = `${type} Stories - Readit News`;
   }
 
-  const handleLoadMoreItems = () => {
+  const handleLoadStoryItems = () => {
     if (storyIdList.length > itemCount) {
       setItemCount(itemCount + itemCountIncrement);
     }
   }
 
-  return isLoading ? <CatalogViewLoader /> : storyIdList.length <= 0 ? <span>Connection error</span> : ( 
+  return isLoading ? <CatalogViewLoader /> : !storyIdList ? <ConnectionError /> : ( 
     <div className={styles.catalogView}>
-      <section className={styles.storyList}>
+      <section className={styles.catalog}>
         <NavigationBar>
           <NavigationItem 
             routeTo='/' 
@@ -76,13 +77,13 @@ const CatalogView = () => {
           />
         </NavigationBar>
 
-        { storyIdList.length <= 0 ? <span>Loading stories...</span> : storyIdList.slice(0, itemCount).map((itemId) => <StoryCard key={itemId} storyId={itemId} /> ) } 
+        { storyIdList.slice(0, itemCount).map((itemId) => <StoryCard key={itemId} storyId={itemId} />) } 
 
         {/* load more story items */}
-        { storyIdList.length <= 0 ? null : storyIdList.length > itemCount &&
-          <button className={styles.button} onClick={handleLoadMoreItems}>
-            Load more stories&nbsp;
-            ({itemCountIncrement >= storyIdList.length-itemCount 
+        { storyIdList.length > itemCount &&
+          <button className={styles.button} onClick={handleLoadStoryItems}>
+            Load more stories&nbsp;(
+            {itemCountIncrement >= storyIdList.length-itemCount 
               ? storyIdList.length-itemCount 
               : itemCountIncrement
               } of {storyIdList.length-itemCount})

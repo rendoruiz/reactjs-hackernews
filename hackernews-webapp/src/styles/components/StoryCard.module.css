@@ -1,10 +1,15 @@
 @import './../variables.css';
 
 .storyCard {
-  border-radius: var(--corner-rounding);
+  --card-corner-rounding: 0;
   display: grid;
   grid-template-columns: 40px 1fr;
   cursor: pointer;
+}
+@media screen and (min-width: 640px) {
+  .storyCard  {
+    --card-corner-rounding: var(--corner-rounding);
+  }
 }
 .detailedStoryCard {
   composes: storyCard;
@@ -25,7 +30,7 @@
 
 .score {
   padding: 10px 2px;
-  border-radius: var(--corner-rounding) 0 0 var(--corner-rounding);
+  border-radius: var(--card-corner-rounding) 0 0 var(--card-corner-rounding);
   background: rgba(var(--content-background-rgb), 0.7);
   font-weight: bold;
   text-align: center;
@@ -34,7 +39,7 @@
 
 .content {
   padding: 10px 8px 4px 8px;
-  border-radius: 0 var(--corner-rounding) var(--corner-rounding) 0;
+  border-radius: 0 var(--card-corner-rounding) var(--card-corner-rounding) 0;
   background: var(--color-content-background);
 }
 
