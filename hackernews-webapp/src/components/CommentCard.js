@@ -6,7 +6,7 @@ import { faCommentAlt } from "@fortawesome/free-regular-svg-icons";
 import CommentItem from "./CommentItem";
 import api from '../api';
 
-const ContentItemCommentCard = ({ comment = null, userId = null }) => {
+const CommentCard = ({ comment = null, userId = null }) => {
   const [parentStory, setParentStory] = useState(null);
   const [parentComment, setParentComment] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -36,7 +36,7 @@ const ContentItemCommentCard = ({ comment = null, userId = null }) => {
               getParentReferences(res.data.parent);
             }
           }).catch((error) => {
-            console.log('ContentItemCommentCard ' + error);
+            console.log('CommentCard ' + error);
           });
         // }, 1000);
       }
@@ -116,4 +116,4 @@ const ContentItemCommentCard = ({ comment = null, userId = null }) => {
   );
 }
  
-export default ContentItemCommentCard;
+export default CommentCard;

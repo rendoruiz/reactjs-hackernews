@@ -1,21 +1,25 @@
 @import './../variables.css';
 
-.storyCard {
+.card {
   --card-corner-rounding: 0;
   border-radius: var(--card-corner-rounding);
+}
+@media screen and (min-width: 640px) {
+  .card  {
+    --card-corner-rounding: var(--corner-rounding);
+    border: 1px solid transparent;
+    transition: border-color 100ms ease-out;
+  }
+  .card:hover {
+    border-color: var(--color-dark);
+  }
+}
+
+.storyCard {
+  composes: card;
   display: grid;
   grid-template-columns: 40px 1fr;
   cursor: pointer;
-}
-@media screen and (min-width: 640px) {
-  .storyCard  {
-    border: 1px solid transparent;
-    --card-corner-rounding: var(--corner-rounding);
-    transition: border-color 100ms ease-out;
-  }
-  .storyCard:hover {
-    border-color: var(--color-dark);
-  }
 }
 .detailedStoryCard {
   composes: storyCard;

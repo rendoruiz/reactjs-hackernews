@@ -1,0 +1,3 @@
+.commentCard {
+  composes: card from "./StoryCard.module.css";
+}

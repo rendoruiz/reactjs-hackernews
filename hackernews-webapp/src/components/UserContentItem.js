@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ContentItemCommentCard from "./ContentItemCommentCard";
+import CommentCard from "./CommentCard";
 import StoryCard from "./StoryCard";
 import api from '../api';
 
@@ -23,7 +23,7 @@ const UserContentItem = ({ contentId = null, restrictContent = null, userId = nu
     if (contentType === "story" && restrictContent !== 'comment' && userId) {
       return <StoryCard storyData={contentItem} userId={userId} />
     } else if (contentType === "comment" && restrictContent !== 'story' && userId) {
-      return <ContentItemCommentCard comment={contentItem} userId={userId} />
+      return <CommentCard comment={contentItem} userId={userId} />
     } else {
       return null;
     }
