@@ -7,6 +7,14 @@ import { faCommentAlt } from '@fortawesome/free-regular-svg-icons';
 import { faHackerNewsSquare } from '@fortawesome/free-brands-svg-icons';
 import { useEffect, useState } from 'react';
 import api from '../api';
+import StoryCardLoader from './Loaders/StoryCardLoader';
+import ConnectionError from './ConnectionError';
+import StoryDeleted from './Story/StoryDeleted';
+import UserViewLink from './Links/UserViewLink';
+import ContentTimeLink from './Links/ContentTimeLink';
+import StoryDead from './Story/StoryDead';
+import ExternalUrlLink from './Links/ExternalUrlLink';
+import ParsedHtmlText from './ParsedHtmlText';
 
 const ContentItemStoryCard = ({ storyObject = null, itemId = null, isDetailed = false }) => {
   const history = useHistory();
@@ -37,7 +45,7 @@ const ContentItemStoryCard = ({ storyObject = null, itemId = null, isDetailed = 
   }, [story, itemId, isLoading]);
 
   return ( 
-    (!story && !itemId) ? null : isLoading ? <span>Loading story card...</span> : !story ? <span>Connection error</span> : story.deleted ? null : story.dead ? null :
+    (!story && !itemId) ? null : isLoading ? <StoryCardLoader /> : !story ? <ConnectionError /> : story.deleted ? <StoryDeleted /> : story.dead ? <StoryDead /> : (
       <div className="content-card story-card">
         <aside className="story-score">
           <span title="Story score/karma">{ story.score }</span>
@@ -45,48 +53,17 @@ const ContentItemStoryCard = ({ storyObject = null, itemId = null, isDetailed = 
 
         <section className="story-content" onClick={(e) => handleClick(e, story.id)}>
           <header>
-            <span>
-              Posted by&nbsp; 
-              <Link 
-                to={"/u/" + story.by} 
-                className="link-btn"
-                title="Open user page"
-              >
-                { "u/" + story.by }
-              </Link>
-            </span>
-            <span>
-              &nbsp;
-              <Link 
-                to={"/s/" + story.id}
-                className="link-btn"
-                title={moment.unix(story.time).format('LLLL')}
-              >
-                { moment.unix(story.time).fromNow() }
-              </Link>
-            </span>
-            <a href={story.url} target="_blank" rel="noreferrer" className="btn story-url-btn" title="Open story link in new tab">
-              <FontAwesomeIcon className="glyph" icon={faExternalLinkAlt} visibility={!story.url ? 'hidden' : 'visible'} />
-            </a>
+            <span>Posted by <UserViewLink username={story.by} /></span>&nbsp;
+            <ContentTimeLink contentId={story.id} contentTime={story.time} />
+            <ExternalUrlLink externalUrl={story.url} />
           </header>
 
           <main>
-            <h3 className="story-title"><Link to={"/s/" + story.id}>{ story.title }</Link></h3>
-            <a 
-              className="story-url link-btn" 
-              href={story.url} 
-              target="_blank"
-              rel="noreferrer"
-              title={story.url}
-            >
-              { story.url && <span>{ story.url }</span> }
-              { story.url && <FontAwesomeIcon className="inline-glyph" icon={faExternalLinkAlt} /> }
-            </a>
-            { story.text && isDetailed &&
-              <div className="story-text link-btn">
-                { ReactHtmlParser(story.text.replaceAll(/href/g, `target="_blank" rel="noreferrer" href`)) }
-              </div>
-            }
+            <h3 className="story-title">
+              <Link to={"/s/" + story.id}>{ story.title }</Link>
+            </h3>
+            <ExternalUrlLink externalUrl={story.url} text={story.url} title={story.url} />
+            { story.text && isDetailed && <ParsedHtmlText htmlText={story.text} /> }
           </main>
 
           <footer>
@@ -112,6 +89,7 @@ const ContentItemStoryCard = ({ storyObject = null, itemId = null, isDetailed = 
           </footer>
         </section>
       </div>
+    )
   );
 }
  
