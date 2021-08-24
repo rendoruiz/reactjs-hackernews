@@ -97,16 +97,6 @@ const CommentCard = ({ comment = null, userId = null }) => {
         </section>
 
         <section className="comment-content">
-          {/* <div>
-            <h3>Comment Parent</h3>
-            { parentComment && <p>{ parentComment.by } { parentComment.id } <span>[{ parentComment.kids.join(', ') }]</span></p> }
-            <p>{ parentComment && JSON.stringify(parentComment) }</p>
-            <div>
-              <h3>Comment</h3>
-              <p>{ comment.by } <span>{ comment.id }</span></p>
-              <p>{ JSON.stringify(comment) }</p>
-            </div>
-          </div> */}
           { isLoading ? <span>Loading comment...</span> : parentComment
             ? <CommentItem commentObject={comment} parentCommentObject={parentComment} userId={userId} />
             : <CommentItem commentObject={comment} userId={userId} /> 
