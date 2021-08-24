@@ -31,6 +31,7 @@
   height: var(--icon-size);
 }
 
+/* button with accent color as background */
 .accentedButton {
   composes: button;
   background: var(--color-accent);
@@ -38,4 +39,24 @@
 }
 .accentedButton:hover {
   background-color: rgba(var(--accent-rgb), 0.85);
+}
+
+/* load more items button */
+.loadMoreButton {
+  composes: accentedButton;
+  padding: 8px;
+}
+
+/* link button - link styled button */
+.linkButton {
+  composes: button;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--color-light);
+  gap: 0;
+}
+.linkButton:hover {
+  background: none;
+  text-decoration: underline;
 }

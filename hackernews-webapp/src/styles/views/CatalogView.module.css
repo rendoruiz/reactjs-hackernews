@@ -16,8 +16,7 @@
 }
 
 .button {
-  composes: accentedButton from "./../components/Button.module.css";
-  padding: 8px;
+  composes: loadMoreButton from "./../components/Button.module.css";
 }
 
 

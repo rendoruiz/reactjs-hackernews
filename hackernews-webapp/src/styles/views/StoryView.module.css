@@ -1,0 +1,22 @@
+.storyView {
+  composes: content from "./../App.module.css";
+  composes: catalog from "./../views/CatalogView.module.css";
+}
+
+.commentList {
+  padding: 15px 10px;
+  background: var(--color-content-background);
+  display: grid;
+  align-items: flex-start;
+}
+
+.button {
+  composes: loadMoreButton from "./../components/Button.module.css";
+  padding: 6px;
+}
+
+@media screen and (min-width: 640px) {
+  .commentList  {
+    border-radius: var(--corner-rounding);
+  }
+}
