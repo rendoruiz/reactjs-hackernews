@@ -11,11 +11,14 @@
   text-transform: uppercase;
   display: grid;
   place-items: center;
-  transition: opacity 100ms ease-out;
+  transition: opacity 100ms ease-out, transform 100ms ease-out;
 }
 .icon:hover {
   text-decoration: none;
-  opacity: 0.95;
+  opacity: 0.85;
+}
+.icon:active {
+  transform: scale(0.95);
 }
 
 .largeIcon {

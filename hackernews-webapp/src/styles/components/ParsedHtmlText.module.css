@@ -1,7 +1,6 @@
 @import './../variables.css';
 
 .htmlText {
-  padding-top: 8px;
   display: inline-block;
   gap: 0.7rem;
   color: var(--color-dark);

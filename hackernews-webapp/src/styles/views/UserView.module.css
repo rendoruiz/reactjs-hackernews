@@ -40,8 +40,9 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 }
-.userProfile > main > :first-child,
-.userProfile > main > :last-child {
+.userProfile > main > :last-child,
+.userId,
+.about {
   grid-column: 1 / -1;
 }
 .userProfile > main > a:last-child {
@@ -64,14 +65,16 @@
   font-size: calc(var(--fs-subtitle) + 0.15rem);
   font-weight: bold;
 }
+.about {
+  margin-top: 15px;
+  display: grid;
+  row-gap: 3px;
+}
 
 
 @media screen and (min-width: 640px) {
   .userView {
     row-gap: 20px;
-  }
-  .sidebar {
-    
   }
   .userProfile {
     --container-corner: var(--corner-rounding);

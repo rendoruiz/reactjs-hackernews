@@ -17,6 +17,7 @@ import UserInvalid from '../components/User/UserInvalid';
 
 import styles from '../styles/views/UserView.module.css';
 import UserIcon from '../components/User/UserIcon';
+import ParsedHtmlText from '../components/ParsedHtmlText';
 
 const UserView = () => {
   const { userId } = useParams();
@@ -127,6 +128,12 @@ const UserView = () => {
               <FontAwesomeIcon className={styles.textIcon} icon={faBirthdayCake} />
               { moment.unix(user.created).format('LL') }
             </span>
+            { user.about && 
+              <div className={styles.about}>
+                <span className={styles.heading}>About</span>
+                <ParsedHtmlText htmlText={user.about} />
+              </div>
+            }
             <IconButtonLink
               link={"https://news.ycombinator.com/user?id=" + user.id}
               icon={faHackerNewsSquare}
