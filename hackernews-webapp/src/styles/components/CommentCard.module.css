@@ -1,3 +1,31 @@
 .commentCard {
   composes: card from "./StoryCard.module.css";
+  background: var(--color-content-background);
+}
+
+.header {
+  --spacing: 10px;
+  margin: var(--spacing) var(--spacing) 0;
+  padding-bottom: var(--spacing);
+  border-bottom: 2px solid rgba(var(--body-background-rgb), 0.7);
+  color: var(--color-subtitle1);
+  display: grid;
+  grid-template-columns: calc(40px - var(--spacing)) 1fr;
+  align-items: center;
+}
+.storyIcon {
+  padding-right: var(--spacing);
+  width: 100% !important;
+  height: auto;
+}
+.storyContent {
+  font-size: var(--fs-subtitle);
+}
+.storyUser,
+.storyUser:visited {
+  color: var(--color-accent);
+}
+.storyTitle,
+.storyTitle:visited {
+  color: var(--color-dark);
 }
