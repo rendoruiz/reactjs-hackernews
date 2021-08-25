@@ -17,6 +17,7 @@ import StoryViewLink from './Links/StoryViewLink';
 
 import styles from '../styles/components/StoryCard.module.css'
 import buttonStyles from '../styles/components/Button.module.css'
+import PollGroup from './PollGroup';
 
 const StoryCard = ({ storyData, storyId, isDetailed = false }) => {
   const history = useHistory();
@@ -50,7 +51,7 @@ const StoryCard = ({ storyData, storyId, isDetailed = false }) => {
         <aside className={styles.score}>{ story.score }</aside>
 
         <section className={styles.content} onClick={(e) => handleClick(e, story.id)}>
-          <header className={styles.contentHeader}>
+          <header className={styles.header}>
             Posted by&nbsp;
             <UserViewLink userId={story.by} />&nbsp;
             <DateTimeContentLink 
@@ -65,16 +66,17 @@ const StoryCard = ({ storyData, storyId, isDetailed = false }) => {
             /> 
           </header>
 
-          <main>
+          <main className={styles.main}>
             <StoryViewLink storyId={story.id} text={story.title} className={styles.title} />
             <ExternalLink 
               link={story.url} 
               text={story.url}
             />
             { isDetailed && <ParsedHtmlText htmlText={story.text} /> }
+            { isDetailed && story.type === 'poll' && story.parts && <PollGroup /> }
           </main>
 
-          <footer className={styles.contentFooter}>
+          <footer className={styles.footer}>
             <IconButtonLink 
               link={"/s/" + story.id}
               icon={faCommentAlt}

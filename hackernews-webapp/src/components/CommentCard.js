@@ -26,7 +26,7 @@ const CommentCard = ({ commentData, userId }) => {
           const data = response.data;
           console.log(data);
           // set parent story (required)
-          if (!parentStory && data.type === 'story') {
+          if (!parentStory && data.type !== 'comment') {
             setParentStory(data);
             setIsLoading(false);
             return;

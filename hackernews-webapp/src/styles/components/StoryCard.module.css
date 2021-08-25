@@ -28,7 +28,7 @@
 }
 
 .score,
-.contentHeader,
+.header,
 .storyLink,
 .button {
   font-size: var(--fs-subtitle);
@@ -54,13 +54,13 @@
   background: var(--color-content-background);
 }
 
-.contentHeader,
-.contentFooter {
+.header,
+.footer {
   color: var(--color-subtitle1);
   display: flex;
 }
 
-.contentHeader {
+.header {
   height: 22px;
 }
 .externalLinkButton {
@@ -68,18 +68,21 @@
   padding: 3px;
 }
 
+.main {
+  display: grid;
+  align-items: flex-start;
+}
 .title {
-  margin-bottom: 2px;
+  margin-bottom: 5px;
   font-size: var(--fs-title);
   font-weight: bold;
   color: var(--color-dark);
-  display: block;
 }
 .title:hover {
   text-decoration: none;
 }
 
-.contentFooter {
+.footer {
   margin-top: 30px;
   gap: 4px;
 }
