@@ -26,5 +26,6 @@
 @media screen and (min-width: 960px) {
   .content {
     grid-template-columns: 1fr 300px;
+    column-gap: 25px;
   }
 }

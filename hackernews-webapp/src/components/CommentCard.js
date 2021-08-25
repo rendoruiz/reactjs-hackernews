@@ -70,7 +70,7 @@ const CommentCard = ({ commentData, userId }) => {
                 text={parentStory.title} 
                 className={styles.storyTitle} 
               />
-              &nbsp;
+              &nbsp;&nbsp;&nbsp;
               <ExternalLink 
                 link={parentStory.url}
                 text={parentStory.url}
