@@ -1,0 +1,11 @@
+.userView {
+  composes: content from "./../App.module.css";
+}
+
+.userContent {
+  composes: catalog from "./../views/CatalogView.module.css";
+}
+
+.button {
+  composes: loadMoreButton from "./../components/Button.module.css";
+}

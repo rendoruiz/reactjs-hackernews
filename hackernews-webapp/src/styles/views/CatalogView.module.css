@@ -1,5 +1,6 @@
 .catalogView {
   composes: content from "./../App.module.css";
+  grid-template-columns: unset;
 }
 
 .catalog {

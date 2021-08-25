@@ -50,10 +50,11 @@ const StoryView = () => {
             { story.kids.length > commentItemCount &&
               <button className={styles.button} onClick={handleLoadCommentItems}>
                 Load more comments&nbsp;(
-                {itemCountIncrement >= story.kids.length-commentItemCount 
+                { itemCountIncrement >= story.kids.length-commentItemCount 
                   ? story.kids.length-commentItemCount 
                   : itemCountIncrement
-                  } of {story.kids.length-commentItemCount})
+                  } of {story.kids.length-commentItemCount}
+                )
               </button> 
             }
           </div>

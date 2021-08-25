@@ -84,10 +84,11 @@ const CatalogView = () => {
         { storyIdList.length > itemCount &&
           <button className={styles.button} onClick={handleLoadStoryItems}>
             Load more stories&nbsp;(
-            {itemCountIncrement >= storyIdList.length-itemCount 
+            { itemCountIncrement >= storyIdList.length-itemCount 
               ? storyIdList.length-itemCount 
               : itemCountIncrement
-              } of {storyIdList.length-itemCount})
+              } of {storyIdList.length-itemCount}
+            )
           </button> 
         }
       </section>

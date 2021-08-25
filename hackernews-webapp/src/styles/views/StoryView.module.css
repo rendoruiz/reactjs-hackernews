@@ -1,6 +1,7 @@
 .storyView {
   composes: content from "./../App.module.css";
   composes: catalog from "./../views/CatalogView.module.css";
+  grid-template-columns: unset;
 }
 
 .commentList {

@@ -7,8 +7,14 @@ import { faCommentAlt, faNewspaper, faStar, faUser } from '@fortawesome/free-reg
 import UserContentItem from '../components/UserContentItem';
 import { generateHslColor } from '../functions/generateHslColor';
 import { faHackerNewsSquare } from '@fortawesome/free-brands-svg-icons';
+
 import api from '../api';
 import NavigationItem from '../components/NavigationItem';
+import NavigationBar from '../components/NavigationBar';
+import UserViewLoader from '../components/Loaders/UserViewLoader';
+import UserInvalid from '../components/User/UserInvalid';
+
+import styles from '../styles/views/UserView.module.css'
 
 const UserView = () => {
   const { userId } = useParams();
@@ -33,10 +39,10 @@ const UserView = () => {
       setContentTypeFilter(null);
     }
     
-    api.get(`user/${userId}.json`).then((res) => {
-      setUser(res.data);
-      if (res.data.submitted) {
-        setContentIdList(res.data.submitted);
+    api.get(`user/${userId}.json`).then((response) => {
+      setUser(response.data);
+      if (response.data.submitted) {
+        setContentIdList(response.data.submitted);
       }
     }).catch((error) => {
       console.log('UserView ' + error);
@@ -51,11 +57,11 @@ const UserView = () => {
     }
   }
 
-  return isLoading ? <span>Loading User...</span> : !user ? <span>User does not exist</span> : ( 
-    <div className="page user-detail">
-      <aside className="user-contents">
+  return isLoading ? <UserViewLoader /> : !user ? <UserInvalid /> : ( 
+    <div className={styles.userView}>
+      <aside className={styles.userContent}>
         { contentIdList.length > 0 && 
-          <nav className="navigation-group">
+          <NavigationBar>
             <NavigationItem 
               routeTo={`/u/${userId}`}
               label="Overwview"
@@ -74,7 +80,7 @@ const UserView = () => {
               faIcon={faCommentAlt}
               title="Only show comment submissions from this user"
             />
-          </nav> 
+          </NavigationBar>
         }
 
         {/* contentItems */}
@@ -89,14 +95,13 @@ const UserView = () => {
 
         {/* load more contentItem */}
         { contentIdList.length > contentCount &&
-          <button className="btn more-items" onClick={handleLoadMoreItems}>
-            <span>Load more content </span> 
-            <span>
-              ({contentCountIncrement >= contentIdList.length-contentCount 
-                ? contentIdList.length-contentCount 
-                : contentCountIncrement
-                } of {contentIdList.length-contentCount})
-            </span>  
+          <button className={styles.button} onClick={handleLoadMoreItems}>
+            Load more content&nbsp;(
+            { contentCountIncrement >= contentIdList.length-contentCount 
+              ? contentIdList.length-contentCount 
+              : contentCountIncrement
+              } of {contentIdList.length-contentCount}
+            ) 
           </button> 
         }
       </aside>
