@@ -2,6 +2,7 @@
 
 .userView {
   composes: content from "./../App.module.css";
+  row-gap: 10px;
 }
 
 .userContent {
@@ -13,15 +14,17 @@
 
 .sidebar {
   composes: sidebar from "./../App.module.css";
+  grid-row: 1;
 }
 .userProfile {
+  --container-corner: 0;
   --icon-offset-y: 25px;
-  border-radius: var(--corner-rounding);
+  border-radius: var(--container-corner);
   background: var(--color-content-background);
 }
 .userProfile > header {
   padding: 0 10px;
-  border-radius: var(--corner-rounding) var(--corner-rounding) 0 0;
+  border-radius: var(--container-corner) var(--container-corner) 0 0;
   background: var(--color-accent);
   display: flex;
 }
@@ -63,3 +66,23 @@
 }
 
 
+@media screen and (min-width: 640px) {
+  .userView {
+    row-gap: 20px;
+  }
+  .sidebar {
+    
+  }
+  .userProfile {
+    --container-corner: var(--corner-rounding);
+  }
+}
+@media screen and (min-width: 960px) {
+  .content {
+    grid-template-columns: 1fr 300px;
+    column-gap: 25px;
+  }
+  .sidebar {
+    grid-row: unset;
+  }
+}
