@@ -82,16 +82,12 @@ const StoryCard = ({ storyData, storyId, isDetailed = false }) => {
               icon={faCommentAlt}
               text={`${story.descendants > 0 ? story.descendants : "No"} Comment${story.descendants > 1 ? "s" : ""}`}
               title="View story comments"
-              className={styles.button}
-              iconClassName={buttonStyles.buttonIcon}
             />
             <IconButtonLink
               link={"https://news.ycombinator.com/item?id=" + story.id}
               icon={faHackerNewsSquare}
               text="View Original"
               title="View original submission on Hacker News"
-              className={styles.button}
-              iconClassName={buttonStyles.buttonIcon}
               external
             />
           </footer>

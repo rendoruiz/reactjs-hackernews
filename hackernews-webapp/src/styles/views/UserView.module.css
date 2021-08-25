@@ -1,3 +1,5 @@
+@import './../variables.css';
+
 .userView {
   composes: content from "./../App.module.css";
 }
@@ -5,7 +7,59 @@
 .userContent {
   composes: catalog from "./../views/CatalogView.module.css";
 }
-
 .button {
   composes: loadMoreButton from "./../components/Button.module.css";
 }
+
+.sidebar {
+  composes: sidebar from "./../App.module.css";
+}
+.userProfile {
+  --icon-offset-y: 25px;
+  border-radius: var(--corner-rounding);
+  background: var(--color-content-background);
+}
+.userProfile > header {
+  padding: 0 10px;
+  border-radius: var(--corner-rounding) var(--corner-rounding) 0 0;
+  background: var(--color-accent);
+  display: flex;
+}
+.userIcon {
+  padding: 4px;
+  border-radius: var(--corner-rounding);
+  background: var(--color-content-background);
+  transform: translateY(var(--icon-offset-y));
+}
+.userProfile > main {
+  margin-top: var(--icon-offset-y);
+  padding: 0 15px 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.userProfile > main > :first-child,
+.userProfile > main > :last-child {
+  grid-column: 1 / -1;
+}
+.userProfile > main > a:last-child {
+  margin-top: 35px;
+}
+.userId {
+  margin-bottom: 10px;
+  font-size: var(--fs-subtitle);
+}
+.text {
+  font-size: calc(var(--fs-subtitle) + 0.05rem);
+  color: var(--color-subtitle1);
+}
+.textIcon {
+  margin-right: 4px;
+  color: var(--color-accent);
+}
+.heading {
+  margin-bottom: 3px;
+  font-size: calc(var(--fs-subtitle) + 0.15rem);
+  font-weight: bold;
+}
+
+

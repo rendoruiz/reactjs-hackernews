@@ -1,7 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 
-const IconButtonLink = ({ link, icon, text, title, external = false, className, iconClassName }) => {
+import styles from '../../styles/components/Button.module.css'
+
+const IconButtonLink = ({ link, icon, text, title, external = false, accented, className, iconClassName }) => {
   const externalLinkAttributes = !external ? null : {target: "_blank", rel: "noreferrer"}
 
   return (!link || !icon) ? null : ( 
@@ -9,9 +11,9 @@ const IconButtonLink = ({ link, icon, text, title, external = false, className, 
       to={{pathname: link}}
       title={title}
       {...externalLinkAttributes}
-      className={className}
+      className={accented ? styles.accentedButton : className ?? styles.button}
     >
-      <FontAwesomeIcon icon={icon} className={iconClassName} />
+      <FontAwesomeIcon icon={icon} className={iconClassName ?? styles.buttonIcon} />
       { text }
     </Link>
   );

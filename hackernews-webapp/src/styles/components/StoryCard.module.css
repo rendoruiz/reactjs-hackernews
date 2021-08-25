@@ -30,13 +30,8 @@
 .score,
 .header,
 .storyLink,
-.button {
+.footer {
   font-size: var(--fs-subtitle);
-}
-
-.button,
-.externalLinkButton {
-  composes: button from "./Button.module.css";
 }
 
 .score {
@@ -64,6 +59,7 @@
   height: 22px;
 }
 .externalLinkButton {
+  composes: button from "./Button.module.css";
   margin-left: auto;
   padding: 3px;
 }
@@ -86,8 +82,4 @@
 .footer {
   margin-top: 30px;
   gap: 4px;
-}
-.button {
-  padding: 5px 7px;
-  gap: 6px;
 }

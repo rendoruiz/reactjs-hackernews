@@ -1,0 +1,27 @@
+@import './../variables.css';
+
+.icon,
+.icon:visited {
+  border-radius: 100%;
+  width: 28px;
+  height: 28px;
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--color-dark);
+  text-transform: uppercase;
+  display: grid;
+  place-items: center;
+  transition: opacity 100ms ease-out;
+}
+.icon:hover {
+  text-decoration: none;
+  opacity: 0.95;
+}
+
+.largeIcon {
+  composes: icon;
+  border-radius: var(--corner-rounding);
+  width: 90px;
+  height: 90px;
+  font-size: 50px;
+}

@@ -18,6 +18,7 @@
   composes: button from "./Button.module.css";
   padding: 5px 10px;
   border-radius: 20px;
+  gap: 8px;
 }
 .navigationItem.active {
   background: var(--color-button-active);

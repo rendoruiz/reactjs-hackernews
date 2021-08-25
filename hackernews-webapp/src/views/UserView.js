@@ -11,10 +11,12 @@ import { faHackerNewsSquare } from '@fortawesome/free-brands-svg-icons';
 import api from '../api';
 import NavigationItem from '../components/NavigationItem';
 import NavigationBar from '../components/NavigationBar';
+import IconButtonLink from '../components/Links/IconButtonLink';
 import UserViewLoader from '../components/Loaders/UserViewLoader';
 import UserInvalid from '../components/User/UserInvalid';
 
-import styles from '../styles/views/UserView.module.css'
+import styles from '../styles/views/UserView.module.css';
+import UserIcon from '../components/User/UserIcon';
 
 const UserView = () => {
   const { userId } = useParams();
@@ -59,7 +61,7 @@ const UserView = () => {
 
   return isLoading ? <UserViewLoader /> : !user ? <UserInvalid /> : ( 
     <div className={styles.userView}>
-      <aside className={styles.userContent}>
+      <div className={styles.userContent}>
         { contentIdList.length > 0 && 
           <NavigationBar>
             <NavigationItem 
@@ -104,41 +106,38 @@ const UserView = () => {
             ) 
           </button> 
         }
-      </aside>
+      </div>
 
-      <section className="sidebar">
-        { user && (
-          <div className="user-profile">
-            <header>
-              <div className="user-image" title="App-Generated profile image based on user's ID">
-                <div style={{backgroundColor: generateHslColor(user.id)}}>
-                  { user.id ? user.id.substring(0, 1) : '' }
-                </div>
-              </div>
-            </header>
-            <main>
-              <h2 className="user-heading" title="User name">u/{ user.id }</h2>
-              <div className="user-info-group" title="User score/karma">
-                <span className="info-label">Karma</span>
-                <span><FontAwesomeIcon className="inline-glyph" icon={faStar} /> { user.karma }</span>
-              </div>
-              <div className="user-info-group">
-                <span className="info-label" title="User account creation date">Cake day</span>
-                <span><FontAwesomeIcon className="inline-glyph" icon={faBirthdayCake} /> { moment.unix(user.created).format('LL') }</span>
-              </div>
-              <a 
-                className="btn more-items user-original-link"
-                href={'https://news.ycombinator.com/user?id=' + user.id}
-                target="_blank" rel="noreferrer"
-                title="View user profile on Hacker News"
-              >
-                <FontAwesomeIcon className="glyph" icon={faHackerNewsSquare} />
-                View Original
-              </a>
-            </main>
-          </div>
-        )}
-      </section>
+      <div className={styles.sidebar}>
+        <div className={styles.userProfile}>
+          <header>
+            <div className={styles.userIcon}>
+              <UserIcon userId={user.id} large />
+            </div>
+          </header>
+          <main>
+            <h2 className={styles.userId} title="user id">u/{ user.id }</h2>
+            <span className={styles.heading}>Karma</span>
+            <span className={styles.heading}>Cake day</span>
+            <span className={styles.text} title="user score/karma">
+              <FontAwesomeIcon className={styles.textIcon} icon={faStar} />
+              { user.karma }
+            </span>
+            <span className={styles.text} title="user account creation date">
+              <FontAwesomeIcon className={styles.textIcon} icon={faBirthdayCake} />
+              { moment.unix(user.created).format('LL') }
+            </span>
+            <IconButtonLink
+              link={"https://news.ycombinator.com/user?id=" + user.id}
+              icon={faHackerNewsSquare}
+              text="View Original"
+              title="View user profile on Hacker News"
+              external
+              accented
+            />
+          </main>
+        </div>
+      </div>
     </div>
   );
 }
