@@ -48,7 +48,7 @@ const StoryCard = ({ storyData, storyId, isDetailed = false }) => {
   return ( 
     (!story && !storyId) ? null : isLoading ? <StoryCardLoader /> : !story ? <ConnectionError /> : story.deleted ? <StoryDeleted /> : story.dead ? <StoryDead /> : (
       <div className={isDetailed ? styles.detailedStoryCard : styles.storyCard}>
-        <aside className={styles.score}>{ story.score }</aside>
+        <aside className={styles.score} title="story score/karma">{ story.score }</aside>
 
         <section className={styles.content} onClick={(e) => handleClick(e, story.id)}>
           <header className={styles.header}>
