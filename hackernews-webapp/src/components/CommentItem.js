@@ -123,9 +123,7 @@ const CommentItem = ({ commentId, maxCommentDepth, currentCommentDepth, userId, 
               readonly 
             />
           </header>
-          <main 
-            className={styles.contentBody}
-          >
+          <main className={styles.contentBody} >
             <ParsedHtmlText htmlText={comment.text} />
             <div className={styles.children}>
               { generateChildren() }

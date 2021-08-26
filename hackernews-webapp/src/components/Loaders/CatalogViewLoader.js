@@ -1,6 +1,6 @@
 const CatalogViewLoader = () => {
   return ( 
-    <span>Loading stories...</span>
+    <p>Loading stories...</p>
   );
 }
  

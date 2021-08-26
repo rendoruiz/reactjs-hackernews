@@ -10,6 +10,9 @@
   display: grid;
   align-items: flex-start;
 }
+.commentList > p  {
+  margin-top: 10px;
+}
 
 .button {
   composes: loadMoreButton from "./../components/Button.module.css";

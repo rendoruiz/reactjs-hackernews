@@ -9,7 +9,7 @@
   column-gap: var(--comment-column-gap);
 }
 .comment:not(:first-of-type),
-.children,
+.children:not(:empty),
 .children > :not(.comment):not(.linkButton) {
   margin-top: 15px;
 }
@@ -101,8 +101,13 @@
 .children {
   margin-left: calc(var(--children-offset-x) - var(--comment-column-gap));
 }
+.children:empty {
+  margin-top: 5px;
+}
+
 .linkButton {
   composes: linkButton from "./Button.module.css";
+  margin-bottom: 5px;
   font-size: var(--fs-subtitle);
 }
 .linkButton,

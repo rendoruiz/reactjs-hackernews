@@ -1,6 +1,6 @@
 const StoryCardLoader = () => {
   return (
-    <span>Loading story card...</span>
+    <p>Loading story card...</p>
   );
 }
  
