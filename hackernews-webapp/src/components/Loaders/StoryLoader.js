@@ -1,6 +1,6 @@
 const StoryLoader = () => {
   return ( 
-    <span>Loading parent story...</span>
+    <p>Loading parent story...</p>
   );
 }
  

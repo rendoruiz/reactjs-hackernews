@@ -1,6 +1,6 @@
 const UserViewLoader = () => {
   return ( 
-    <span>Loading User...</span>
+    <p>Loading User...</p>
   );
 }
  

@@ -1,6 +1,6 @@
 const CommentLoader = () => {
   return ( 
-    <span>Loading comment...</span>
+    <p>Loading comment...</p>
   );
 }
  
