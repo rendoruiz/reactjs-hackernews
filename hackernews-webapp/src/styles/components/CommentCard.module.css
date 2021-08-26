@@ -1,10 +1,10 @@
 .commentCard {
+  --spacing: 10px;
   composes: card from "./StoryCard.module.css";
   background: var(--color-content-background);
 }
 
 .header {
-  --spacing: 10px;
   margin: var(--spacing) var(--spacing) 0;
   padding-bottom: var(--spacing);
   border-bottom: 2px solid rgba(var(--body-background-rgb), 0.7);
@@ -29,4 +29,8 @@
 .storyTitle,
 .storyTitle:visited {
   color: var(--color-dark);
+}
+
+.comment {
+  padding: var(--spacing) var(--spacing) var(--spacing) 0;
 }
