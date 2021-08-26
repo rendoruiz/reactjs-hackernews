@@ -35,3 +35,16 @@ a:visited {
 a:hover {
   text-decoration: underline;
 }
+
+.dead {
+  padding: 2px 0 5px;
+  font-size: calc(var(--fs-body) - 0.10rem);
+  font-style: italic;
+  color: var(--color-subtitle1);
+}
+.dead::before {
+  content: '[';
+}
+.dead::after {
+  content: ']';
+}
