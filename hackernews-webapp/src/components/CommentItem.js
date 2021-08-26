@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 
 import api from '../api';
-import CommentItemGroup from "./CommentItemGroup";
 import CommentLoader from "./Loaders/CommentLoader";
 import ConnectionError from "./ConnectionError";
 import CommentDeleted from "./Comment/CommentDeleted";
@@ -14,18 +13,18 @@ import ParsedHtmlText from "./ParsedHtmlText";
 // commentId, maxCommentDepth, currentCommentDepth - used by CommentItemGroup
 // userId, commentData, parentCommentData - are used by CommentCard
 const CommentItem = ({ commentId, maxCommentDepth, currentCommentDepth, userId, commentData, parentCommentData }) => {
-  const [comment, setComment] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
   const commentDepth = currentCommentDepth ?? 1;
-  const [commentChildrenList, setCommentChildrenList] = useState([]);
+  const [comment, setComment] = useState(parentCommentData ?? commentData ?? null);
+  const [isLoading, setIsLoading] = useState((parentCommentData || commentData) ? false : true);
+  const [commentChildrenList, setCommentChildrenList] = useState(null);
 
   useEffect(() => {
     // parentCommentData is used/rendered before commentData
-    if (parentCommentData || commentData) {
-      setComment(parentCommentData ?? commentData);
-      setIsLoading(false);
-    } 
-    else {
+    // if (parentCommentData || commentData) {
+    //   setComment(parentCommentData ?? commentData);
+    //   setIsLoading(false);
+    // } 
+    if (commentId) {
       api.get(`item/${commentId}.json`).then((response) => {
         setComment(response.data);
       }).catch((error) => {
@@ -34,12 +33,55 @@ const CommentItem = ({ commentId, maxCommentDepth, currentCommentDepth, userId, 
         setIsLoading(false);
       });
     }
-  }, [commentId, commentData, parentCommentData]);
+  }, [commentId]);
 
   const handleLoadReplies = () => {
     if (comment.kids) {
       if (comment.kids.length > 0) {
         setCommentChildrenList(comment.kids);
+      }
+    }
+  }
+
+  const generateChildren = () => {
+    // render commentData once parentCommentData has been rendered
+    if (commentData && parentCommentData) {
+      return (
+        <CommentItem 
+          userId={userId} 
+          commentData={commentData}
+        />
+      )
+    } 
+    else if (commentChildrenList) {
+      return commentChildrenList.map((id) => (
+        <CommentItem 
+          key={id} 
+          commentId={id} 
+          maxCommentDepth={1} 
+        />)
+      ) 
+    }
+    else if (!commentData && comment.kids) {
+      // auto render until maxCommentDepth is reached
+      if (commentDepth < maxCommentDepth) {
+        return comment.kids.map((id) => (
+          <CommentItem 
+            key={id} 
+            commentId={id} 
+            currentCommentDepth={commentDepth + 1} 
+            maxCommentDepth={maxCommentDepth} 
+          />)
+        )
+      } else {
+        return (
+          <button 
+            onClick={handleLoadReplies} 
+            className="link-btn more-items"
+          >
+            Load more replies ({comment.kids.length})
+          </button>
+        )
       }
     }
   }
@@ -61,30 +103,9 @@ const CommentItem = ({ commentId, maxCommentDepth, currentCommentDepth, userId, 
           <main className="comment-text link-btn">
             <ParsedHtmlText htmlText={comment.text} />
           </main>
-
-          {/* render commentData once parentCommentData has been rendered */}
-          { commentData
-            ? (parentCommentData && <CommentItem commentData={commentData} userId={userId} />)
-            : <div className="comment-replies">
-                {/* auto render until maxCommentDepth is reached */}
-                { comment.kids && commentDepth < maxCommentDepth
-                  ? <CommentItemGroup 
-                      commentItemIdList={comment.kids} 
-                      maxCommentDepth={maxCommentDepth} 
-                      currentCommentDepth={commentDepth + 1}
-                    /> 
-                  : comment.kids && commentChildrenList.length === 0 &&
-                    <button onClick={handleLoadReplies} className="link-btn more-items">Load more replies ({comment.kids.length})</button>
-                }
-                {/* render 1 depth if load more replies button is clicked */}
-                { commentChildrenList &&
-                  <CommentItemGroup 
-                    commentItemIdList={commentChildrenList} 
-                    maxCommentDepth={1} 
-                  /> 
-                }
-              </div>
-          }
+          <footer>
+            { generateChildren() }
+          </footer>
         </section>
       </div>
     )

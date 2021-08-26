@@ -4,11 +4,11 @@ import { useParams } from "react-router-dom";
 import api from '../api';
 import StoryCard from "../components/StoryCard";
 import StoryCardLoader from "../components/Loaders/StoryCardLoader";
-import CommentItemGroup from "../components/CommentItemGroup";
 import ConnectionError from "../components/ConnectionError";
 import CommentEmpty from "../components/Comment/CommentEmpty";
 
 import styles from '../styles/views/StoryView.module.css'
+import CommentItem from "../components/CommentItem";
 
 const StoryView = () => {
   const { id: storyId } = useParams();
@@ -42,10 +42,11 @@ const StoryView = () => {
       {
         !story.kids ? <CommentEmpty /> : <> 
           <div className={styles.commentList}>
-            <CommentItemGroup 
+            { story.kids.slice(0, commentItemCount).map((commentId) => <CommentItem key={commentId} commentId={commentId} maxCommentDepth={commentItemDepth} />) }
+            {/* <CommentItemGroup 
               commentItemIdList={story.kids.slice(0, commentItemCount)} 
               maxCommentDepth={commentItemDepth} 
-            />
+            /> */}
 
             { story.kids.length > commentItemCount &&
               <button className={styles.button} onClick={handleLoadCommentItems}>
