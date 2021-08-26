@@ -19,6 +19,9 @@
   .card:hover {
     border-color: var(--color-dark);
   }
+  .comment {
+    cursor: unset;
+  }
 }
 
 
@@ -32,6 +35,9 @@
   align-items: center;
   position: relative;
   z-index: 1;
+}
+.header > :only-child {
+  grid-column: 1 / -1;
 }
 .storyIcon {
   padding-right: var(--spacing);
