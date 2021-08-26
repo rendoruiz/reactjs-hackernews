@@ -22,7 +22,6 @@ const StoryView = () => {
     api.get(`item/${storyId}.json`).then((response) => {
       setStory(response.data);
       document.title = `${response.data.title} - Readit News`;
-      console.log(response.data);
     }).catch((error) => {
       console.log('StoryView ' + error);
     }).then(() => {

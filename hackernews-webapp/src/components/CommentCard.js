@@ -24,7 +24,6 @@ const CommentCard = ({ commentData, userId }) => {
       const getParentReferences = (commentId) => {
         api.get(`item/${commentId}.json`).then((response) => {
           const data = response.data;
-          console.log(data);
           // set parent story (required)
           if (!parentStory && data.type !== 'comment') {
             setParentStory(data);

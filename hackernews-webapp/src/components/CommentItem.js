@@ -19,11 +19,6 @@ const CommentItem = ({ commentId, maxCommentDepth, currentCommentDepth, userId, 
   const [commentChildrenList, setCommentChildrenList] = useState(null);
 
   useEffect(() => {
-    // parentCommentData is used/rendered before commentData
-    // if (parentCommentData || commentData) {
-    //   setComment(parentCommentData ?? commentData);
-    //   setIsLoading(false);
-    // } 
     if (commentId) {
       api.get(`item/${commentId}.json`).then((response) => {
         setComment(response.data);

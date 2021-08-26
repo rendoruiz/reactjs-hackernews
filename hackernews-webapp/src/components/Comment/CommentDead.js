@@ -1,5 +1,5 @@
 const CommentDead = () => {
-  return null;
+  return <p>[Dead Comment]</p>;
 }
  
 export default CommentDead;
