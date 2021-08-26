@@ -56,6 +56,9 @@
 .storyTitle:visited {
   color: var(--color-dark);
 }
+.header .storyTitle {
+  text-decoration: none;
+}
 
 .comment {
   composes: card;
