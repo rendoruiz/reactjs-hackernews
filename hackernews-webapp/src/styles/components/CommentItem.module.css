@@ -71,10 +71,10 @@
   grid-template-rows: var(--user-icon-size) 1fr;
 }
 .content > header {
-  display: flex;
-  align-items: center;
   font-size: var(--fs-subtitle);
   color: var(--color-subtitle1);
+  display: flex;
+  align-items: center;
 }
 .userId,
 .userId:visited {
@@ -88,7 +88,6 @@
   background: rgba(var(--accent-rgb), 0.15);
 }
 
-
 .children {
   margin-left: calc(var(--children-offset-x) - var(--comment-column-gap));
 }
@@ -100,7 +99,3 @@
 .children > :not(.comment) {
   margin-left: calc(calc(var(--children-offset-x) * -1) + var(--comment-column-gap));
 }
-
-
-
-

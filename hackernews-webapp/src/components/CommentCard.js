@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCommentAlt } from "@fortawesome/free-regular-svg-icons";
+import { useHistory } from "react-router-dom";
 
 import api from '../api';
 import CommentItem from "./CommentItem";
@@ -18,6 +19,7 @@ const CommentCard = ({ commentData, userId }) => {
   const [parentStory, setParentStory] = useState(null);
   const [parentComment, setParentComment] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const history = useHistory();
 
   useEffect(() => {
     if (!parentStory) {
@@ -51,10 +53,19 @@ const CommentCard = ({ commentData, userId }) => {
     }
   }, [commentData, parentStory, parentComment]);
 
+  const handleStoryClick = (e) => {
+    if (e.target.nodeName !== 'A') {
+      history.push('/s/' + parentStory.id);
+    }
+  }
+
   return ( 
     !commentData ? null : commentData.deleted ? <CommentDeleted /> : commentData.dead ? <CommentDead /> : (
       <div className={styles.commentCard}>
-        <header className={styles.header}>
+        <header 
+          className={styles.header}
+          onClick={handleStoryClick}
+        >
           { !parentStory ? <StoryLoader /> : <>
             <FontAwesomeIcon className={styles.storyIcon} icon={faCommentAlt} />
             <div className={styles.storyContent}>
@@ -79,6 +90,7 @@ const CommentCard = ({ commentData, userId }) => {
             </div> 
           </>}
         </header>
+        <div className={styles.separator} />
         <main className={styles.comment}>
           { isLoading ? <CommentLoader /> : 
             <CommentItem 

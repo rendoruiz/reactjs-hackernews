@@ -1,17 +1,43 @@
 .commentCard {
   --spacing: 10px;
-  composes: card from "./StoryCard.module.css";
+  --card-corner-rounding: 0;
+  border-radius: var(--card-corner-rounding);
   background: var(--color-content-background);
 }
+.card {
+  border-radius: var(--card-corner-rounding);
+}
+@media screen and (min-width: 640px) {
+  .commentCard {
+    --card-corner-rounding: var(--corner-rounding);
+  }
+  .card  {
+    border: 1px solid transparent;
+    transition: border-color 100ms ease-out;
+    cursor: pointer;
+  }
+  .card:hover {
+    border-color: var(--color-dark);
+  }
+  .comment {
+    cursor: unset;
+  }
+}
+
 
 .header {
-  margin: var(--spacing) var(--spacing) 0;
-  padding-bottom: var(--spacing);
-  border-bottom: 2px solid rgba(var(--body-background-rgb), 0.7);
+  composes: card;
+  padding: var(--spacing);
+  border-radius: var(--card-corner-rounding) var(--card-corner-rounding) 0 0;
   color: var(--color-subtitle1);
   display: grid;
   grid-template-columns: calc(40px - var(--spacing)) 1fr;
   align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.header > :only-child {
+  grid-column: 1 / -1;
 }
 .storyIcon {
   padding-right: var(--spacing);
@@ -30,7 +56,23 @@
 .storyTitle:visited {
   color: var(--color-dark);
 }
+.header .storyTitle {
+  text-decoration: none;
+}
 
 .comment {
+  composes: card;
   padding: var(--spacing) var(--spacing) var(--spacing) 0;
+  border-radius: 0 0 var(--card-corner-rounding) var(--card-corner-rounding);
+}
+
+.separator {
+  height: 2px;
+  background: rgba(var(--body-background-rgb), 0.7);
+  margin: -1px 10px;
+}
+.header,
+.comment {
+  position: relative;
+  z-index: 1;
 }
