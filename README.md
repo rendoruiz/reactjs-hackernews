@@ -2,7 +2,7 @@
 
 # Readit News
 
-Using the Hacker News API with a twist for fun and knowledge, after going through some React.js tutorials<sup>[[0](#source-1)]</sup>.
+Learning React the fun way by messing around with the Hacker News API. 
 
 ## Usage
 
@@ -13,21 +13,23 @@ Using the Hacker News API with a twist for fun and knowledge, after going throug
 
 ## Goals
 
-- Consume the Hacker News API to build a dynamic website with Reddit's website design.
-- Become more proficient in using React.js as a framework.
-- Become more proficient in using modern vanilla JavaScript.
-- Become more proficient in using modern HTML and CSS.
+- Build a SPA using the Hacker News API
+- Learn how to use CSS Modules
+- Be better at using React.js, modern JavaScript, HTML, and CSS
 
 ## Scope and Limitations
 
-- Do not use the browser inspector to look up CSS properties when copying element designs on Reddit.
-- Only use API endpoints relating to stories and comments.
-- Provide a commented source URL for every snippet copied from the web with little to no modifications done.
-- Styling loaders (e.g., "Loading...") are not a priority and highly likely will not be done.
-- It Just Werks™: performance optimizations and tests are not a priority and highly likely will not be done.
+- Do not use the browser inspector to look up CSS properties when copying designs on Reddit.
+- Content will be limited to story and comment. 
+- Partial poll support: Poll submissions are only accessible from the comment card on the user page. The poll elements are not rendered, but the HTML text is still available for context.
+- A commented URL is provided on code copied online with little to no modifications.
+- Loaders (i.e., "Loading...") are displayed as it is (plain text).
+- Further performance optimizations are not a priority.
+- No tests.
 
 ## Resources
 
-- [Reddit for UI/UX](https://www.reddit.com)
+- [Reddit](https://www.reddit.com)
 - [Hacker News API @ GitHub](https://github.com/HackerNews/API)
-- <sup id="source-1">[0]</sup>[The Net Ninja's Full Modern React Video Tutorial @ YouTube](https://www.youtube.com/playlist?list=PL4cUxeGkcC9gZD-Tvwfod2gaISzfRiP9d)
+- [The Net Ninja's Full Modern React Video Tutorial @ YouTube](https://www.youtube.com/playlist?list=PL4cUxeGkcC9gZD-Tvwfod2gaISzfRiP9d)
+- [Official documentation](https://reactjs.org/)
