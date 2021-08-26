@@ -3,8 +3,8 @@
 .icon,
 .icon:visited {
   border-radius: 100%;
-  width: 28px;
-  height: 28px;
+  width: var(--user-icon-size);
+  height: var(--user-icon-size);
   font-size: 14px;
   font-weight: bold;
   color: var(--color-dark);

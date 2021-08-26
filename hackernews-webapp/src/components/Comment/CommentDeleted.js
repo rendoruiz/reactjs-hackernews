@@ -1,5 +1,5 @@
 const CommentDeleted = () => {
-  return null;
+  return <p>[Deleted Comment]</p>;
 }
  
 export default CommentDeleted;

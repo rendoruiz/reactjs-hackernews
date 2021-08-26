@@ -1,104 +1,139 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import ReactHtmlParser from 'react-html-parser';
-import moment from 'moment';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExpandAlt } from "@fortawesome/free-solid-svg-icons";
 
-import CommentItemGroup from "./CommentItemGroup";
-import { generateHslColor } from "../functions/generateHslColor";
-import { getMinifiedMomentTime } from "../functions/getMinifiedMomentTime";
 import api from '../api';
+import CommentLoader from "./Loaders/CommentLoader";
+import ConnectionError from "./ConnectionError";
+import CommentDeleted from "./Comment/CommentDeleted";
+import CommentDead from "./Comment/CommentDead";
+import UserIcon from "./User/UserIcon";
+import UserViewLink from "./Links/UserViewLink";
+import DateTimeContentLink from "./Links/DateTimeContentLink";
+import ParsedHtmlText from "./ParsedHtmlText";
 
-const CommentItem = ({ id, maxCommentDepth, currentCommentDepth, commentObject, parentCommentObject, userId }) => {
-  const [comment, setComment] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+import styles from '../styles/components/CommentItem.module.css'
+
+// commentId, maxCommentDepth, currentCommentDepth - used by CommentItemGroup
+// userId, commentData, parentCommentData - are used by CommentCard
+const CommentItem = ({ commentId, maxCommentDepth, currentCommentDepth, userId, commentData, parentCommentData }) => {
   const commentDepth = currentCommentDepth ?? 1;
-  const [commentReplyIdList, setCommentReplyIdList] = useState([]);
+  const [comment, setComment] = useState(parentCommentData ?? commentData ?? null);
+  const [isLoading, setIsLoading] = useState((parentCommentData || commentData) ? false : true);
+  const [commentChildrenList, setCommentChildrenList] = useState(null);
+  const [isMinimized, setIsMinimized] = useState(false);
 
   useEffect(() => {
-    if (parentCommentObject || commentObject) {
-      setComment(parentCommentObject ?? commentObject);
-      setIsLoading(false);
-    } else {
-      // setTimeout(() => {
-        api.get(`item/${id}.json`).then((res) => {
-          setComment(res.data);
-        }).catch((error) => {
-          console.log('CommentItem ' + error);
-        }).then(() => {
-          setIsLoading(false);
-        });
-      // }, 1000);
+    if (commentId) {
+      api.get(`item/${commentId}.json`).then((response) => {
+        setComment(response.data);
+      }).catch((error) => {
+        console.log('CommentItem ' + error);
+      }).then(() => {
+        setIsLoading(false);
+      });
     }
-  }, [maxCommentDepth, id, commentObject, parentCommentObject]);
+  }, [commentId]);
 
   const handleLoadReplies = () => {
     if (comment.kids) {
       if (comment.kids.length > 0) {
-        setCommentReplyIdList(comment.kids);
+        setCommentChildrenList(comment.kids);
       }
     }
   }
 
+  const generateChildren = () => {
+    // render commentData once parentCommentData has been rendered
+    // else if - render children (1 depth) when load more replies button is selected
+    // else if - render comments until maxDepth is reached
+    if (commentData && parentCommentData) {
+      return (
+        <CommentItem 
+          userId={userId} 
+          commentData={commentData}
+        />
+      )
+    } 
+    else if (commentChildrenList) {
+      return commentChildrenList.map((id) => (
+        <CommentItem 
+          key={id} 
+          commentId={id} 
+          maxCommentDepth={1} 
+        />)
+      ) 
+    }
+    else if (!commentData && comment.kids) {
+      // auto render until maxCommentDepth is reached
+      if (commentDepth < maxCommentDepth) {
+        return comment.kids.map((id) => (
+          <CommentItem 
+            key={id} 
+            commentId={id} 
+            currentCommentDepth={commentDepth + 1} 
+            maxCommentDepth={maxCommentDepth} 
+          />)
+        )
+      } else {
+        return (
+          <button 
+            onClick={handleLoadReplies} 
+            className={styles.linkButton}
+          >
+            Load more replies ({comment.kids.length})
+          </button>
+        )
+      }
+    }
+  }
+
+  const handleSetisMinimized = () => {
+    setIsMinimized(!isMinimized);
+  }
+
   return ( 
-    !id && !commentObject ? null : isLoading 
-      ? <span className="loader">Loading comment...</span> 
-      : !comment ? null : comment.deleted ? null : comment.dead ? null :
-        <div className={"comment-item" +  (comment.by === userId ? ' accented-background' : '')}>
-          <aside className="comment-expansion">
-            { commentObject ? null :
-              <Link 
-                to={"/u/" + comment.by} 
-                className="user-avatar"
-                style={{backgroundColor: generateHslColor(comment.by)}}
-              >
-                { comment.by.substring(0, 1) }
-              </Link>
-            }
-            <div className="vertical-toggle"></div>
-          </aside>
+    (!commentId && !commentData) ? null : isLoading ? <CommentLoader /> : !comment ? <ConnectionError /> : comment.deleted ? <CommentDeleted /> : comment.dead ? <CommentDead /> : (
+      <div className={!isMinimized ? styles.comment : styles.commentMinimized}>
+        <aside className={styles.sidePanel}>
+          {commentData ? null : <>
+            <FontAwesomeIcon 
+              icon={faExpandAlt} 
+              className={styles.maximizeToggle} 
+              onClick={!commentData ? handleSetisMinimized : null} 
+            />
+            <UserIcon userId={comment.by} />
+          </>}
+          <div 
+            className={styles.minimizeToggle}
+            onClick={!commentData ? handleSetisMinimized : null} 
+          />
+        </aside>
 
-          <section className="comment-content">
-            <header className="comment-header">
-              <Link to={"/u/" + comment.by} className="link-btn comment-by">
-                { comment.by }
-              </Link>
-              <span>&nbsp;&#183;&nbsp;</span>
-              <span 
-                className="comment-time" 
-                title={`${moment.unix(comment.time).fromNow()} | ${moment.unix(comment.time).format('LLLL')}`}
-              >
-                { commentObject ? moment.unix(comment.time).fromNow() : getMinifiedMomentTime(moment.unix(comment.time).fromNow()) }
-              </span>
-
-              {/* <span>&nbsp;&nbsp;&nbsp;[ID: { comment.id }]</span> */}
-            </header>
-            <main className="comment-text link-btn">
-              { ReactHtmlParser(comment.text.replaceAll(/href/g, `target="_blank" rel="noreferrer" href`)) }
-            </main>
-            { commentObject
-              ? (parentCommentObject && <CommentItem commentObject={commentObject} userId={userId} />)
-              : <div className="comment-replies">
-                  {
-                    comment.kids && commentDepth < maxCommentDepth
-                      ? <CommentItemGroup 
-                          commentItemIdList={comment.kids} 
-                          maxCommentDepth={maxCommentDepth} 
-                          currentCommentDepth={commentDepth + 1}
-                        /> 
-                      : comment.kids && commentReplyIdList.length === 0 &&
-                        <button onClick={handleLoadReplies} className="link-btn more-items">Load more replies ({comment.kids.length})</button>
-                  }
-                  {
-                    commentReplyIdList &&
-                      <CommentItemGroup 
-                        commentItemIdList={commentReplyIdList} 
-                        maxCommentDepth={1} 
-                      /> 
-                  }
-                </div>
-            }
-          </section>
-        </div>
+        <section className={(comment.by === userId) ? styles.accentedContent : styles.content}>
+          <header>
+            <UserViewLink 
+              userId={comment.by} 
+              className={styles.userId}
+              isText 
+            />
+            &nbsp;&#183;&nbsp;
+            <DateTimeContentLink 
+              contentTime={comment.time} 
+              readonly 
+            />
+          </header>
+          <main 
+            className={styles.contentBody}
+          >
+            <ParsedHtmlText htmlText={comment.text} />
+            <div className={styles.children}>
+              { generateChildren() }
+            </div>
+          </main>
+        </section>
+      </div>
+    )
   );
 }
  
