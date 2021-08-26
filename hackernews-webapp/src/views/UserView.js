@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBirthdayCake } from '@fortawesome/free-solid-svg-icons';
 import { faCommentAlt, faNewspaper, faStar, faUser } from '@fortawesome/free-regular-svg-icons';
 import UserContentItem from '../components/UserContentItem';
-import { generateHslColor } from '../functions/generateHslColor';
 import { faHackerNewsSquare } from '@fortawesome/free-brands-svg-icons';
 
 import api from '../api';
