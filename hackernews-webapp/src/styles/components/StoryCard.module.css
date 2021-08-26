@@ -78,6 +78,10 @@
 .title:hover {
   text-decoration: none;
 }
+.text {
+  composes: htmlText from "./ParsedHtmlText.module.css";
+  margin-top: 8px;
+}
 
 .footer {
   margin-top: 30px;

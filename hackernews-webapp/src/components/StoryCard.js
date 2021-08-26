@@ -72,7 +72,7 @@ const StoryCard = ({ storyData, storyId, isDetailed = false }) => {
               link={story.url} 
               text={story.url}
             />
-            { isDetailed && <ParsedHtmlText htmlText={story.text} /> }
+            { isDetailed && <ParsedHtmlText htmlText={story.text} className={styles.text} /> }
             { isDetailed && story.type === 'poll' && story.parts && <PollGroup /> }
           </main>
 
