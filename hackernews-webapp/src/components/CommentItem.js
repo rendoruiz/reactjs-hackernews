@@ -8,19 +8,19 @@ import { generateHslColor } from "../functions/generateHslColor";
 import { getMinifiedMomentTime } from "../functions/getMinifiedMomentTime";
 import api from '../api';
 
-const CommentItem = ({ id, maxCommentDepth, currentCommentDepth, commentObject, parentCommentObject, userId }) => {
+const CommentItem = ({ commentId, maxCommentDepth, currentCommentDepth, commentData, parentCommentData, userId }) => {
   const [comment, setComment] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const commentDepth = currentCommentDepth ?? 1;
   const [commentReplyIdList, setCommentReplyIdList] = useState([]);
 
   useEffect(() => {
-    if (parentCommentObject || commentObject) {
-      setComment(parentCommentObject ?? commentObject);
+    if (parentCommentData || commentData) {
+      setComment(parentCommentData ?? commentData);
       setIsLoading(false);
     } else {
       // setTimeout(() => {
-        api.get(`item/${id}.json`).then((res) => {
+        api.get(`item/${commentId}.json`).then((res) => {
           setComment(res.data);
         }).catch((error) => {
           console.log('CommentItem ' + error);
@@ -29,7 +29,7 @@ const CommentItem = ({ id, maxCommentDepth, currentCommentDepth, commentObject, 
         });
       // }, 1000);
     }
-  }, [maxCommentDepth, id, commentObject, parentCommentObject]);
+  }, [maxCommentDepth, commentId, commentData, parentCommentData]);
 
   const handleLoadReplies = () => {
     if (comment.kids) {
@@ -40,12 +40,12 @@ const CommentItem = ({ id, maxCommentDepth, currentCommentDepth, commentObject, 
   }
 
   return ( 
-    !id && !commentObject ? null : isLoading 
+    !commentId && !commentData ? null : isLoading 
       ? <span className="loader">Loading comment...</span> 
       : !comment ? null : comment.deleted ? null : comment.dead ? null :
         <div className={"comment-item" +  (comment.by === userId ? ' accented-background' : '')}>
           <aside className="comment-expansion">
-            { commentObject ? null :
+            { commentData ? null :
               <Link 
                 to={"/u/" + comment.by} 
                 className="user-avatar"
@@ -67,7 +67,7 @@ const CommentItem = ({ id, maxCommentDepth, currentCommentDepth, commentObject, 
                 className="comment-time" 
                 title={`${moment.unix(comment.time).fromNow()} | ${moment.unix(comment.time).format('LLLL')}`}
               >
-                { commentObject ? moment.unix(comment.time).fromNow() : getMinifiedMomentTime(moment.unix(comment.time).fromNow()) }
+                { commentData ? moment.unix(comment.time).fromNow() : getMinifiedMomentTime(moment.unix(comment.time).fromNow()) }
               </span>
 
               {/* <span>&nbsp;&nbsp;&nbsp;[ID: { comment.id }]</span> */}
@@ -75,8 +75,8 @@ const CommentItem = ({ id, maxCommentDepth, currentCommentDepth, commentObject, 
             <main className="comment-text link-btn">
               { ReactHtmlParser(comment.text.replaceAll(/href/g, `target="_blank" rel="noreferrer" href`)) }
             </main>
-            { commentObject
-              ? (parentCommentObject && <CommentItem commentObject={commentObject} userId={userId} />)
+            { commentData
+              ? (parentCommentData && <CommentItem commentData={commentData} userId={userId} />)
               : <div className="comment-replies">
                   {
                     comment.kids && commentDepth < maxCommentDepth

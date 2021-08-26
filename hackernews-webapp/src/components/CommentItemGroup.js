@@ -11,7 +11,7 @@ const CommentItemGroup = ({ commentItemIdList , maxCommentDepth, currentCommentD
     commentItemIdList && commentItemIdList.map((commentId) => 
       <CommentItem 
         key={commentId} 
-        id={commentId} 
+        commentId={commentId} 
         maxCommentDepth={maxCommentDepth} 
         currentCommentDepth={currentCommentDepth} 
       />

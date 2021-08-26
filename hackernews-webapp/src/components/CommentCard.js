@@ -81,7 +81,9 @@ const CommentCard = ({ commentData, userId }) => {
           </>}
         </header>
 
-        { isLoading ? <CommentLoader /> : <CommentItem commentObject={commentData} parentCommentObject={parentComment} userId={userId} /> }
+        { isLoading ? <CommentLoader /> : 
+          <CommentItem commentData={commentData} parentCommentData={parentComment} userId={userId} /> 
+        }
       </div>
     )
   );
