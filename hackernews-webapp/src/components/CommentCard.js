@@ -79,6 +79,7 @@ const CommentCard = ({ commentData, userId }) => {
             </div> 
           </>}
         </header>
+        <div className={styles.separator} />
         <main className={styles.comment}>
           { isLoading ? <CommentLoader /> : 
             <CommentItem 
