@@ -11,33 +11,35 @@ import UserViewLink from "./Links/UserViewLink";
 import DateTimeContentLink from "./Links/DateTimeContentLink";
 import ParsedHtmlText from "./ParsedHtmlText";
 
+// commentId, maxCommentDepth, currentCommentDepth - used by CommentItemGroup
+// userId, commentData, parentCommentData - are used by CommentCard
 const CommentItem = ({ commentId, maxCommentDepth, currentCommentDepth, userId, commentData, parentCommentData }) => {
   const [comment, setComment] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const commentDepth = currentCommentDepth ?? 1;
-  const [commentReplyIdList, setCommentReplyIdList] = useState(null);
+  const [commentChildrenList, setCommentChildrenList] = useState(null);
 
   useEffect(() => {
+    // parentCommentData is used/rendered before commentData
     if (parentCommentData || commentData) {
       setComment(parentCommentData ?? commentData);
       setIsLoading(false);
-    } else {
-      // setTimeout(() => {
-        api.get(`item/${commentId}.json`).then((res) => {
-          setComment(res.data);
-        }).catch((error) => {
-          console.log('CommentItem ' + error);
-        }).then(() => {
-          setIsLoading(false);
-        });
-      // }, 1000);
+    } 
+    else {
+      api.get(`item/${commentId}.json`).then((response) => {
+        setComment(response.data);
+      }).catch((error) => {
+        console.log('CommentItem ' + error);
+      }).then(() => {
+        setIsLoading(false);
+      });
     }
   }, [commentId, commentData, parentCommentData]);
 
   const handleLoadReplies = () => {
     if (comment.kids) {
       if (comment.kids.length > 0) {
-        setCommentReplyIdList(comment.kids);
+        setCommentChildrenList(comment.kids);
       }
     }
   }
@@ -59,6 +61,8 @@ const CommentItem = ({ commentId, maxCommentDepth, currentCommentDepth, userId, 
           <main className="comment-text link-btn">
             <ParsedHtmlText htmlText={comment.text} />
           </main>
+
+          {/* render commentData once parentCommentData has been rendered */}
           { commentData
             ? (parentCommentData && <CommentItem commentData={commentData} userId={userId} />)
             : <div className="comment-replies">
@@ -69,13 +73,13 @@ const CommentItem = ({ commentId, maxCommentDepth, currentCommentDepth, userId, 
                         maxCommentDepth={maxCommentDepth} 
                         currentCommentDepth={commentDepth + 1}
                       /> 
-                    : comment.kids && commentReplyIdList.length === 0 &&
+                    : comment.kids && commentChildrenList.length === 0 &&
                       <button onClick={handleLoadReplies} className="link-btn more-items">Load more replies ({comment.kids.length})</button>
                 }
                 {
-                  commentReplyIdList &&
+                  commentChildrenList &&
                     <CommentItemGroup 
-                      commentItemIdList={commentReplyIdList} 
+                      commentItemIdList={commentChildrenList} 
                       maxCommentDepth={1} 
                     /> 
                 }
