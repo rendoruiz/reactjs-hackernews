@@ -97,7 +97,11 @@ const CommentItem = ({ commentId, maxCommentDepth, currentCommentDepth, userId, 
       <div className={!isMinimized ? styles.comment : styles.commentMinimized}>
         <aside className={styles.sidePanel}>
           {commentData ? null : <>
-            <FontAwesomeIcon icon={faExpandAlt} className={styles.maximizeToggle} onClick={!commentData ? handleSetisMinimized : null} />
+            <FontAwesomeIcon 
+              icon={faExpandAlt} 
+              className={styles.maximizeToggle} 
+              onClick={!commentData ? handleSetisMinimized : null} 
+            />
             <UserIcon userId={comment.by} />
           </>}
           <div 
@@ -110,6 +114,7 @@ const CommentItem = ({ commentId, maxCommentDepth, currentCommentDepth, userId, 
           <header>
             <UserViewLink 
               userId={comment.by} 
+              className={styles.userId}
               isText 
             />
             &nbsp;&#183;&nbsp;

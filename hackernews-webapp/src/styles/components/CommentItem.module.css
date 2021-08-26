@@ -1,6 +1,5 @@
 @import './../variables.css';
 
-
 .comment {
   --side-toggle-width: 40px;
   --children-offset-x: -15px;
@@ -31,14 +30,29 @@
 
 .sidePanel {
   display: grid;
-  grid-template-rows: var(--side-toggle-width) 1fr;
+  grid-template-rows: var(--user-icon-size) 1fr;
   justify-items: center;
   align-items: center;
+  row-gap: 6px;
 }
 .maximizeToggle {
+  padding: 4px;
+  border-radius: var(--corner-rounding);
+  width: 23px !important;
+  height: 23px;
+  color: var(--color-accent);
   display: none;
   transform: scaleX(-1);
+  transition: all 100ms ease-out;
+  cursor: pointer;
 }
+.maximizeToggle:hover {
+  background: var(--color-button-hover);
+}
+.maximizeToggle:active {
+  transform: scaleX(-1) scale(0.95);
+}
+
 .minimizeToggle {
   height: 100%;
   border-right: 2px solid rgba(var(--body-background-rgb), 0.5);
@@ -54,14 +68,22 @@
 
 .content {
   display: grid;
-  grid-template-rows: var(--side-toggle-width) 1fr;
+  grid-template-rows: var(--user-icon-size) 1fr;
 }
 .content > header {
   display: flex;
   align-items: center;
+  font-size: var(--fs-subtitle);
+  color: var(--color-subtitle1);
+}
+.userId,
+.userId:visited {
+  font-weight: bold;
+  color: var(--color-dark);
 }
 .accentedContent {
   composes: content;
+  padding: 4px 8px 0;
   border-radius: var(--corner-rounding);
   background: rgba(var(--accent-rgb), 0.15);
 }
