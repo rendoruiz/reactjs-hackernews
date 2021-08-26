@@ -66,22 +66,22 @@ const CommentItem = ({ commentId, maxCommentDepth, currentCommentDepth, userId, 
           { commentData
             ? (parentCommentData && <CommentItem commentData={commentData} userId={userId} />)
             : <div className="comment-replies">
-                {
-                  comment.kids && commentDepth < maxCommentDepth
-                    ? <CommentItemGroup 
-                        commentItemIdList={comment.kids} 
-                        maxCommentDepth={maxCommentDepth} 
-                        currentCommentDepth={commentDepth + 1}
-                      /> 
-                    : comment.kids && commentChildrenList.length === 0 &&
-                      <button onClick={handleLoadReplies} className="link-btn more-items">Load more replies ({comment.kids.length})</button>
-                }
-                {
-                  commentChildrenList &&
-                    <CommentItemGroup 
-                      commentItemIdList={commentChildrenList} 
-                      maxCommentDepth={1} 
+                {/* auto render until maxCommentDepth is reached */}
+                { comment.kids && commentDepth < maxCommentDepth
+                  ? <CommentItemGroup 
+                      commentItemIdList={comment.kids} 
+                      maxCommentDepth={maxCommentDepth} 
+                      currentCommentDepth={commentDepth + 1}
                     /> 
+                  : comment.kids && commentChildrenList.length === 0 &&
+                    <button onClick={handleLoadReplies} className="link-btn more-items">Load more replies ({comment.kids.length})</button>
+                }
+                {/* render 1 depth if load more replies button is clicked */}
+                { commentChildrenList &&
+                  <CommentItemGroup 
+                    commentItemIdList={commentChildrenList} 
+                    maxCommentDepth={1} 
+                  /> 
                 }
               </div>
           }
