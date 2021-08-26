@@ -1,13 +1,21 @@
 @import './../variables.css';
 
 .htmlText {
+  font-size: calc(var(--fs-body) - 0.10rem);
+  color: var(--color-dark);
+  word-break: break-word;
   display: inline-block;
   gap: 0.7rem;
-  color: var(--color-dark);
 }
 .htmlText a {
   color: var(--color-accent);
 }
 .htmlText p {
   margin-top: 0.8rem;
+}
+
+@media screen and (min-width: 640px) {
+  .htmlText {
+    font-size: var(--fs-body);
+  }
 }
