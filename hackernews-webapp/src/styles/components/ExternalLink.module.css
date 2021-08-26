@@ -1,0 +1,15 @@
+@import './../variables.css';
+
+.link,
+.link:visited {
+  font-size: var(--fs-subtitle);
+  color: var(--color-accent);
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.linkIcon {
+  width: auto !important;
+  height: var(--fs-subtitle);
+}

@@ -1,0 +1,89 @@
+@import './../variables.css';
+
+.card {
+  --card-corner-rounding: 0;
+  border-radius: var(--card-corner-rounding);
+}
+@media screen and (min-width: 640px) {
+  .card  {
+    --card-corner-rounding: var(--corner-rounding);
+    border: 1px solid transparent;
+    transition: border-color 100ms ease-out;
+  }
+  .card:hover {
+    border-color: var(--color-dark);
+  }
+}
+
+.storyCard {
+  composes: card;
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  cursor: pointer;
+}
+.detailedStoryCard {
+  composes: storyCard;
+  border: none;
+  cursor: unset;
+}
+
+.score,
+.header,
+.storyLink,
+.footer {
+  font-size: var(--fs-subtitle);
+}
+
+.score {
+  padding: 10px 2px;
+  border-radius: var(--card-corner-rounding) 0 0 var(--card-corner-rounding);
+  background: rgba(var(--content-background-rgb), 0.7);
+  font-weight: bold;
+  text-align: center;
+  word-break: keep-all;
+}
+
+.content {
+  padding: 10px 8px 4px 8px;
+  border-radius: 0 var(--card-corner-rounding) var(--card-corner-rounding) 0;
+  background: var(--color-content-background);
+}
+
+.header,
+.footer {
+  color: var(--color-subtitle1);
+  display: flex;
+}
+
+.header {
+  height: 22px;
+}
+.externalLinkButton {
+  composes: button from "./Button.module.css";
+  margin-left: auto;
+  padding: 3px;
+}
+
+.main {
+  display: grid;
+  justify-items: flex-start;
+  align-items: flex-start;
+}
+.title {
+  margin-bottom: 5px;
+  font-size: var(--fs-title);
+  font-weight: bold;
+  color: var(--color-dark);
+}
+.title:hover {
+  text-decoration: none;
+}
+.text {
+  composes: htmlText from "./ParsedHtmlText.module.css";
+  margin-top: 8px;
+}
+
+.footer {
+  margin-top: 30px;
+  gap: 4px;
+}

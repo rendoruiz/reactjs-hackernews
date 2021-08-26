@@ -1,32 +1,35 @@
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
+
 import SiteHeader from './components/SiteHeader';
-import StoryCatalogView from './views/StoryCatalogView';
-import StoryDetailView from './views/StoryDetailView';
-import UserDetailView from './views/UserDetailView';
+import NotFoundView from './views/NotFoundView';
+import CatalogView from './views/CatalogView';
+import StoryView from './views/StoryView';
+import UserView from './views/UserView';
+
+import styles from './styles/App.module.css';
 
 function App() {
   return (
-    <Router>
-      <div className="App">
-        <div className="content">
-          <SiteHeader />
-          <Switch>
-            <Route exact path="/:order?">
-              <StoryCatalogView />
-            </Route>
-            <Route path="/s/:id">
-              <StoryDetailView />
-            </Route>
-            <Route path="/u/:userId/:contentType?">
-              <UserDetailView />
-            </Route>
-            <Route path="*">
-              {/* <StoryCatalogView /> */}
-            </Route>
-          </Switch>
-        </div>
-      </div>
-    </Router>
+    <div className={styles.container}>
+      <Router>
+        <SiteHeader />
+        <Switch>
+          <Redirect from='/top' to='/' />
+          <Route exact path={["/", "/best", "/new"]}>
+            <CatalogView />
+          </Route>
+          <Route exact path={["/u/:userId/", "/u/:userId/story", "/u/:userId/comment"]}>
+            <UserView />
+          </Route>
+          <Route path="/s/:id">
+            <StoryView />
+          </Route>
+          <Route path={["*", "/404"]}>
+            <NotFoundView />
+          </Route>
+        </Switch>
+      </Router>
+    </div>
   );
 }
 

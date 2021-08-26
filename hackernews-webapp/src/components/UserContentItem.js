@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import ContentItemCommentCard from "./ContentItemCommentCard";
-import ContentItemStoryCard from "./ContentItemStoryCard";
+import CommentCard from "./CommentCard";
+import StoryCard from "./StoryCard";
 import api from '../api';
 
-const UserContentItem = ({ contentId = null, restrictContent = null, userId = null }) => {
+const UserContentItem = ({ contentId, restrictContent, userId }) => {
   const [contentItem, setContentItem] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -11,6 +11,9 @@ const UserContentItem = ({ contentId = null, restrictContent = null, userId = nu
     // setTimeout(() => {
       api.get(`item/${contentId}.json`).then((res) => {
         setContentItem(res.data);
+      }).catch((error) => {
+        console.log('UserContentItem ' + error);
+      }).then(() => {
         setIsLoading(false);
       });
     // }, 1000);
@@ -18,9 +21,9 @@ const UserContentItem = ({ contentId = null, restrictContent = null, userId = nu
   
   const generateContentCard = (contentType) => {
     if (contentType === "story" && restrictContent !== 'comment' && userId) {
-      return <ContentItemStoryCard storyObject={contentItem} userId={userId} />
+      return <StoryCard storyData={contentItem} userId={userId} />
     } else if (contentType === "comment" && restrictContent !== 'story' && userId) {
-      return <ContentItemCommentCard comment={contentItem} userId={userId} />
+      return <CommentCard commentData={contentItem} userId={userId} />
     } else {
       return null;
     }
@@ -31,7 +34,7 @@ const UserContentItem = ({ contentId = null, restrictContent = null, userId = nu
       ? null
       : isLoading 
         ? <div className="loader">Loading Item...</div>
-        : !isLoading && contentItem && generateContentCard(contentItem.type)
+        : !contentItem ? <span>Connection error</span> : generateContentCard(contentItem.type)
   );
 }
  

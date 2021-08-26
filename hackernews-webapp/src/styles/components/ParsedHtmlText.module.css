@@ -1,0 +1,13 @@
+@import './../variables.css';
+
+.htmlText {
+  display: inline-block;
+  gap: 0.7rem;
+  color: var(--color-dark);
+}
+.htmlText a {
+  color: var(--color-accent);
+}
+.htmlText p {
+  margin-top: 0.8rem;
+}

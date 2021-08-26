@@ -1,0 +1,7 @@
+.warning {
+  margin-top: 15px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: red;
+  text-transform: uppercase;
+}

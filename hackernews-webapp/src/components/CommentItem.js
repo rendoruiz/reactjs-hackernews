@@ -8,7 +8,7 @@ import { generateHslColor } from "../functions/generateHslColor";
 import { getMinifiedMomentTime } from "../functions/getMinifiedMomentTime";
 import api from '../api';
 
-const CommentItem = ({ id = null, maxCommentDepth, currentCommentDepth, commentObject = null, parentCommentObject = null, userId = null }) => {
+const CommentItem = ({ id, maxCommentDepth, currentCommentDepth, commentObject, parentCommentObject, userId }) => {
   const [comment, setComment] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const commentDepth = currentCommentDepth ?? 1;
@@ -21,10 +21,11 @@ const CommentItem = ({ id = null, maxCommentDepth, currentCommentDepth, commentO
     } else {
       // setTimeout(() => {
         api.get(`item/${id}.json`).then((res) => {
-          if (res.data) {
-            setComment(res.data);
-            setIsLoading(false);
-          }
+          setComment(res.data);
+        }).catch((error) => {
+          console.log('CommentItem ' + error);
+        }).then(() => {
+          setIsLoading(false);
         });
       // }, 1000);
     }

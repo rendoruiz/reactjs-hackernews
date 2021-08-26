@@ -1,0 +1,31 @@
+.catalogView {
+  composes: content from "./../App.module.css";
+  grid-template-columns: unset;
+}
+
+.catalog {
+  display: grid;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.catalog > nav:first-child {
+  margin-bottom: 1px;
+}
+.catalog > button:last-child {
+  margin-top: 5px;
+}
+
+.button {
+  composes: loadMoreButton from "./../components/Button.module.css";
+}
+
+
+@media screen and (min-width: 640px) {
+  .catalog {
+    gap: 10px;
+  }
+  .catalog > nav:first-child {
+    margin-bottom: 5px;
+  }
+}

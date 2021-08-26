@@ -1,0 +1,29 @@
+@import './../variables.css';
+
+.navigationBar {
+  padding: 5px 10px;
+  background: var(--color-content-background);
+  color: var(--color-dark);
+  display: flex;
+  gap: 8px;
+}
+@media screen and (min-width: 640px) {
+  .navigationBar  {
+    padding: 10px;
+    border-radius: var(--corner-rounding);
+  }
+}
+
+.navigationItem {
+  composes: button from "./Button.module.css";
+  padding: 5px 10px;
+  border-radius: 20px;
+  gap: 8px;
+}
+.navigationItem.active {
+  background: var(--color-button-active);
+  color: var(--color-accent);
+}
+.navigationItem:hover.active {
+  background: var(--color-button-hover);
+}
