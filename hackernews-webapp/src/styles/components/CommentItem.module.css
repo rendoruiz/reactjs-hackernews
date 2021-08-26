@@ -1,0 +1,59 @@
+@import './../variables.css';
+
+
+.comment {
+  --side-toggle-width: 40px;
+  --children-offset-x: -15px;
+  /* border-top: 2px solid var(--color-accent);
+  border-bottom: 2px solid var(--color-accent); */
+  display: grid;
+  grid-template-columns: var(--side-toggle-width) 1fr;
+}
+.commentMinimal .contentBody {
+  display: none;
+}
+
+
+.sidePanel {
+  display: grid;
+  grid-template-rows: var(--side-toggle-width) 1fr;
+  justify-items: center;
+  align-items: center;
+}
+.minimalToggle {
+  height: 100%;
+  border-right: 2px solid var(--color-subtitle1);
+  transition: border-color 100ms ease-out;
+}
+.minimalToggle:hover {
+  border-color: var(--color-accent);
+}
+
+.content {
+  display: grid;
+  grid-template-rows: var(--side-toggle-width) 1fr;
+}
+.content > header {
+  display: flex;
+  align-items: center;
+}
+.accentedContent {
+  composes: content;
+  border-radius: var(--corner-rounding);
+  background: rgba(var(--accent-rgb), 0.15);
+}
+
+.linkButton {
+  composes: linkButton from "./Button.module.css";
+  margin-left: calc(var(--children-offset-x) * -1);
+  font-size: var(--fs-subtitle);
+}
+
+
+
+.contentMinimal {
+  
+}
+.children {
+  margin-left: var(--children-offset-x);
+}

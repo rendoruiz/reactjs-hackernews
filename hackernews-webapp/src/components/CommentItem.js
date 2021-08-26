@@ -10,6 +10,8 @@ import UserViewLink from "./Links/UserViewLink";
 import DateTimeContentLink from "./Links/DateTimeContentLink";
 import ParsedHtmlText from "./ParsedHtmlText";
 
+import styles from '../styles/components/CommentItem.module.css'
+
 // commentId, maxCommentDepth, currentCommentDepth - used by CommentItemGroup
 // userId, commentData, parentCommentData - are used by CommentCard
 const CommentItem = ({ commentId, maxCommentDepth, currentCommentDepth, userId, commentData, parentCommentData }) => {
@@ -17,6 +19,7 @@ const CommentItem = ({ commentId, maxCommentDepth, currentCommentDepth, userId, 
   const [comment, setComment] = useState(parentCommentData ?? commentData ?? null);
   const [isLoading, setIsLoading] = useState((parentCommentData || commentData) ? false : true);
   const [commentChildrenList, setCommentChildrenList] = useState(null);
+  const [isMinimal, setIsMinimal] = useState(false);
 
   useEffect(() => {
     if (commentId) {
@@ -40,6 +43,8 @@ const CommentItem = ({ commentId, maxCommentDepth, currentCommentDepth, userId, 
 
   const generateChildren = () => {
     // render commentData once parentCommentData has been rendered
+    // else if - render children (1 depth) when load more replies button is selected
+    // else if - render comments until maxDepth is reached
     if (commentData && parentCommentData) {
       return (
         <CommentItem 
@@ -72,7 +77,7 @@ const CommentItem = ({ commentId, maxCommentDepth, currentCommentDepth, userId, 
         return (
           <button 
             onClick={handleLoadReplies} 
-            className="link-btn more-items"
+            className={styles.linkButton}
           >
             Load more replies ({comment.kids.length})
           </button>
@@ -81,26 +86,41 @@ const CommentItem = ({ commentId, maxCommentDepth, currentCommentDepth, userId, 
     }
   }
 
+  const handleSetMinimal = () => {
+    setIsMinimal(true);
+  }
+
   return ( 
     (!commentId && !commentData) ? null : isLoading ? <CommentLoader /> : !comment ? <ConnectionError /> : comment.deleted ? <CommentDeleted /> : comment.dead ? <CommentDead /> : (
-      <div className={"comment-item" +  (comment.by === userId ? ' accented-background' : '')}>
-        <aside className="comment-expansion">
+      <div className={!isMinimal ? styles.comment : styles.commentMinimal}>
+        <aside className={styles.sidePanel}>
           <UserIcon userId={comment.by} />
-          <div className="vertical-toggle"></div>
+          <div 
+            className={styles.minimalToggle}
+            onClick={!commentData ? handleSetMinimal : null} 
+          />
         </aside>
 
-        <section className="comment-content">
-          <header className="comment-header">
-            <UserViewLink userId={comment.by} isText />
+        <section className={(comment.by === userId) ? styles.accentedContent : styles.content}>
+          <header>
+            <UserViewLink 
+              userId={comment.by} 
+              isText 
+            />
             &nbsp;&#183;&nbsp;
-            <DateTimeContentLink contentTime={comment.time} readonly />
+            <DateTimeContentLink 
+              contentTime={comment.time} 
+              readonly 
+            />
           </header>
-          <main className="comment-text link-btn">
+          <main 
+            className={styles.contentBody}
+          >
             <ParsedHtmlText htmlText={comment.text} />
+            <div className={styles.children}>
+              { generateChildren() }
+            </div>
           </main>
-          <footer>
-            { generateChildren() }
-          </footer>
         </section>
       </div>
     )
