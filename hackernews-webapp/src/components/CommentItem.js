@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExpandAlt } from "@fortawesome/free-solid-svg-icons";
 
 import api from '../api';
 import CommentLoader from "./Loaders/CommentLoader";
@@ -19,7 +21,7 @@ const CommentItem = ({ commentId, maxCommentDepth, currentCommentDepth, userId, 
   const [comment, setComment] = useState(parentCommentData ?? commentData ?? null);
   const [isLoading, setIsLoading] = useState((parentCommentData || commentData) ? false : true);
   const [commentChildrenList, setCommentChildrenList] = useState(null);
-  const [isMinimal, setIsMinimal] = useState(false);
+  const [isMinimized, setIsMinimized] = useState(false);
 
   useEffect(() => {
     if (commentId) {
@@ -86,18 +88,19 @@ const CommentItem = ({ commentId, maxCommentDepth, currentCommentDepth, userId, 
     }
   }
 
-  const handleSetMinimal = () => {
-    setIsMinimal(true);
+  const handleSetisMinimized = () => {
+    setIsMinimized(!isMinimized);
   }
 
   return ( 
     (!commentId && !commentData) ? null : isLoading ? <CommentLoader /> : !comment ? <ConnectionError /> : comment.deleted ? <CommentDeleted /> : comment.dead ? <CommentDead /> : (
-      <div className={!isMinimal ? styles.comment : styles.commentMinimal}>
+      <div className={!isMinimized ? styles.comment : styles.commentMinimized}>
         <aside className={styles.sidePanel}>
+          <FontAwesomeIcon icon={faExpandAlt} className={styles.maximizeToggle} onClick={!commentData ? handleSetisMinimized : null}  />
           <UserIcon userId={comment.by} />
           <div 
-            className={styles.minimalToggle}
-            onClick={!commentData ? handleSetMinimal : null} 
+            className={styles.minimizeToggle}
+            onClick={!commentData ? handleSetisMinimized : null} 
           />
         </aside>
 
