@@ -96,8 +96,10 @@ const CommentItem = ({ commentId, maxCommentDepth, currentCommentDepth, userId, 
     (!commentId && !commentData) ? null : isLoading ? <CommentLoader /> : !comment ? <ConnectionError /> : comment.deleted ? <CommentDeleted /> : comment.dead ? <CommentDead /> : (
       <div className={!isMinimized ? styles.comment : styles.commentMinimized}>
         <aside className={styles.sidePanel}>
-          <FontAwesomeIcon icon={faExpandAlt} className={styles.maximizeToggle} onClick={!commentData ? handleSetisMinimized : null}  />
-          <UserIcon userId={comment.by} />
+          {commentData ? null : <>
+            <FontAwesomeIcon icon={faExpandAlt} className={styles.maximizeToggle} onClick={!commentData ? handleSetisMinimized : null} />
+            <UserIcon userId={comment.by} />
+          </>}
           <div 
             className={styles.minimizeToggle}
             onClick={!commentData ? handleSetisMinimized : null} 
