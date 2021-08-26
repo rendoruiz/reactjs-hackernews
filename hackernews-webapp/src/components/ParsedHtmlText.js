@@ -4,8 +4,6 @@ import styles from '../styles/components/ParsedHtmlText.module.css'
 
 const ParsedHtmlText = ({ htmlText, className }) => {
   const parseHtml = (rawHtmlText) => {
-    console.log(ReactHtmlParser(rawHtmlText))
-    console.log(ReactHtmlParser(rawHtmlText).children)
     return ReactHtmlParser(rawHtmlText.replaceAll(/href/g, `target="_blank" rel="noreferrer" href`))
   }
 

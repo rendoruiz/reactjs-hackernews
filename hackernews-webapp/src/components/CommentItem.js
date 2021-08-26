@@ -1,18 +1,21 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import ReactHtmlParser from 'react-html-parser';
-import moment from 'moment';
 
-import CommentItemGroup from "./CommentItemGroup";
-import { generateHslColor } from "../functions/generateHslColor";
-import { getMinifiedMomentTime } from "../functions/getMinifiedMomentTime";
 import api from '../api';
+import CommentItemGroup from "./CommentItemGroup";
+import CommentLoader from "./Loaders/CommentLoader";
+import ConnectionError from "./ConnectionError";
+import CommentDeleted from "./Comment/CommentDeleted";
+import CommentDead from "./Comment/CommentDead";
+import UserIcon from "./User/UserIcon";
+import UserViewLink from "./Links/UserViewLink";
+import DateTimeContentLink from "./Links/DateTimeContentLink";
+import ParsedHtmlText from "./ParsedHtmlText";
 
-const CommentItem = ({ commentId, maxCommentDepth, currentCommentDepth, commentData, parentCommentData, userId }) => {
+const CommentItem = ({ commentId, maxCommentDepth, currentCommentDepth, userId, commentData, parentCommentData }) => {
   const [comment, setComment] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const commentDepth = currentCommentDepth ?? 1;
-  const [commentReplyIdList, setCommentReplyIdList] = useState([]);
+  const [commentReplyIdList, setCommentReplyIdList] = useState(null);
 
   useEffect(() => {
     if (parentCommentData || commentData) {
@@ -29,7 +32,7 @@ const CommentItem = ({ commentId, maxCommentDepth, currentCommentDepth, commentD
         });
       // }, 1000);
     }
-  }, [maxCommentDepth, commentId, commentData, parentCommentData]);
+  }, [commentId, commentData, parentCommentData]);
 
   const handleLoadReplies = () => {
     if (comment.kids) {
@@ -40,65 +43,47 @@ const CommentItem = ({ commentId, maxCommentDepth, currentCommentDepth, commentD
   }
 
   return ( 
-    !commentId && !commentData ? null : isLoading 
-      ? <span className="loader">Loading comment...</span> 
-      : !comment ? null : comment.deleted ? null : comment.dead ? null :
-        <div className={"comment-item" +  (comment.by === userId ? ' accented-background' : '')}>
-          <aside className="comment-expansion">
-            { commentData ? null :
-              <Link 
-                to={"/u/" + comment.by} 
-                className="user-avatar"
-                style={{backgroundColor: generateHslColor(comment.by)}}
-              >
-                { comment.by.substring(0, 1) }
-              </Link>
-            }
-            <div className="vertical-toggle"></div>
-          </aside>
+    (!commentId && !commentData) ? null : isLoading ? <CommentLoader /> : !comment ? <ConnectionError /> : comment.deleted ? <CommentDeleted /> : comment.dead ? <CommentDead /> : (
+      <div className={"comment-item" +  (comment.by === userId ? ' accented-background' : '')}>
+        <aside className="comment-expansion">
+          <UserIcon userId={comment.by} />
+          <div className="vertical-toggle"></div>
+        </aside>
 
-          <section className="comment-content">
-            <header className="comment-header">
-              <Link to={"/u/" + comment.by} className="link-btn comment-by">
-                { comment.by }
-              </Link>
-              <span>&nbsp;&#183;&nbsp;</span>
-              <span 
-                className="comment-time" 
-                title={`${moment.unix(comment.time).fromNow()} | ${moment.unix(comment.time).format('LLLL')}`}
-              >
-                { commentData ? moment.unix(comment.time).fromNow() : getMinifiedMomentTime(moment.unix(comment.time).fromNow()) }
-              </span>
-
-              {/* <span>&nbsp;&nbsp;&nbsp;[ID: { comment.id }]</span> */}
-            </header>
-            <main className="comment-text link-btn">
-              { ReactHtmlParser(comment.text.replaceAll(/href/g, `target="_blank" rel="noreferrer" href`)) }
-            </main>
-            { commentData
-              ? (parentCommentData && <CommentItem commentData={commentData} userId={userId} />)
-              : <div className="comment-replies">
-                  {
-                    comment.kids && commentDepth < maxCommentDepth
-                      ? <CommentItemGroup 
-                          commentItemIdList={comment.kids} 
-                          maxCommentDepth={maxCommentDepth} 
-                          currentCommentDepth={commentDepth + 1}
-                        /> 
-                      : comment.kids && commentReplyIdList.length === 0 &&
-                        <button onClick={handleLoadReplies} className="link-btn more-items">Load more replies ({comment.kids.length})</button>
-                  }
-                  {
-                    commentReplyIdList &&
-                      <CommentItemGroup 
-                        commentItemIdList={commentReplyIdList} 
-                        maxCommentDepth={1} 
+        <section className="comment-content">
+          <header className="comment-header">
+            <UserViewLink userId={comment.by} isText />
+            &nbsp;&#183;&nbsp;
+            <DateTimeContentLink contentTime={comment.time} minified />
+          </header>
+          <main className="comment-text link-btn">
+            <ParsedHtmlText htmlText={comment.text} />
+          </main>
+          { commentData
+            ? (parentCommentData && <CommentItem commentData={commentData} userId={userId} />)
+            : <div className="comment-replies">
+                {
+                  comment.kids && commentDepth < maxCommentDepth
+                    ? <CommentItemGroup 
+                        commentItemIdList={comment.kids} 
+                        maxCommentDepth={maxCommentDepth} 
+                        currentCommentDepth={commentDepth + 1}
                       /> 
-                  }
-                </div>
-            }
-          </section>
-        </div>
+                    : comment.kids && commentReplyIdList.length === 0 &&
+                      <button onClick={handleLoadReplies} className="link-btn more-items">Load more replies ({comment.kids.length})</button>
+                }
+                {
+                  commentReplyIdList &&
+                    <CommentItemGroup 
+                      commentItemIdList={commentReplyIdList} 
+                      maxCommentDepth={1} 
+                    /> 
+                }
+              </div>
+          }
+        </section>
+      </div>
+    )
   );
 }
  
