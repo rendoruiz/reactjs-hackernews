@@ -56,7 +56,7 @@ const CommentItem = ({ commentId, maxCommentDepth, currentCommentDepth, userId, 
           <header className="comment-header">
             <UserViewLink userId={comment.by} isText />
             &nbsp;&#183;&nbsp;
-            <DateTimeContentLink contentTime={comment.time} minified />
+            <DateTimeContentLink contentTime={comment.time} readonly />
           </header>
           <main className="comment-text link-btn">
             <ParsedHtmlText htmlText={comment.text} />

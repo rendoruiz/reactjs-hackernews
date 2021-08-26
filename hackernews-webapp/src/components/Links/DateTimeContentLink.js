@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import moment from 'moment';
 
-const DateTimeContentLink = ({ contentTime, contentId, minified = false }) => {
+const DateTimeContentLink = ({ contentTime, contentId, minified = false, readonly = false }) => {
   const momentTime = moment.unix(contentTime).format('LLLL');
   const momentRelativeTime = moment.unix(contentTime).fromNow();
   // const title = !minified ? momentTime : `${momentRelativeTime} | ${momentTime}`;
@@ -24,15 +24,15 @@ const DateTimeContentLink = ({ contentTime, contentId, minified = false }) => {
   //   return minified;
   // }
 
-  return !contentTime ? null : ( 
+  return !contentTime ? null : !readonly ? ( 
     <Link
       to={"/s/" + contentId}
       title={momentTime}
     >
       {/* { !minified ? momentRelativeTime : minifyDateTime(momentRelativeTime) } */}
       { momentRelativeTime }
-    </Link>
-  );
+    </Link>)
+  : (<span title={momentTime}>{ momentRelativeTime }</span>);
 }
  
 export default DateTimeContentLink;
