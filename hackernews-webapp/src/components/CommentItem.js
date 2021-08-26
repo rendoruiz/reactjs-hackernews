@@ -17,7 +17,7 @@ const CommentItem = ({ commentId, maxCommentDepth, currentCommentDepth, userId, 
   const [comment, setComment] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const commentDepth = currentCommentDepth ?? 1;
-  const [commentChildrenList, setCommentChildrenList] = useState(null);
+  const [commentChildrenList, setCommentChildrenList] = useState([]);
 
   useEffect(() => {
     // parentCommentData is used/rendered before commentData
