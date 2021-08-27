@@ -15,7 +15,7 @@ const SiteFooter = () => {
       />
       <p className={styles.copyright}>
         @ 2021&nbsp;
-        <a href="rendo.ca" target="_blank" rel="noreferrer">Rendo Ruiz</a>
+        <a href="https://rendo.ca" target="_blank" rel="noreferrer">Rendo Ruiz</a>
       </p>
     </footer>
   );
