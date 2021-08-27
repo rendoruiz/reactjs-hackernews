@@ -1,10 +1,11 @@
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 
-import SiteHeader from './components/SiteHeader';
 import NotFoundView from './views/NotFoundView';
 import CatalogView from './views/CatalogView';
 import StoryView from './views/StoryView';
 import UserView from './views/UserView';
+import SiteHeader from './components/SiteHeader';
+import SiteFooter from './components/SiteFooter';
 
 import styles from './styles/App.module.css';
 
@@ -28,6 +29,7 @@ function App() {
             <NotFoundView />
           </Route>
         </Switch>
+        <SiteFooter />
       </Router>
     </div>
   );

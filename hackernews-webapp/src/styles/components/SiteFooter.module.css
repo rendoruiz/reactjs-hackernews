@@ -1,0 +1,33 @@
+@import './../variables.css';
+
+.footer {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: var(--color-content-background);
+  color: var(--color-dark);
+  text-align: center;
+  display: grid;
+  justify-items: center;
+  row-gap: 5px;
+}
+
+.copyright {
+  font-size: var(--fs-subtitle);
+}
+
+.button {
+  composes: linkButton from "./../components/Button.module.css";
+  padding: 3px 5px;
+}
+.button:hover,
+.button:active {
+  color: var(--color-accent);
+}
+
+.copyright a {
+  text-decoration: none;
+  transition: color 100ms ease-out;
+}
+.copyright a:hover {
+  color: var(--color-accent);
+}
