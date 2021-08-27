@@ -18,6 +18,7 @@
 .button {
   composes: linkButton from "./../components/Button.module.css";
   padding: 3px 5px;
+  color: var(--color-dark);
 }
 .button:hover,
 .button:active {
