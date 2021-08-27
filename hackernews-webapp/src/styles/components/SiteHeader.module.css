@@ -7,6 +7,8 @@
   top: 0;
   z-index: 100;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .logo {
@@ -28,10 +30,22 @@
 }
 
 
+.button {
+  composes: linkButton from "./../components/Button.module.css";
+}
+.button:hover,
+.button:active {
+  color: var(--color-accent);
+}
+.buttonIcon {
+  width: 22px !important;
+  height: 22px;
+}
+
+
 @media screen and (min-width: 640px) {
   .header  {
     padding: 8px 20px;
-    border-radius: var(--corner-rounding);
   }
 
   .logoImage {
@@ -41,5 +55,10 @@
   .logoText {
     font-size: 1.5rem;
     font-weight: bold;
+  }
+
+  .buttonIcon {
+    width: 24px !important;
+    height: 24px;
   }
 }
