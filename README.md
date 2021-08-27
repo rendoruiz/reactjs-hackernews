@@ -19,12 +19,14 @@ Learning React the fun way by messing around with the Hacker News API.
 
 ## Scope and Limitations
 
+- Story comment links are currently not supported.
 - Do not use the browser inspector to look up CSS properties when copying designs on Reddit.
 - Content will be limited to story and comment. 
 - Partial poll support: Poll submissions are only accessible from the comment card on the user page. The poll elements are not rendered, but the HTML text is still available for context.
 - A commented URL is provided on code copied online with little to no modifications.
 - Loaders (i.e., "Loading...") are displayed as it is (plain text).
 - Further performance optimizations are not a priority.
+- Partial mobile Reddit layout support: The site is responsive, but does not fully emulate the Reddit mobile experience.
 - No tests.
 
 ## Resources
