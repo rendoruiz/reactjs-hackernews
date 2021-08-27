@@ -32,6 +32,7 @@
 
 .button {
   composes: linkButton from "./../components/Button.module.css";
+  color: var(--color-dark);
 }
 .button:hover,
 .button:active {
