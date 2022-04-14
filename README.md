@@ -1,12 +1,12 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/00c5321b-5f80-4c09-84a1-417a890f1687/deploy-status)](https://hn.rendo.ca/)
-
 # Readit News
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/00c5321b-5f80-4c09-84a1-417a890f1687/deploy-status)](https://old.news.knkd.app/)
 
 Learning React the fun way by messing around with the Hacker News API. 
 
 ## Usage
 
-- [Deployed website](https://hn.rendo.ca/) for general viewing.
+- [Deployed website](https://old.news.knkd.app/) for general viewing.
 - `npm install` to install npm dependencies.
 - `npm start` to test the project locally.
 - `npm run build` to build the project for deployment.
